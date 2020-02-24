@@ -5,4 +5,4 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
- v32_land_reduction.scale(j,land32) = 10e-4;
+vm_carbon_stock.l(j,land,ag_pools) = pcm_carbon_stock(j,land,ag_pools);

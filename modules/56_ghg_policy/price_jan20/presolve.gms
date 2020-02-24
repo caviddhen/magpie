@@ -5,4 +5,9 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
-vm_landdiff_natveg.scale = 10e3;
+***Fix C price driven afforestation to zero before 2020
+if (m_year(t) <= 2020,
+	pc56_c_price_induced_aff = 0;
+else 
+	pc56_c_price_induced_aff = s56_c_price_induced_aff;
+);

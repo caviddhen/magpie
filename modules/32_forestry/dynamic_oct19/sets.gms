@@ -4,20 +4,20 @@
 *** |  AGPL-3.0, you are granted additional permissions described in the
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
+
 sets
-***FORESTRY COST TYPES***
-   fcosts32 Forestry factor cost types
-           / recur,mon /
 
-  land32 Forestry land pools
-    / new, new_ndc, prot, grow, old/
+ fcosts32 forestry factor cost per annum
+ / recur, mon /
 
-  pol32 Afforestation policy
-    / none, npi, ndc/
+ type32 plantation type
+ / aff, ndc, plant /
 
-   ac_land32(ac,land32) Mapping between age class and forestry land type
+ pol32 afforestation policy type
+ / none, npi, ndc /
 
-   kforestry(kall) Forestry products
-   / wood, woodfuel /
+ kforestry(kall) Forestry products
+ / wood, woodfuel /
+
 ;
 *** EOF sets.gms ***

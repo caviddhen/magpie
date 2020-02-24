@@ -6,11 +6,11 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 parameters
- im_pollutant_prices(t,i,pollutants)      	  Certificate prices for N2O-N CH4 CO2-C used in the model (USD05MER per Mg)
+ im_pollutant_prices(t_all,i,pollutants)      	  Certificate prices for N2O-N CH4 CO2-C used in the model (USD05MER per Mg)
  p56_pollutant_prices_input(t,i,pollutants)   Certificate prices for N2O-N CH4 CO2-C from input files (USD05MER per Mg)
- p56_ghg_price_growth_rate(t,i,pollutants)    Growth rate of certificate price (% per yr)
- p56_ghg_price_growth_rate_avg(i,pollutants)  Average over time of growth rate of certificate price (% per yr)
  p56_emis_policy(t,i,pollutants,emis_source)  GHG emission policy scenarios (binary)
+ p56_c_price_aff(t_all,i,ac)				  C price used for afforestation decision-making (USD05MER per tC)
+ pc56_c_price_induced_aff					  Helper for fixing C price driven afforestation to zero for historic time steps (binary)
 ;
 
 equations
@@ -27,8 +27,8 @@ equations
 ;
 
 positive variables
- v56_reward_cdr_aff(j)				 Cellular revenues for carbon captured by afforestation (mio. USD05MER per yr)
  vm_reward_cdr_aff(i)                Regional revenues for carbon captured by afforestation (mio. USD05MER per yr)
+ v56_reward_cdr_aff(j)				 Cellular revenues for carbon captured by afforestation (mio. USD05MER per yr)
 ;
 
 variables
@@ -45,8 +45,8 @@ variables
 
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################
 parameters
- ov56_reward_cdr_aff(t,j,type)                                   Cellular revenues for carbon captured by afforestation (mio. USD05MER per yr)
  ov_reward_cdr_aff(t,i,type)                                     Regional revenues for carbon captured by afforestation (mio. USD05MER per yr)
+ ov56_reward_cdr_aff(t,j,type)                                   Cellular revenues for carbon captured by afforestation (mio. USD05MER per yr)
  ov_btm_reg(t,i,emis_source,pollutants,type)                     Regional emissions before technical mitigation (Tg per yr)
  ov_btm_cell(t,j,emis_source,pollutants,type)                    Cellular emissions before technical mitigation (Tg per yr)
  ov_emission_costs(t,i,type)                                     Costs for emission rights for pollutants and greenhouse gases (mio. USD05MER per yr)

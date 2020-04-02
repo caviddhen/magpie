@@ -92,25 +92,25 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev42_c200_690d3718e151be1b450b394c1064b1c5.tgz
-* md5sum: 94c214b0a7b46f403dd0aab57b7e476c
+* Used data set: isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev43_c200_690d3718e151be1b450b394c1064b1c5.tgz
+* md5sum: ef510a3829f627a15d168576838bb62b
 * Repository: /p/projects/landuse/data/input/archive
 * 
 * Used data set: rev4.37_690d3718e151be1b450b394c1064b1c5_magpie.tgz
 * md5sum: 3e22e59029e3cd043e247b435cc773ce
-* Repository: /p/projects/rd3mod/inputdata/output
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/intern
 * 
 * Used data set: rev4.37_690d3718e151be1b450b394c1064b1c5_validation.tgz
 * md5sum: 7573940b148f440a5f2d2ceedf400afc
-* Repository: /p/projects/rd3mod/inputdata/output
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/intern
 * 
 * Used data set: calibration_H12_c200_12Sep18.tgz
 * md5sum: 0a7d88e902918eb6a5263faaf066cc5d
-* Repository: /p/projects/landuse/data/input/calibration
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/intern
 * 
 * Used data set: additional_data_rev3.77.tgz
 * md5sum: 28184d92028972c171145399ab21fdca
-* Repository: /p/projects/landuse/data/input/archive
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/intern
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -127,15 +127,15 @@ $title magpie
 * 
 * lpj2magpie settings:
 * * LPJmL data folder: /p/projects/landuse/data/input/lpj_input/isimip_rcp/IPSL_CM5A_LR/rcp2p6/co2
-* * Additional input folder: /p/projects/landuse/data/input/other/rev42
-* * Revision: 42
+* * Additional input folder: /p/projects/landuse/data/input/other/rev43
+* * Revision: 43
 * * Call: lpj2magpie(input_folder = path(cfg$lpj_input_folder, gsub("-",     "/", cfg$input)), input2_folder = path(cfg$additional_input_folder,     paste("rev", floor(cfg$revision), sep = "")), output_file = lpj2magpie_file,     rev = cfg$revision)
 * 
 * aggregation settings:
 * * Input resolution: 0.5
 * * Output resolution: c200
-* * Input file: /p/projects/landuse/data/input/archive/isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev42_0.5.tgz
-* * Output file: /p/projects/landuse/data/input/archive/isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev42_c200_690d3718e151be1b450b394c1064b1c5.tgz
+* * Input file: /p/projects/landuse/data/input/archive/isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev43_0.5.tgz
+* * Output file: /p/projects/landuse/data/input/archive/isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev43_c200_690d3718e151be1b450b394c1064b1c5.tgz
 * * Regionscode: 690d3718e151be1b450b394c1064b1c5
 * * (clustering) n-repeat: 5
 * * (clustering) n-redistribute: 0
@@ -143,7 +143,7 @@ $title magpie
 * 
 * 
 * 
-* Last modification (input data): Mon Feb 17 14:01:16 2020
+* Last modification (input data): Wed Mar 11 18:01:57 2020
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -168,7 +168,7 @@ $offlisting
 *                    Key parameters during model runs
 
 $setglobal c_timesteps  coup2100
-$setglobal c_title  SSP2_rev42_rev4p37
+$setglobal c_title  default
 
 scalars
   s_use_gdx   use of gdx files                                       / 2 /
@@ -178,7 +178,7 @@ scalars
 *******************************MODULE SETUP*************************************
 
 $setglobal drivers  aug17
-$setglobal land  landmatrix_dec18
+$setglobal land  feb15
 $setglobal costs  default
 $setglobal interest_rate  reg_feb18
 $setglobal tc  endo_jun18

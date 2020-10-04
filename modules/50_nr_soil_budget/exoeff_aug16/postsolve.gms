@@ -5,7 +5,7 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
- 
+
 
 *#################### R SECTION START (OUTPUT DEFINITIONS) #####################
  ov_nr_inorg_fert_reg(t,i,land_ag,"marginal") = vm_nr_inorg_fert_reg.m(i,land_ag);
@@ -53,4 +53,3 @@
  oq50_nr_bal_pasture(t,i,"lower")             = q50_nr_bal_pasture.lo(i);
  oq50_nr_deposition(t,i,land,"lower")         = q50_nr_deposition.lo(i,land);
 *##################### R SECTION END (OUTPUT DEFINITIONS) ######################
-

@@ -7,7 +7,8 @@
 
 *' @description This 'mixed' realization specifies factors costs to depend on
 *' area harvested and agricultural land use intensity and corresponding average
-*' production volumes.
+*' production volumes. with total factor costs being reduced by climate change
+*' effects from Orlov 2020.
 *' Consequently, factor costs in this realization react on both: area under
 *' production and average productivity of a region as captured by the $\tau$
 *' factor. A detailed description of the approach can be found

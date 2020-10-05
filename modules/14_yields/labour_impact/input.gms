@@ -9,7 +9,7 @@ $setglobal c14_yields_scenario  nocc
 *   options:   cc  (climate change)
 *             nocc (no climate change)
 
-$setglobal c14_yld_dcrs_switch  factor
+$setglobal c14_yld_dcrs_switch  normal
 
 ******* Calibration factor
 table f14_yld_calib(i,ltype14) Calibration factor for the LPJmL yields (1)
@@ -29,8 +29,8 @@ $ondelim
 $include "./modules/14_yields/input/f14_labour_impact.cs3"
 $offdelim
 ;
-$if "%c14_yld_dcrs_switch%" == "factor" f14_labour_impact(t_all,j,"factor") = f14_labour_impact(t_all,j,"factor");
-$if "%c14_yld_dcrs_switch%" == "normal" f14_labour_impact(t_all,j,"factor") = f14_labour_impact(t_all,j,"normal");
+$if "%c14_yld_dcrs_switch%" == "cc" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"factor");
+$if "%c14_yld_dcrs_switch%" == "normal" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"normal");
 
 
 * set values to 1995 if nocc scenario is used

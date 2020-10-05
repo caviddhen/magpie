@@ -5,6 +5,10 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
+parameters
+  i38_labour_impact(t_all,j)          Cellular labour productivity impact (percentage)
+;
+
 equations
  q38_cost_prod_crop(i,kcr)      Regional factor input costs for plant production (mio. USD05MER per yr)
 ;

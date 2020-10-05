@@ -29,8 +29,8 @@ $ondelim
 $include "./modules/14_yields/input/f14_labour_impact.cs3"
 $offdelim
 ;
-$if "%c14_yld_dcrs_switch%" == "factor" f14_yield_reduction(t_all,j,"factor") = f14_yield_reduction(t_all,j,"factor");
-$if "%c14_yld_dcrs_switch%" == "normal" f14_yield_reduction(t_all,j,"factor") = f14_yield_reduction(t_all,j,"normal");
+$if "%c14_yld_dcrs_switch%" == "factor" f14_labour_impact(t_all,j,"factor") = f14_labour_impact(t_all,j,"factor");
+$if "%c14_yld_dcrs_switch%" == "normal" f14_labour_impact(t_all,j,"factor") = f14_labour_impact(t_all,j,"normal");
 
 
 * set values to 1995 if nocc scenario is used

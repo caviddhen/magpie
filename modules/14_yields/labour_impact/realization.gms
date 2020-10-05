@@ -5,7 +5,7 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
-*' @description In the dynamic_aug18 realization, the crop yield calculations 
+*' @description In the labour_impact realization, the crop yield calculations 
 *' are identical as in the above described realization (biocorrect).
 *'
 *' @limitations The exogenous implementation of pasture intensification cannot 
@@ -14,12 +14,12 @@
 
 
 *####################### R SECTION START (PHASES) ##############################
-$Ifi "%phase%" == "sets" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/sets.gms"
-$Ifi "%phase%" == "declarations" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/declarations.gms"
-$Ifi "%phase%" == "input" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/input.gms"
-$Ifi "%phase%" == "equations" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/equations.gms"
-$Ifi "%phase%" == "preloop" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/preloop.gms"
-$Ifi "%phase%" == "postsolve" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/postsolve.gms"
-$Ifi "%phase%" == "nl_fix" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/nl_fix.gms"
-$Ifi "%phase%" == "nl_release" $include "./modules/14_yields/dynamic_aug18_yld_dcrs_dummy2/nl_release.gms"
+$Ifi "%phase%" == "sets" $include "./modules/14_yields/labour_impact/sets.gms"
+$Ifi "%phase%" == "declarations" $include "./modules/14_yields/labour_impact/declarations.gms"
+$Ifi "%phase%" == "input" $include "./modules/14_yields/labour_impact/input.gms"
+$Ifi "%phase%" == "equations" $include "./modules/14_yields/labour_impact/equations.gms"
+$Ifi "%phase%" == "preloop" $include "./modules/14_yields/labour_impact/preloop.gms"
+$Ifi "%phase%" == "postsolve" $include "./modules/14_yields/labour_impact/postsolve.gms"
+$Ifi "%phase%" == "nl_fix" $include "./modules/14_yields/labour_impact/nl_fix.gms"
+$Ifi "%phase%" == "nl_release" $include "./modules/14_yields/labour_impact/nl_release.gms"
 *######################## R SECTION END (PHASES) ###############################

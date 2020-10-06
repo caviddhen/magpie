@@ -6,8 +6,6 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 sets
-  ltype14 calibration land types
-       / crop, past /
 
    strfactor calibration land types
       / factor, normal /

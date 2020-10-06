@@ -35,6 +35,6 @@ cfg$results_folder <- "output/:title:"
 
 			# Update title
 			cfg$title <- paste0("LabProd_Tests_06","_","default")
-			cfg$gms$c38_yld_dcrs_switch <- "normal"
+			cfg$gms$c14_yld_dcrs_switch <- "normal"
 			# Start the run
 			start_run(cfg=cfg)

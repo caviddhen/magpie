@@ -151,19 +151,19 @@ $title magpie
 * Repository: /p/projects/landuse/data/input/archive
 * 
 * Used data set: rev4.52_h12_magpie.tgz
-* md5sum: NA
+* md5sum: ce9bbfce986710544de877569f8d0303
 * Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: rev4.52_h12_validation.tgz
-* md5sum: NA
+* md5sum: c60823c216ad4500568b83c1ef6fc006
 * Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: calibration_H12_c200_26Feb20.tgz
-* md5sum: NA
+* md5sum: 0fc75955deb5916d4ac078e8d817feda
 * Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: additional_data_rev3.86.tgz
-* md5sum: NA
+* md5sum: 38c9de23c5d1d22d8b99caee92b25342
 * Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
@@ -197,7 +197,7 @@ $title magpie
 * 
 * 
 * 
-* Last modification (input data): Tue Oct  6 14:56:44 2020
+* Last modification (input data): Tue Oct  6 15:48:28 2020
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -223,7 +223,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  LabProd_Tests_06_cost_increase
+$setglobal c_title  LabProd_Tests_06_default
 
 scalars
 s_use_gdx   use of gdx files                                       / 2 /

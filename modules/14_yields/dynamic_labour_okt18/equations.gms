@@ -9,7 +9,7 @@
 
 ***CROP YIELD CALCULATIONS**********************************************
 q14_yield_crop(j2,kcr,w) ..
- vm_yld(j2,kcr,w) =e= sum(ct,i14_yields(ct,j2,kcr,w)*i14_labour_impact(ct,j2))*sum(cell(i2,j2),vm_tau(i2)/fm_tau1995(i2));
+ vm_yld(j2,kcr,w) =e= sum(ct,i14_yields(ct,j2,kcr,w))*sum(ct,i14_labour_impact(j2))*sum(cell(i2,j2),vm_tau(i2)/fm_tau1995(i2));
 
 
 ***PASTURE YIELD CALCULATIONS*******************************************

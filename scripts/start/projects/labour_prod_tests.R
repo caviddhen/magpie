@@ -22,14 +22,19 @@ cfg$results_folder <- "output/:title:"
 
 
 			# Update title
-			cfg$title <- paste0("Run","_","yld_dcrs")
-			cfg$gms$s14_yld_dcrs_switch  <- "factor"
+			cfg$title <- paste0("LabProd_Tests_06","_","cost_increase")
+			cfg$gms$c38_labour_switch  <- "cc"
 			start_run(cfg=cfg)
 
 			# Update title
-			cfg$title <- paste0("Run","_","no_yld_dcrs")
-			cfg$gms$s14_yld_dcrs_switch <- "normal"
-
-			# Start the run
+			cfg$title <- paste0("LabProd_Tests_06","_","yld_decrease")
+			cfg$gms$c38_labour_switch  <- "normal"
+			cfg$gms$c14_yld_dcrs_switch  <- "cc"
 			start_run(cfg=cfg)
 
+
+			# Update title
+			cfg$title <- paste0("LabProd_Tests_06","_","default")
+			cfg$gms$c38_yld_dcrs_switch <- "normal"
+			# Start the run
+			start_run(cfg=cfg)

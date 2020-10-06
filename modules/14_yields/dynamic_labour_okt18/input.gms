@@ -1,4 +1,4 @@
-*** |  (C) 2008-2019 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2020 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -9,6 +9,13 @@ $setglobal c14_yields_scenario  nocc
 *   options:   cc  (climate change)
 *             nocc (no climate change)
 
+$setglobal c14_yld_dcrs_switch  normal
+
+scalars
+  s14_timber_plantation_yield Plantation yield switch (0=natveg yields 1=plantation yields) (1) / 1 /
+  s14_carbon_fraction Carbon fraction for conversion of biomass to dry matter (1) / 0.5/
+;
+
 ******* Calibration factor
 table f14_yld_calib(i,ltype14) Calibration factor for the LPJmL yields (1)
 $ondelim
@@ -18,13 +25,8 @@ $offdelim;
 table f14_yields(t_all,j,kve,w) LPJmL potential yields per cell (rainfed and irrigated) (tDM per ha per yr)
 $ondelim
 $include "./modules/14_yields/input/lpj_yields.cs3"
-$offdelim;
-
-table p14_yield_reduction(clcl) Yield reduction factor for LAMACLIMA sensitivity analysis
-$ondelim
-$include "./modules/14_yields/input/p14_yield_reduction.csv"
-$offdelim;
-
+$offdelim
+;
 * set values to 1995 if nocc scenario is used
 $if "%c14_yields_scenario%" == "nocc" f14_yields(t_all,j,kve,w) = f14_yields("y1995",j,kve,w);
 m_fillmissingyears(f14_yields,"j,kve,w");
@@ -33,3 +35,25 @@ table f14_pyld_hist(t_all,i) Modelled regional pasture yields in the past (tDM p
 $ondelim
 $include "./modules/14_yields/input/f14_pasture_yields_hist.csv"
 $offdelim;
+
+table f14_labour_impact(t_all,j,strfactor) LAMACLIMA yield reduction
+$ondelim
+$include "./modules/14_yields/input/f14_labour_impact.cs3"
+$offdelim
+;
+$if "%c14_yld_dcrs_switch%" == "cc" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"factor");
+$if "%c14_yld_dcrs_switch%" == "normal" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"normal");
+
+table f14_ipcc_bce(clcl,forest_type) IPCC Biomass Conversion and Expansion factors (1)
+$ondelim
+$include "./modules/14_yields/input/f14_ipcc_bce.cs3"
+$offdelim
+;
+
+parameter f14_aboveground_fraction(forest_land) Root to shoot ratio (1)
+/
+$ondelim
+$include "./modules/14_yields/input/f14_aboveground_fraction.csv"
+$offdelim
+/
+;

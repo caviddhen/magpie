@@ -1,4 +1,4 @@
-*** |  (C) 2008-2019 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2020 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -9,8 +9,7 @@
 
 ***CROP YIELD CALCULATIONS**********************************************
 q14_yield_crop(j2,kcr,w) ..
- vm_yld(j2,kcr,w) =e= sum(ct,i14_yields(ct,j2,kcr,w))*sum(cell(i2,j2),vm_tau(i2)/fm_tau1995(i2))
- *sum(clcl,pm_climate_class(j2,clcl)*p14_yield_reduction(clcl));
+ vm_yld(j2,kcr,w) =e= sum(ct,i14_yields(ct,j2,kcr,w)*i14_labour_impact(ct,j2))*sum(cell(i2,j2),vm_tau(i2)/fm_tau1995(i2));
 
 
 ***PASTURE YIELD CALCULATIONS*******************************************

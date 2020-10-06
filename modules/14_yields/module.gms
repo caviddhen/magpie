@@ -28,5 +28,5 @@
 *###################### R SECTION START (MODULETYPES) ##########################
 $Ifi "%yields%" == "biocorrect" $include "./modules/14_yields/biocorrect/realization.gms"
 $Ifi "%yields%" == "dynamic_aug18" $include "./modules/14_yields/dynamic_aug18/realization.gms"
-$Ifi "%yields%" == "labour_impact" $include "./modules/14_yields/labour_impact/realization.gms"
+$Ifi "%yields%" == "dynamic_labour_okt18" $include "./modules/14_yields/dynamic_labour_okt18/realization.gms"
 *###################### R SECTION END (MODULETYPES) ############################

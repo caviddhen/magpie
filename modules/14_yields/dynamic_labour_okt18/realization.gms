@@ -14,13 +14,13 @@
 
 
 *####################### R SECTION START (PHASES) ##############################
-$Ifi "%phase%" == "sets" $include "./modules/14_yields/dynamic_aug18/sets.gms"
-$Ifi "%phase%" == "declarations" $include "./modules/14_yields/dynamic_aug18/declarations.gms"
-$Ifi "%phase%" == "input" $include "./modules/14_yields/dynamic_aug18/input.gms"
-$Ifi "%phase%" == "equations" $include "./modules/14_yields/dynamic_aug18/equations.gms"
-$Ifi "%phase%" == "preloop" $include "./modules/14_yields/dynamic_aug18/preloop.gms"
-$Ifi "%phase%" == "presolve" $include "./modules/14_yields/dynamic_aug18/presolve.gms"
-$Ifi "%phase%" == "postsolve" $include "./modules/14_yields/dynamic_aug18/postsolve.gms"
-$Ifi "%phase%" == "nl_fix" $include "./modules/14_yields/dynamic_aug18/nl_fix.gms"
-$Ifi "%phase%" == "nl_release" $include "./modules/14_yields/dynamic_aug18/nl_release.gms"
+$Ifi "%phase%" == "sets" $include "./modules/14_yields/dynamic_labour_okt18/sets.gms"
+$Ifi "%phase%" == "declarations" $include "./modules/14_yields/dynamic_labour_okt18/declarations.gms"
+$Ifi "%phase%" == "input" $include "./modules/14_yields/dynamic_labour_okt18/input.gms"
+$Ifi "%phase%" == "equations" $include "./modules/14_yields/dynamic_labour_okt18/equations.gms"
+$Ifi "%phase%" == "preloop" $include "./modules/14_yields/dynamic_labour_okt18/preloop.gms"
+$Ifi "%phase%" == "presolve" $include "./modules/14_yields/dynamic_labour_okt18/presolve.gms"
+$Ifi "%phase%" == "postsolve" $include "./modules/14_yields/dynamic_labour_okt18/postsolve.gms"
+$Ifi "%phase%" == "nl_fix" $include "./modules/14_yields/dynamic_labour_okt18/nl_fix.gms"
+$Ifi "%phase%" == "nl_release" $include "./modules/14_yields/dynamic_labour_okt18/nl_release.gms"
 *######################## R SECTION END (PHASES) ###############################

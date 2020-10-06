@@ -147,24 +147,24 @@ $title magpie
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
 * Used data set: isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev49_c200_690d3718e151be1b450b394c1064b1c5.tgz
-* md5sum: 915ffb77901cd06bda5d2460634f99ed
+* md5sum: ac4982aba804a267bc011c04d3db9622
 * Repository: /p/projects/landuse/data/input/archive
 * 
 * Used data set: rev4.52_h12_magpie.tgz
-* md5sum: ce9bbfce986710544de877569f8d0303
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: rev4.52_h12_validation.tgz
-* md5sum: c60823c216ad4500568b83c1ef6fc006
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: calibration_H12_c200_26Feb20.tgz
-* md5sum: 0fc75955deb5916d4ac078e8d817feda
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/intern
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: additional_data_rev3.86.tgz
-* md5sum: 38c9de23c5d1d22d8b99caee92b25342
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -197,7 +197,7 @@ $title magpie
 * 
 * 
 * 
-* Last modification (input data): Sun Oct  4 22:23:37 2020
+* Last modification (input data): Tue Oct  6 14:56:44 2020
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -223,7 +223,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  Run_no_yld_dcrs
+$setglobal c_title  LabProd_Tests_06_cost_increase
 
 scalars
 s_use_gdx   use of gdx files                                       / 2 /
@@ -256,7 +256,7 @@ $setglobal forestry  dynamic_may20
 $setglobal urban  static
 $setglobal natveg  dynamic_may20
 
-$setglobal factor_costs  mixed_feb17
+$setglobal factor_costs  mixed_labour_okt20
 $setglobal landconversion  global_static_aug18
 
 $setglobal transport  gtap_nov12

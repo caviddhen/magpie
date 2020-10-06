@@ -19,8 +19,8 @@ $offdelim;
 
 table i38_labour_impact(t_all,j,strfactor) LAMACLIMA yield reduction
 $ondelim
-$include "./modules/14_yields/input/f14_labour_impact.cs3"
+$include "./modules/14_yields/input/f38_labour_impact.cs3"
 $offdelim
 ;
 $if "%c38_labour_switch%" == "cc" i38_labour_impact(t_all,j) = f38_labour_impact(t_all,j,"factor");
-$if "%c38_labour_switch%" == "normal" i38_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"normal");
+$if "%c38_labour_switch%" == "normal" i38_labour_impact(t_all,j) = f38_labour_impact(t_all,j,"normal");

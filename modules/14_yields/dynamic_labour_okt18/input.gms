@@ -36,7 +36,7 @@ $ondelim
 $include "./modules/14_yields/input/f14_pasture_yields_hist.csv"
 $offdelim;
 
-table f14_labour_impact(t_all,j,strfactor) LAMACLIMA yield reduction
+table f14_labour_impact(t_all,j,yldfactor) LAMACLIMA yield reduction
 $ondelim
 $include "./modules/14_yields/dynamic_labour_okt18/input/f14_labour_impact.cs3"
 $offdelim

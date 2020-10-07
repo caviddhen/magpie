@@ -152,19 +152,19 @@ $title magpie
 * 
 * Used data set: rev4.52_h12_magpie.tgz
 * md5sum: ce9bbfce986710544de877569f8d0303
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: rev4.52_h12_validation.tgz
 * md5sum: c60823c216ad4500568b83c1ef6fc006
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: calibration_H12_c200_26Feb20.tgz
 * md5sum: 0fc75955deb5916d4ac078e8d817feda
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/intern
 * 
 * Used data set: additional_data_rev3.86.tgz
 * md5sum: 38c9de23c5d1d22d8b99caee92b25342
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -197,7 +197,7 @@ $title magpie
 * 
 * 
 * 
-* Last modification (input data): Tue Oct  6 15:48:28 2020
+* Last modification (input data): Wed Oct  7 07:47:20 2020
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -223,7 +223,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  LabProd_Tests_06_default
+$setglobal c_title  LabProd_Tests_07_default
 
 scalars
 s_use_gdx   use of gdx files                                       / 2 /
@@ -237,7 +237,7 @@ $setglobal land  feb15
 $setglobal costs  default
 $setglobal interest_rate  select_apr20
 $setglobal tc  endo_jun18
-$setglobal yields  dynamic_aug18
+$setglobal yields  dynamic_labour_okt18
 
 $setglobal food  anthropometrics_jan18
 $setglobal demand  sector_may15

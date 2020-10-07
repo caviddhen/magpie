@@ -197,7 +197,7 @@ $title magpie
 * 
 * 
 * 
-* Last modification (input data): Wed Oct  7 07:47:20 2020
+* Last modification (input data): Wed Oct  7 09:35:23 2020
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -256,7 +256,7 @@ $setglobal forestry  dynamic_may20
 $setglobal urban  static
 $setglobal natveg  dynamic_may20
 
-$setglobal factor_costs  mixed_labour_okt20
+$setglobal factor_costs  mixed_feb17
 $setglobal landconversion  global_static_aug18
 
 $setglobal transport  gtap_nov12

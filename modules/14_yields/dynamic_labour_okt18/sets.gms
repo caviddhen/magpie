@@ -10,5 +10,5 @@ sets
        / crop, past /
 
    strfactor calibration land types
-      / factor /
+      / factor, normal /
 ;

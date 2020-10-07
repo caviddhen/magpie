@@ -41,8 +41,8 @@ $ondelim
 $include "./modules/14_yields/dynamic_labour_okt18/input/f14_labour_impact.cs3"
 $offdelim
 ;
-$if "%c14_yld_dcrs_switch%" == "cc" f14_labour_impact(t_all,j, "factor") = f14_labour_impact(t_all,j,"factor");
-$if "%c14_yld_dcrs_switch%" == "normal" f14_labour_impact(t_all,j, "factor") = f14_labour_impact(t_all,j,"normal");
+$if "%c14_yld_dcrs_switch%" == "cc" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"factor");
+$if "%c14_yld_dcrs_switch%" == "normal" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"normal");
 
 table f14_ipcc_bce(clcl,forest_type) IPCC Biomass Conversion and Expansion factors (1)
 $ondelim

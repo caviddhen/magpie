@@ -28,13 +28,13 @@ cfg$results_folder <- "output/:title:"
 
 			# Update title
 			cfg$title <- paste0("LabProd_Tests_19","_","yld_decrease")
-			cfg$gms$c38_labour_switch  <- "normal"
+			cfg$gms$c38_labour_switch  <- "nocc"
 			cfg$gms$c14_yld_dcrs_switch  <- "cc"
 			start_run(cfg=cfg)
 
 
 			# Update title
 			 cfg$title <- paste0("LabProd_Tests_19","_","default")
-			 cfg$gms$c14_yld_dcrs_switch <- "normal"
+			 cfg$gms$c14_yld_dcrs_switch <- "nocc"
 			# Start the run
 			 start_run(cfg=cfg)

@@ -17,7 +17,9 @@ $ondelim
 $include "./modules/38_factor_costs/mixed_labour_okt20/input/f38_region_yield.csv"
 $offdelim;
 
-parameter f38_labour_impact(t_all,j) LAMACLIMA yield reduction (percentage of full productivity)
+parameter f38_labour_impact(t_all,j) LAMACLIMA yield reduction
+/
 $ondelim
 $include "./modules/38_factor_costs/mixed_labour_okt20/input/f38_labour_impact.cs2"
-$offdelim;
+$offdelim
+/;

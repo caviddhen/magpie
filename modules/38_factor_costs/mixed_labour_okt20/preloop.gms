@@ -7,11 +7,12 @@
 
 vm_cost_inv.fx(i)=0;
 
-$if "%c38_labour_switch%" == "nocc"
+$ifthen "%c38_labour_switch%" == "nocc"
 loop(t_all,
  if(m_year(t_all) >= sm_fix_SSP2,
 i38_labour_impact(t_all,j) = f38_labour_impact("y2020",j);
  );
 );
-;
+$elseif  "%c38_labour_switch%" == "cc"
+i38_labour_impact(t_all,j) = f38_labour_impact(t_all,j);
 $endif

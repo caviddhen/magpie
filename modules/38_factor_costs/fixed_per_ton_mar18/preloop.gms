@@ -6,3 +6,4 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 vm_cost_inv.fx(i)=0;
+i38_labour_impact(t,j) = f38_labour_impact

@@ -5,7 +5,7 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
-$setglobal c38_labour_switch  normal
+$setglobal c38_labour_switch  nocc
 
 table f38_fac_req(kcr,w) Factor requirement costs (USD05MER per tDM)
 $ondelim
@@ -17,10 +17,8 @@ $ondelim
 $include "./modules/38_factor_costs/mixed_labour_okt20/input/f38_region_yield.csv"
 $offdelim;
 
-table f38_labour_impact(t_all,j,strfactor) LAMACLIMA yield reduction
+table f38_labour_impact(t_all,j) LAMACLIMA yield reduction
 $ondelim
 $include "./modules/38_factor_costs/mixed_labour_okt20/input/f38_labour_impact.cs3"
 $offdelim
 ;
-$if "%c38_labour_switch%" == "cc" i38_labour_impact(t_all,j) = f38_labour_impact(t_all,j,"factor");
-$if "%c38_labour_switch%" == "normal" i38_labour_impact(t_all,j) = f38_labour_impact(t_all,j,"normal");

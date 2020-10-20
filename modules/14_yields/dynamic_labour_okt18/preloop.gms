@@ -24,7 +24,7 @@ i14_yields(t,j,"pasture",w) = i14_yields(t,j,"pasture",w)*sum(cell(i,j),f14_yld_
 
 ***SWITCH for LabourProductivity impact
 
-$if "%c14_yld_dcrs_switch%" == "nocc"
+$ifthen "%c14_yld_dcrs_switch%" == "nocc"
 loop(t_all,
  if(m_year(t_all) >= sm_fix_SSP2,
 f14_labour_impact(t_all,j) = f14_labour_impact("y2020",j);

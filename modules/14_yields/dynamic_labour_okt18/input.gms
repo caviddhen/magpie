@@ -53,6 +53,6 @@ $offdelim
 parameter f14_labour_impact(t_all,j) LAMACLIMA yield reduction
 /
 $ondelim
-$include "./modules/14_factor_costs/dynamic_labour_okt18/input/f14_labour_impact.cs2"
+$include "./modules/14_yields/dynamic_labour_okt18/input/f14_labour_impact.cs2"
 $offdelim
 /;

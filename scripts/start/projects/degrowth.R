@@ -29,7 +29,7 @@ cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b45
                                     "additional_data_rev3.86.tgz",
                "patch_degr_sust_scale.tgz")
 
-cfg$title <- paste0("Degr_19_sust_scale")
+cfg$title <- paste0("Degr_20_sust_scale")
 
 #start run
 start_run(cfg=cfg)
@@ -42,7 +42,7 @@ cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b45
                                     "calibration_H12_c200_26Feb20.tgz",
                                     "additional_data_rev3.86.tgz",
                                     "patch_degr_fair_dist.tgz")
-cfg$title <- paste0("Degr_19_fair_dist")
+cfg$title <- paste0("Degr_20_fair_dist")
 start_run(cfg=cfg)
 
 
@@ -50,7 +50,7 @@ start_run(cfg=cfg)
 #### GHG pricing w/ fair distrib -sust degr
 
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-cfg$title <- paste0("Degr_19_sust_degr")
+cfg$title <- paste0("Degr_20_sust_degr")
 start_run(cfg=cfg)
 
 ### everything with EAT Lancet
@@ -59,7 +59,7 @@ cfg$gms$c15_exo_scen_targetyear <- "y2030"
 cfg$gms$s15_exo_waste <- 1
 cfg$gms$s15_waste_scen <- 1.1
 
-cfg$title <- paste0("Degr_19_trans")
+cfg$title <- paste0("Degr_20_trans")
 start_run(cfg=cfg)
 
 ### EAT only
@@ -70,7 +70,7 @@ cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b45
                                     "additional_data_rev3.86.tgz")
 
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-NPi"
-cfg$title <- paste0("Degr_19_EAT")
+cfg$title <- paste0("Degr_20_EAT")
 start_run(cfg=cfg)
 
 
@@ -80,11 +80,11 @@ cfg$cfg$gms$s15_exo_diet <- 0
 cfg$gms$s15_exo_waste <- 0
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
 
-title <- paste0("Degr_19_ghg_price")
+title <- paste0("Degr_20_ghg_price")
 start_run(cfg=cfg)
 
 ## Default
 
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-NPi"
-title <- paste0("Degr_19_SSP2_default")
+title <- paste0("Degr_20_SSP2_default")
 start_run(cfg=cfg)

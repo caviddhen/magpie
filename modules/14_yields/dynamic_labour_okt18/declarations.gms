@@ -12,7 +12,6 @@ parameters
  p14_growing_stock(t,j,ac,forest_land,forest_type)               Forest growing stock (m3 per ha per yr)
  pm_timber_yield(t,j,ac,forest_land)               Forest growing stock (m3 per ha per yr)
  p14_growing_stock_report(t,j,ac,forest_land)               Forest growing stock (m3 per ha per yr)
- i14_labour_impact(t_all,j)          Cellular labour productivity impact (percentage)
  ;
 
 positive variables

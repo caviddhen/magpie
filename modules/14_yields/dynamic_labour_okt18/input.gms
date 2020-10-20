@@ -9,7 +9,7 @@ $setglobal c14_yields_scenario  nocc
 *   options:   cc  (climate change)
 *             nocc (no climate change)
 
-$setglobal c14_yld_dcrs_switch  normal
+$setglobal c14_yld_dcrs_switch  nocc
 
 scalars
   s14_timber_plantation_yield Plantation yield switch (0=natveg yields 1=plantation yields) (1) / 1 /
@@ -36,14 +36,6 @@ $ondelim
 $include "./modules/14_yields/input/f14_pasture_yields_hist.csv"
 $offdelim;
 
-table f14_labour_impact(t_all,j,yldfactor) LAMACLIMA yield reduction
-$ondelim
-$include "./modules/14_yields/dynamic_labour_okt18/input/f14_labour_impact.cs3"
-$offdelim
-;
-$if "%c14_yld_dcrs_switch%" == "cc" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"factor");
-$if "%c14_yld_dcrs_switch%" == "normal" i14_labour_impact(t_all,j) = f14_labour_impact(t_all,j,"normal");
-
 table f14_ipcc_bce(clcl,forest_type) IPCC Biomass Conversion and Expansion factors (1)
 $ondelim
 $include "./modules/14_yields/input/f14_ipcc_bce.cs3"
@@ -57,3 +49,10 @@ $include "./modules/14_yields/input/f14_aboveground_fraction.csv"
 $offdelim
 /
 ;
+
+parameter f14_labour_impact(t_all,j) LAMACLIMA yield reduction
+/
+$ondelim
+$include "./modules/14_factor_costs/dynamic_labour_okt18/input/f14_labour_impact.cs2"
+$offdelim
+/;

@@ -20,14 +20,18 @@ source("config/default.cfg")
 cfg$results_folder <- "output/:title:"
 
 
+cfg$gms$factor_costs <- "mixed_labour_okt20"
+cfg$gms$yields <- "dynamic_labour_okt18"
 
 			# Update title
-			 cfg$title <- paste0("LabProd_Tests_19","_","cost_increase")
+			 cfg$title <- paste0("LabProd_Tests_20","_","cost_increase")
 			 cfg$gms$c38_labour_switch  <- "cc"
+			 cfg$gms$c14_yld_dcrs_switch  <- "nocc"
+
 			 start_run(cfg=cfg)
 
 			# Update title
-			cfg$title <- paste0("LabProd_Tests_19","_","yld_decrease")
+			cfg$title <- paste0("LabProd_Tests_20","_","yld_decrease")
 			cfg$gms$c38_labour_switch  <- "nocc"
 			cfg$gms$c14_yld_dcrs_switch  <- "cc"
 			start_run(cfg=cfg)

@@ -21,3 +21,13 @@ i14_yields(t,j,"pasture",w) = i14_yields(t,j,"pasture",w)*sum(cell(i,j),p14_pyie
 ***YIELD CALIBRATION***********************************************************************
 i14_yields(t,j,kcr,w)       = i14_yields(t,j,kcr,w)      *sum(cell(i,j),f14_yld_calib(i,"crop"));
 i14_yields(t,j,"pasture",w) = i14_yields(t,j,"pasture",w)*sum(cell(i,j),f14_yld_calib(i,"past"));
+
+***SWITCH for LabourProductivity impact
+
+$if "%c14_yld_dcrs_switch%" == "nocc"
+loop(t_all,
+ if(m_year(t_all) >= sm_fix_SSP2,
+f14_labour_impact(t_all,j) = f14_labour_impact("y2020",j);
+ );
+);
+$endif

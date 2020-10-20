@@ -54,7 +54,7 @@ cfg$title <- paste0("Degr_20_sust_degr")
 start_run(cfg=cfg)
 
 ### everything with EAT Lancet
-cfg$cfg$gms$s15_exo_diet <- 1
+cfg$gms$s15_exo_diet <- 1
 cfg$gms$c15_exo_scen_targetyear <- "y2030"
 cfg$gms$s15_exo_waste <- 1
 cfg$gms$s15_waste_scen <- 1.1
@@ -80,11 +80,11 @@ cfg$cfg$gms$s15_exo_diet <- 0
 cfg$gms$s15_exo_waste <- 0
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
 
-title <- paste0("Degr_20_ghg_price")
+cfg$title <- paste0("Degr_20_ghg_price")
 start_run(cfg=cfg)
 
 ## Default
 
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-NPi"
-title <- paste0("Degr_20_SSP2_default")
+cfg$title <- paste0("Degr_20_SSP2_default")
 start_run(cfg=cfg)

@@ -60,7 +60,7 @@ cfg$gms$s15_exo_waste <- 1
 cfg$gms$s15_waste_scen <- 1.1
 
 cfg$title <- paste0("Degr_19_trans")
-
+start_run(cfg=cfg)
 
 ### EAT only
 cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
@@ -80,5 +80,11 @@ cfg$cfg$gms$s15_exo_diet <- 0
 cfg$gms$s15_exo_waste <- 0
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
 
-$title <- paste0("Degr_19_ghg_price")
+title <- paste0("Degr_19_ghg_price")
+start_run(cfg=cfg)
+
+## Default
+
+cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-NPi"
+title <- paste0("Degr_19_SSP2_default")
 start_run(cfg=cfg)

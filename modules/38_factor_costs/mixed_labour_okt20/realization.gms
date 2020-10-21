@@ -22,7 +22,6 @@
 
 
 *####################### R SECTION START (PHASES) ##############################
-$Ifi "%phase%" == "sets" $include "./modules/38_factor_costs/mixed_labour_okt20/sets.gms"
 $Ifi "%phase%" == "declarations" $include "./modules/38_factor_costs/mixed_labour_okt20/declarations.gms"
 $Ifi "%phase%" == "input" $include "./modules/38_factor_costs/mixed_labour_okt20/input.gms"
 $Ifi "%phase%" == "equations" $include "./modules/38_factor_costs/mixed_labour_okt20/equations.gms"

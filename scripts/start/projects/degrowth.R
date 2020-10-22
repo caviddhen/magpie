@@ -76,7 +76,7 @@ start_run(cfg=cfg)
 
 ## GHG only
 
-cfg$cfg$gms$s15_exo_diet <- 0
+cfg$gms$s15_exo_diet <- 0
 cfg$gms$s15_exo_waste <- 0
 cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
 

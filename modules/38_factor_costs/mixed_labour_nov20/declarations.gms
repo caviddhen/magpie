@@ -39,7 +39,7 @@ v38_fac_req(j,kcr,w)
 
 Model m38_prod_cost / q38_costfun, q38_ces_prodfun, q38_objective / ;
 
-m38_prod_cost.optfile   = 1 ;
+m38_prod_cost.optfile   = 0 ;
 m38_prod_cost.scaleopt  = 1 ;
 m38_prod_cost.solprint  = 0 ;
 m38_prod_cost.holdfixed = 1 ;

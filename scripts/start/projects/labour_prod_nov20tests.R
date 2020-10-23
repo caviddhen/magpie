@@ -23,11 +23,11 @@ cfg$results_folder <- "output/:title:"
 cfg$gms$factor_costs <- "mixed_labour_nov20"
 
 			# Update title
-			 cfg$title <- paste0("LabProd_Tests_22","_","cc")
+			 cfg$title <- paste0("LabProd_Tests_23","_","cc")
 			 cfg$gms$c38_labour_switch  <- "cc"
 			 start_run(cfg,codeCheck=FALSE)
 
 			# Update title
-			cfg$title <- paste0("LabProd_Tests_22","_","no_cc")
+			cfg$title <- paste0("LabProd_Tests_23","_","no_cc")
 			cfg$gms$c38_labour_switch  <- "nocc"
-			start_run(cfg,codeCheck=FALSE)			
+			start_run(cfg,codeCheck=FALSE)

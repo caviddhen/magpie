@@ -9,16 +9,24 @@ equations
  q38_cost_prod_crop(i,kcr)      Regional factor input costs for plant production (mio. USD05MER per yr)
  q38_costfun(j,kcr,w)
  q38_ces_prodfun(j,kcr,w)
+ q38_objective
 ;
 
 parameters
 pc38_sh(j,kcr,w)
 pc38_scale(j,kcr,w)
+p38_fac_req_ini(j,kcr,w)
+p38_capital_ini(j,kcr,w)
+p38_labour_ini(j,kcr,w)
 ;
 
 scalars
 s38_beta
 s38_ep
+;
+
+variables
+v38_objective
 ;
 
 positive variables
@@ -29,15 +37,16 @@ v38_labour(j,kcr,w)
 v38_fac_req(j,kcr,w)
 ;
 
-Model m38_prod_cost / q38_costfun, q38_ces_prodfun / ;
+Model m38_prod_cost / q38_costfun, q38_ces_prodfun, q38_objective / ;
 
 m38_prod_cost.optfile   = 1 ;
 m38_prod_cost.scaleopt  = 1 ;
 m38_prod_cost.solprint  = 0 ;
-m38_prod_cost.holdfixed = 0 ;
+m38_prod_cost.holdfixed = 1 ;
 
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################
 parameters
+ ov38_objective(t,type)            
  ov_cost_prod(t,i,kall,type)       Factor costs (mio. USD05MER per yr)
  ov_cost_inv(t,i,type)             Capital investment costs (mio USD05MER  per yr)
  ov38_capital(t,j,kcr,w,type)      
@@ -46,5 +55,6 @@ parameters
  oq38_cost_prod_crop(t,i,kcr,type) Regional factor input costs for plant production (mio. USD05MER per yr)
  oq38_costfun(t,j,kcr,w,type)      
  oq38_ces_prodfun(t,j,kcr,w,type)  
+ oq38_objective(t,type)            
 ;
 *##################### R SECTION END (OUTPUT DECLARATIONS) #####################

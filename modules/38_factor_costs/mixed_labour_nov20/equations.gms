@@ -6,15 +6,16 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 
+q38_objective$s38_ces..
+ sum((j2,kcr,w), v38_fac_req(j2,kcr,w)) =e= v38_objective;
+
 *K * i + L * w =e= C ; 
- q38_costfun(j2,kcr,w)..
+ q38_costfun(j2,kcr,w)$s38_ces..
 	v38_capital(j2,kcr,w) * sum((ct,cell(i2,j2)), pm_interest(ct,i2)) + v38_labour(j2,kcr,w) * s38_wage 
 	=e= v38_fac_req(j2,kcr,w); 
 
 $ontext
 
-q38_objective..
- sum((j2,kcr,w), v38_fac_req(j2,kcr,w)) =e= v38_objective;
 
 
 
@@ -26,7 +27,7 @@ q38_objective..
 $offtext
 
 *A * [sh*K**(-ep) + (1 - sh)*(cc * L)**(-ep)]**(-1/ep) =e= 1 ;
- q38_ces_prodfun(j2,kcr,w)..
+ q38_ces_prodfun(j2,kcr,w)$s38_ces..
   pc38_scale(j2,kcr,w) * 
   [pc38_sh(j2,kcr,w)*v38_capital(j2,kcr,w)**(-s38_ep) + 
   (1 - pc38_sh(j2,kcr,w))*(sum(ct, f38_labour_impact(ct,j2)) * v38_labour(j2,kcr,w))**(-s38_ep)]**(-1/s38_ep) 

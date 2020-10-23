@@ -11,6 +11,7 @@ scalars
 s38_alpha blub / 0.3 /
 s38_wage blub / 1 /
 s38_es blub / 0.3 /
+s38_ces blub / 0 /
 ;
 
 table f38_fac_req(kcr,w) Factor requirement costs (USD05MER per tDM)

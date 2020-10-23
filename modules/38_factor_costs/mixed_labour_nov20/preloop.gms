@@ -16,11 +16,15 @@ f38_labour_impact(t_all,j) = f38_labour_impact("y2020",j);
 $endif
 
 * Initialise K, L and C
-v38_fac_req.l(j,kcr,w) = f38_fac_req(kcr,w);
+p38_fac_req_ini(j,kcr,w) = f38_fac_req(kcr,w);
 s38_beta  = 1 - s38_alpha ; 
 *alpha = (K.l * i)/C.l ;  
-v38_capital.l(j,kcr,w) = (s38_alpha*v38_fac_req.l(j,kcr,w))/sum(cell(i,j), pm_interest("y1995",i));
-v38_labour.l(j,kcr,w) = (s38_beta*v38_fac_req.l(j,kcr,w))/s38_wage;
+p38_capital_ini(j,kcr,w) = (s38_alpha*p38_fac_req_ini(j,kcr,w))/sum(cell(i,j), pm_interest("y1995",i));
+p38_labour_ini(j,kcr,w) = (s38_beta*p38_fac_req_ini(j,kcr,w))/s38_wage;
+
+v38_fac_req.l(j,kcr,w) = p38_fac_req_ini(j,kcr,w);
+v38_capital.l(j,kcr,w) = p38_capital_ini(j,kcr,w);
+v38_labour.l(j,kcr,w) = p38_labour_ini(j,kcr,w);
 
 * 	Calibrate the CES function:
 s38_es = 0.3 ;

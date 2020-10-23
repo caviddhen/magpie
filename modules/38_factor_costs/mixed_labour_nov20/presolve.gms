@@ -6,13 +6,15 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 *update CES parameters
-pc38_sh(j,kcr,w) = (sum(cell(i,j), pm_interest(t,i)) * v38_capital.l(j,kcr,w)**(1 + s38_ep)) / (sum(cell(i,j), pm_interest(t,i)) * v38_capital.l(j,kcr,w)**(1 + s38_ep)  + s38_wage * v38_labour.l(j,kcr,w)**(1 + s38_ep)) ; 
-pc38_scale(j,kcr,w) = 1/([pc38_sh(j,kcr,w) * v38_capital.l(j,kcr,w)**(-s38_ep) + (1 - pc38_sh(j,kcr,w)) * f38_labour_impact(t,j) * v38_labour.l(j,kcr,w)**(-s38_ep)]**(-1/s38_ep));
+pc38_sh(j,kcr,w) = (sum(cell(i,j), pm_interest(t,i)) * p38_capital_ini(j,kcr,w)**(1 + s38_ep)) / (sum(cell(i,j), pm_interest(t,i)) * p38_capital_ini(j,kcr,w)**(1 + s38_ep)  + s38_wage * p38_labour_ini(j,kcr,w)**(1 + s38_ep)) ; 
+pc38_scale(j,kcr,w) = 1/([pc38_sh(j,kcr,w) * p38_capital_ini(j,kcr,w)**(-s38_ep) + (1 - pc38_sh(j,kcr,w)) * f38_labour_impact(t,j) * p38_labour_ini(j,kcr,w)**(-s38_ep)]**(-1/s38_ep));
 
-$ontext
-*f38_labour_impact(t,j) = 1;
+*if (s38_ces_exo = 1)
 
 * release bounds on K, L and C
+v38_objective.lo = 0 ;
+v38_objective.up = Inf ;
+
 v38_fac_req.lo(j,kcr,w) = 0 ;
 v38_fac_req.up(j,kcr,w) = Inf ;
 
@@ -22,9 +24,10 @@ v38_capital.up(j,kcr,w) = Inf;
 v38_labour.lo(j,kcr,w) = 0;
 v38_labour.up(j,kcr,w) = Inf;
 
-
 * Solve the CES to get values for K, L and C
+s38_ces = 1;
 solve m38_prod_cost using nlp minimizing v38_objective ;
+s38_ces = 0;
 
 display pc38_sh;
 display v38_capital.l;
@@ -33,8 +36,9 @@ display v38_fac_req.l;
 display v38_objective.l;
 
 * Fix K, L and for the MAgIPE run
-*v38_capital.fx(j,kcr,w) = v38_capital.l(j,kcr,w);
-*v38_labour.fx(j,kcr,w) = v38_labour.l(j,kcr,w);
-*v38_fac_req.fx(j,kcr,w) = v38_fac_req.l(j,kcr,w);
-*v38_objective.fx = v38_objective.l;
-$offtext
+v38_capital.fx(j,kcr,w) = v38_capital.l(j,kcr,w);
+v38_labour.fx(j,kcr,w) = v38_labour.l(j,kcr,w);
+v38_fac_req.fx(j,kcr,w) = v38_fac_req.l(j,kcr,w);
+v38_objective.fx = v38_objective.l;
+
+

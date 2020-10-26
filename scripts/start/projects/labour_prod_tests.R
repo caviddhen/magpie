@@ -20,7 +20,7 @@ source("config/default.cfg")
 cfg$results_folder <- "output/:title:"
 
 
-cfg$gms$factor_costs <- "sticky_labour_okt20"
+cfg$gms$factor_costs <- "mixed_feb17"
 cfg$gms$yields <- "dynamic_labour_okt18"
 
 			# Update title

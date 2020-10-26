@@ -12,3 +12,5 @@ f38_labour_impact(t_all,j) = f38_labour_impact("y2020",j);
  );
 );
 $endif
+
+i38_variable_costs(t_all,j,kcr) = (f38_fac_req_per_ton(kcr) * (1-s38_capital_cost_share) * (1-s38_mi_start))/f38_labour_impact(t_all,j);

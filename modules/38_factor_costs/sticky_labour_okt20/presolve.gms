@@ -12,9 +12,7 @@ i38_capital_need(i,kcr,"immobile") = f38_fac_req_per_ton(kcr)*s38_capital_cost_s
 
 if (ord(t) = 1,
 
-i38_variable_costs(i,kcr) = f38_fac_req_per_ton(kcr) * (1-s38_capital_cost_share) * (1-s38_mi_start);
-i38_variable_costs(j,kcr) = sum(cell(i,j), i38_variable_costs(i,kcr))
-i38_variable_costs(j,kcr) = i38_variable_costs(j,kcr)/f38_labour_impact(t,j);
+i38_variable_costs(j,kcr) = (f38_fac_req_per_ton(kcr) * (1-s38_capital_cost_share) * (1-s38_mi_start))/f38_labour_impact(t,j);
 
 
 *' Estimate capital stock based on capital remuneration

@@ -11,9 +11,8 @@
 * considering capital costs.
 
 q38_cost_prod_crop(i2,kcr).. vm_cost_prod(i2,kcr)
-                              =e= vm_prod_reg(i2,kcr) * sum((cell(i2,j2)),i38_variable_costs(j2)) / (1-s38_mi_start)
-                                ;
-
+                            =e= sum(cell(i2,j2), vm_prod(j2,kcr) * i38_variable_costs(j2,kcr)) / (1-s38_mi_start)
+                            ;
 *' Investment costs: Investment are the summation of investment in mobile and immobile capital. The costs are annuitized,
 *' and corrected to make sure that the annual depreciation of the current time-step is accounted for.
 q38_cost_prod_inv(i2).. vm_cost_inv(i2)=e=(sum((cell(i2,j2),kcr),v38_investment_immobile(j2,kcr))

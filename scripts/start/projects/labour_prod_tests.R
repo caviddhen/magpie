@@ -28,17 +28,17 @@ cfg$gms$yields <- "dynamic_labour_okt18"
 			 cfg$gms$c38_labour_switch  <- "cc"
 			 cfg$gms$c14_yld_dcrs_switch  <- "nocc"
 
-			 start_run(cfg=cfg)
+			 start_run(cfg,codeCheck=FALSE)
 
 			# Update title
 			cfg$title <- paste0("LabProd_Tests_26","_","yld_decrease")
 			cfg$gms$c38_labour_switch  <- "nocc"
 			cfg$gms$c14_yld_dcrs_switch  <- "cc"
-			start_run(cfg=cfg)
+			start_run(cfg,codeCheck=FALSE)
 
 
 			# Update title
 			 cfg$title <- paste0("LabProd_Tests_26","_","default")
 			 cfg$gms$c14_yld_dcrs_switch <- "nocc"
 			# Start the run
-			 start_run(cfg=cfg)
+			start_run(cfg,codeCheck=FALSE)

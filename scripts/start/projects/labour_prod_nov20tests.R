@@ -20,14 +20,39 @@ source("config/default.cfg")
 cfg$results_folder <- "output/:title:"
 
 
+cfg$gms$factor_costs <- "mixed_feb17"
+cfg$title <- paste0("LabProd_Tests_31","_mixed_default_")
+start_run(cfg,codeCheck=FALSE)
+
+cfg$gms$factor_costs <- "mixed_labour_okt20"
+cfg$gms$c38_labour_switch  <- "nocc"
+cfg$title <- paste0("LabProd_Tests_31","_mixed_labour_","nocc")
+start_run(cfg,codeCheck=FALSE)
+
+cfg$gms$c38_labour_switch  <- "cc"
+cfg$title <- paste0("LabProd_Tests_31","_mixed_labour_","cc")
+start_run(cfg,codeCheck=FALSE)
+
+cfg$gms$factor_costs <- "sticky_feb18"
+cfg$gms$c38_labour_switch  <- "nocc"
+cfg$title <- paste0("LabProd_Tests_31","_sticky_default_")
+start_run(cfg,codeCheck=FALSE)
+
+cfg$gms$factor_costs <- "sticky_labour_okt20"
+cfg$gms$c38_labour_switch  <- "nocc"
+cfg$title <- paste0("LabProd_Tests_31","_sticky_labour_","nocc")
+start_run(cfg,codeCheck=FALSE)
+
+cfg$gms$c38_labour_switch  <- "cc"
+cfg$title <- paste0("LabProd_Tests_31","_sticky_labour_","cc")
+start_run(cfg,codeCheck=FALSE)
+
+
 cfg$gms$factor_costs <- "mixed_labour_nov20"
+cfg$gms$c38_labour_switch  <- "nocc"
+cfg$title <- paste0("LabProd_Tests_31","_CES_labour_","nocc")
+start_run(cfg,codeCheck=FALSE)
 
-			# Update title
-			 cfg$title <- paste0("LabProd_Tests_23","_","cc")
-			 cfg$gms$c38_labour_switch  <- "cc"
-			 start_run(cfg,codeCheck=FALSE)
-
-			# Update title
-			cfg$title <- paste0("LabProd_Tests_23","_","no_cc")
-			cfg$gms$c38_labour_switch  <- "nocc"
-			start_run(cfg,codeCheck=FALSE)
+cfg$gms$c38_labour_switch  <- "cc"
+cfg$title <- paste0("LabProd_Tests_31","_CES_labour_","cc")
+start_run(cfg,codeCheck=FALSE)

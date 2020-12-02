@@ -10,7 +10,7 @@ source("config/default.cfg")
 
 #Factor cost realizations
 realization<-c("sticky_feb18")
-climate<-c("cc","nocc")
+climate<-c("nocc","cc")
 share<-c("variable","constant")
 RCP<-c("6p0")
 SSPS<-c("SSP2")

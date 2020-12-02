@@ -24,17 +24,16 @@ cfg$recalibrate <- TRUE
 
 #realization<-c("mixed_feb17","sticky_feb18")
 realization<-c("sticky_feb18")
-share<-c("constant")
 
 
 for (i in realization){
-  for (j in share){
 
-cfg$title <- paste0("calib_run_best_",i,"_",j,"_")
+
+cfg$title <- paste0("calib_run_best_",i,"_")
 
 #Selects factor costs realization
 cfg$gms$factor_costs <- i
-cfg$gms$c38_capital_share_variability  <- j
+
 
 cfg$gms$c_timesteps <- 1
 cfg$output <- c("rds_report")
@@ -42,7 +41,6 @@ cfg$sequential <- TRUE
 
 
 start_run(cfg,codeCheck=FALSE)
-magpie4::submitCalibration(paste0("H12","_",i,"_",j,"_"))
+magpie4::submitCalibration(paste0("H12","_",i,"_"))
 
-}
 }

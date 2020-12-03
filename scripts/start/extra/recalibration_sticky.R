@@ -57,7 +57,7 @@ magpie4::submitCalibration(paste0("H12","_",i,"_",r,"_"))
 }
 ###################################################################################################
 realization<-c("sticky_feb18")
-mode<-c("regional","global")
+mode<-c("regional")
 resolution<-c("c200","c400")
 rcp<-c("6p0")
 #realization<-c("sticky_feb18")
@@ -87,7 +87,7 @@ cfg$sequential <- TRUE
 
 
 start_run(cfg,codeCheck=FALSE)
-magpie4::submitCalibration(paste0("H12","_",i,"_",r,"_"))
+magpie4::submitCalibration(paste0("H12","_",i,"_",r,"_",m,"_"))
 
 }
 }

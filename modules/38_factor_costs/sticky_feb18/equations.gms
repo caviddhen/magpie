@@ -10,14 +10,14 @@
 *' Variable costs (without capital): The factor costs are calculated based on the requirements  of the regional aggregated production without
 * considering capital costs.
 
-*q38_cost_prod_crop(i2,kcr).. vm_cost_prod(i2,kcr)
-*                              =e= vm_prod_reg(i2,kcr) * i38_variable_costs(i2,kcr) / (1-s38_mi_start)
-*                                ;
-
 q38_cost_prod_crop(i2,kcr).. vm_cost_prod(i2,kcr)
-                              =e= sum((cell(i2,j2), w), vm_area(j2,kcr,w)*f38_region_yield(i2,kcr)
-                                                        *vm_tau(i2)/fm_tau1995(i2)*i38_variable_costs(i2,kcr))/ (1-s38_mi_start)
+                              =e= vm_prod_reg(i2,kcr) * i38_variable_costs(i2,kcr) / (1-s38_mi_start)
                                 ;
+
+*q38_cost_prod_crop(i2,kcr).. vm_cost_prod(i2,kcr)
+*                              =e= sum((cell(i2,j2), w), vm_area(j2,kcr,w)*f38_region_yield(i2,kcr)
+*                                                        *vm_tau(i2)/fm_tau1995(i2)*i38_variable_costs(i2,kcr))/ (1-s38_mi_start)
+*                                ;
 
 *' Investment costs: Investment are the summation of investment in mobile and immobile capital. The costs are annuitized,
 *' and corrected to make sure that the annual depreciation of the current time-step is accounted for.

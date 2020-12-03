@@ -9,13 +9,14 @@ source("scripts/start_functions.R")
 source("config/default.cfg")
 
 #Factor cost realizations
-realization<-c("sticky_feb18","mixed_feb17")
+realization<-c("sticky_feb18")
+mode<-c("regional","global")
 climate<-c("nocc","cc")
 share<-c("constant")
 RCP<-c("6p0")
 SSPS<-c("SSP2")
 year_shock<-c(7)
-resolutions<-c("c200","c400")
+resolutions<-c("c200")
 #year_shock<-c(10)
 year<-c(2025)
 
@@ -26,6 +27,7 @@ for (r in realization){
       for (rc in RCP){
         for (ssp in SSPS){
           for (y in 1:length(year)){
+            for (m in mode){
        #Scenario setting[]
        cfg<-gms::setScenario(cfg,c(c,ssp))
        cfg$title<-paste0("H_runs_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",s,"_")
@@ -41,15 +43,14 @@ for (r in realization){
         cfg$recalibrate <- FALSE
 
         cfg$gms$factor_costs <- r
-
-        cfg$gms$c38_capital_share_variability  <- s
-        cfg$gms$s38_year_shock  <- year_shock[y]
+        cfg$gms$c38_sticky_mode<-mode
 
         start_run(cfg=cfg)
-          }
-        }
+           }
+         }
+       }
       }
-    }
+     }
+   }
   }
  }
-}

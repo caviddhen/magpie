@@ -38,7 +38,8 @@ cfg$title <- paste0("calib_run_best_",i,"_",r,"_")
 cfg$input <- c(paste0("isimip_rcp-IPSL_CM5A_LR-rcp",rc,"-co2_rev48_",r,"_690d3718e151be1b450b394c1064b1c5.tgz"),
  "rev4.52_h12_magpie.tgz",
  "rev4.52_h12_validation.tgz",
- "additional_data_rev3.86.tgz")
+ "additional_data_rev3.86.tgz",
+ "additional_regional_sticky.tgz")
 
 #Selects factor costs realization
 cfg$gms$factor_costs <- i

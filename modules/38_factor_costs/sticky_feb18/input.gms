@@ -6,14 +6,14 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 $setglobal c38_capital_share_variability constant
+$setglobal c38_sticky_mode regional
+
 
 scalars
 
 
 *' depreciation rate assuming roughly 20 years linear depreciation for invesment goods
 s38_depreciation_rate depreciation rate (share of costs)  / 0.05 /
-*' Share of immobile capital.
-s38_immobile  immobile capital in perennial crops (share) / 0.7 /
 *' Initial management intensity
 s38_mi_start global management intensity in 1995 /0.47/
 *' Maximum fraction of the total gdp invested in capital in agriculture
@@ -39,6 +39,25 @@ $ondelim
 $include "./modules/38_factor_costs/input/f38_fac_req.csv"
 $offdelim;
 
+$ifthen "%c38_sticky_mode%" == "global"
 *' share of capital in the factor costs are based on the AgTFP Agricultural total factor productivity document by the USDA
 *' http://www.ers.usda.gov/data-products/international-agricultural-productivity.aspx
-parameter f38_capital_cost_share(t_all) capital cost share (share of costs) ;
+parameter f38_capital_cost_share(i) capital cost share (share of costs) ;
+*' Share of immobile capital.
+scalar f38_immobile(i)  immobile capital in perennial crops (share) / 0.7 /;
+$else
+parameter f38_capital_cost_share(i) capital cost share
+/
+$ondelim
+$include "./modules/38_factor_costs/input/f38_cap_regional_share.csv"
+$offdelim
+/
+;
+parameter f38_immobile(i)  immobile capital (share)
+/
+$ondelim
+$include "./modules/38_factor_costs/input/f38_immo_regional_share.csv"
+$offdelim
+/
+;
+$endif

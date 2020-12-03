@@ -30,7 +30,7 @@ for (r in realization){
             for (m in mode){
        #Scenario setting[]
        cfg<-gms::setScenario(cfg,c(c,ssp))
-       cfg$title<-paste0("H_runs_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",s,"_")
+       cfg$title<-paste0("H_runs_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
 
         cfg$force_download <- TRUE
 

@@ -44,7 +44,7 @@ $ifthen "%c38_sticky_mode%" == "global"
 *' http://www.ers.usda.gov/data-products/international-agricultural-productivity.aspx
 parameter f38_capital_cost_share(i) capital cost share (share of costs) ;
 *' Share of immobile capital.
-scalar f38_immobile(i)  immobile capital in perennial crops (share) / 0.7 /;
+parameter f38_immobile(i)  immobile capital in perennial crops (share) ;
 $else
 parameter f38_capital_cost_share(i) capital cost share
 /

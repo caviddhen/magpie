@@ -7,6 +7,7 @@
 
 *' If a shock in the calculation of input factors is considered
 $ifthen.c1 "%c38_sticky_mode%" == "global"
+f38_immobile(i)=0.7;
 $ifthen.c2 "%c38_capital_share_variability%" == "variable"
 if(ord(t) < s38_year_shock,
 f38_capital_cost_share(i)=0.46;

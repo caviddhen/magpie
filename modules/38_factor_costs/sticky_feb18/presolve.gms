@@ -6,8 +6,8 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 *' If a shock in the calculation of input factors is considered
-$ifthen "%c38_sticky_mode%" == "global"
-$ifthen "%c38_capital_share_variability%" == "variable"
+$ifthen.c1 "%c38_sticky_mode%" == "global"
+$ifthen.c2 "%c38_capital_share_variability%" == "variable"
 if(ord(t) < s38_year_shock,
 f38_capital_cost_share(i)=0.46;
 else
@@ -15,8 +15,8 @@ f38_capital_cost_share(i)=0;
 );
 $else
 f38_capital_cost_share(i)=0.46;
-$endif
-$endif
+$endif.c2
+$endif.c1
 
 *' calculation of capital needed per unit produced
 i38_capital_need(i,kcr,"mobile") = f38_fac_req_per_ton(kcr) * f38_capital_cost_share(i) / pm_interest(t,i) * (1-f38_immobile(i));

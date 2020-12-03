@@ -10,7 +10,7 @@ source("config/default.cfg")
 
 #Factor cost realizations
 realization<-c("sticky_feb18")
-mode<-c("regional","global")
+mode<-c("global")
 climate<-c("nocc","cc")
 share<-c("constant")
 RCP<-c("6p0")

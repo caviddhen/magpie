@@ -44,7 +44,7 @@ for (r in realization){
         cfg$recalibrate <- FALSE
 
         cfg$gms$factor_costs <- r
-        cfg$gms$c38_sticky_mode<-mode
+        cfg$gms$c38_sticky_mode<-m
 
         start_run(cfg=cfg)
            }

@@ -38,6 +38,7 @@ for (r in realization){
          "rev4.52_h12_magpie.tgz",
          "rev4.52_h12_validation.tgz",
          "additional_data_rev3.86.tgz",
+         "additional_regional_sticky.tgz",
          "calibration_H12_sticky_feb18__03Dec20.tgz")
         #recalibrate
         cfg$recalibrate <- FALSE

@@ -27,7 +27,7 @@ for (r in realization){
           for (y in 1:length(year)){
        #Scenario setting[]
        cfg<-gms::setScenario(cfg,c(c,ssp))
-       cfg$title<-paste0("Clean_nocc_shock_perTon",ssp,"_rcp_",rc,"_",c,"_",s,"_")
+       cfg$title<-paste0("Clean_nocc_shock_Mixed",ssp,"_rcp_",rc,"_",c,"_",s,"_")
 
         cfg$force_download <- TRUE
 
@@ -35,7 +35,7 @@ for (r in realization){
          "rev4.52_h12_magpie.tgz",
          "rev4.52_h12_validation.tgz",
          "additional_data_rev3.86.tgz",
-         "calibration_H12sticky_feb18_02Nov20.tgz")
+         "calibration_H12_sticky_feb18__03Dec20.tgz")
         #recalibrate
         cfg$recalibrate <- FALSE
 

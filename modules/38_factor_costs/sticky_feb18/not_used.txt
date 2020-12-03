@@ -1,2 +1,4 @@
 name,type,reason
-vm_prod_reg,input,questionnaire
+vm_tau,input,questionnaire
+fm_tau1995,input,questionnaire
+vm_area,input,questionnaire

@@ -49,14 +49,14 @@ $else
 parameter f38_capital_cost_share(i) capital cost share
 /
 $ondelim
-$include "./modules/38_factor_costs/input/f38_cap_regional_share.csv"
+$include "./modules/38_factor_costs/sticky_feb18/input/f38_cap_regional_share.csv"
 $offdelim
 /
 ;
 parameter f38_immobile(i)  immobile capital (share)
 /
 $ondelim
-$include "./modules/38_factor_costs/input/f38_immo_regional_share.csv"
+$include "./modules/38_factor_costs/sticky_feb18/input/f38_immo_regional_share.csv"
 $offdelim
 /
 ;

@@ -16,7 +16,7 @@ share<-c("constant")
 RCP<-c("6p0")
 SSPS<-c("SSP2")
 #year_shock<-c(7)
-#resolutions<-c("c200")
+resolutions<-c("c200")
 #year_shock<-c(10)
 year<-c(2025)
 

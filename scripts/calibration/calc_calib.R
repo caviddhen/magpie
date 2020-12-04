@@ -74,7 +74,7 @@ get_yieldcalib <- function(gdx_file) {
 }
 
 # Calculate the correction factor and save it
-update_calib<-function(gdx_file, calib_accuracy=0.1, calibrate_pasture=TRUE,calibrate_cropland=TRUE,damping_factor=0.8, calib_file, crop_max=5, calibration_step="",n_maxcalib=20){
+update_calib<-function(gdx_file, calib_accuracy=0.1, calibrate_pasture=TRUE,calibrate_cropland=TRUE,damping_factor=0.5, calib_file, crop_max=5, calibration_step="",n_maxcalib=20){
   require(magclass)
   require(magpie4)
   if(!(modelstat(gdx_file)[1,1,1]%in%c(1,2,7))) stop("Calibration run infeasible")
@@ -127,16 +127,16 @@ update_calib<-function(gdx_file, calib_accuracy=0.1, calibrate_pasture=TRUE,cali
     divergence_factor<-read.csv("calib_divergence.cs3")
     calib_factor<-read.csv("calib_factor.cs3")
 
-    error_area_factor<-area_factor
-    error_area_factor$crop<-(1-error_area_factor$crop)^2
-    error_area_factor$past<-(1-error_area_factor$past)^2
+    #error_area_factor<-area_factor
+    #error_area_factor$crop<-(1-error_area_factor$crop)^2
+    #error_area_factor$past<-(1-error_area_factor$past)^2
 
-    #error_divergence<-divergence_factor
-    #error_divergence$crop<-(1-error_divergence$crop)^2
-    #error_divergence$past<-(1-error_divergence$past)^2
+    error_divergence<-divergence_factor
+    error_divergence$crop<-(1-error_divergence$crop)^2
+    error_divergence$past<-(1-error_divergence$past)^2
 
-    error_area_factor<-aggregate(error_area_factor$crop, list(error_area_factor$dummy.1), FUN=sum)
-    #error_area_factor<-aggregate(error_divergence$crop, list(error_divergence$dummy.1), FUN=sum)
+    #error_area_factor<-aggregate(error_area_factor$crop, list(error_area_factor$dummy.1), FUN=sum)
+    error_area_factor<-aggregate(error_divergence$crop, list(error_divergence$dummy.1), FUN=sum)
     time_step<-error_area_factor[error_area_factor$x==min(error_area_factor$x),1]
 
     calib_best<-as.magpie(calib_factor[calib_factor$dummy.1==time_step,])[,,c("crop","past")]

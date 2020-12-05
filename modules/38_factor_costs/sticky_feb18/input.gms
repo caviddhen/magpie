@@ -69,4 +69,3 @@ $include "./modules/38_factor_costs/sticky_feb18/input/f38_variable_capital_marg
 $offdelim
 /
 ;
-$endif

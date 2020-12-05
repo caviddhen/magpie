@@ -61,3 +61,12 @@ $offdelim
 /
 ;
 $endif
+
+parameter f38_variable_marginal(i)  capital variability
+/
+$ondelim
+$include "./modules/38_factor_costs/sticky_feb18/input/f38_variable_capital_marginal.csv"
+$offdelim
+/
+;
+$endif

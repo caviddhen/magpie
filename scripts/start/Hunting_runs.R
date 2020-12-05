@@ -30,7 +30,7 @@ for (r in realization){
             for (m in mode){
        #Scenario setting[]
        cfg<-gms::setScenario(cfg,c(c,ssp))
-       cfg$title<-paste0("H_runs_rus0_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
+       cfg$title<-paste0("H_runs_varCapmar_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
 
         cfg$force_download <- TRUE
 
@@ -44,7 +44,7 @@ for (r in realization){
          "rev4.52_h12_magpie.tgz",
          "rev4.52_h12_validation.tgz",
          "additional_data_rev3.86.tgz",
-         "cap_regional_rus0.tgz",
+         "additional_sticky_regional_diffCap.tgz",
         calib_file)
 
         #recalibrate

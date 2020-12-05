@@ -11,7 +11,7 @@ source("config/default.cfg")
 #Factor cost realizations
 realization<-c("sticky_feb18")
 mode<-c("regional")
-climate<-c("nocc")
+climate<-c("cc")
 share<-c("constant")
 RCP<-c("6p0")
 SSPS<-c("SSP2")

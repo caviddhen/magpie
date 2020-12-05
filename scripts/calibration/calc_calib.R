@@ -123,31 +123,26 @@ update_calib<-function(gdx_file, calib_accuracy=0.1, calibrate_pasture=TRUE,cali
 
     calib_best<-new.magpie(cells_and_regions = getCells(calib_divergence),years = getYears(calib_divergence),names = c("crop","past"))
 
-    area_factor<-read.csv("calib_area_factor.cs3")
-    divergence_factor<-read.csv("calib_divergence.cs3")
-    calib_factor<-read.csv("calib_factor.cs3")
+    divergence_data<-read.csv("calib_divergence.cs3")
+    factors_data<-read.csv("calib_factor.cs3")
 
-    #error_area_factor<-area_factor
-    #error_area_factor$crop<-(1-error_area_factor$crop)^2
-    #error_area_factor$past<-(1-error_area_factor$past)^2
+    for (i in getCells(calib_best)){
+      factors_data_sub<-subset(factors_data,dummy==i)
+      divergence_data_sub<-subset(divergence_data,dummy==i)
 
-    error_divergence<-divergence_factor
-    error_divergence$crop<-(1-error_divergence$crop)^2
-    error_divergence$past<-(1-error_divergence$past)^2
+      calib_best[i,NULL,"crop"]<-factors_data_sub[which.min(divergence_data_sub$crop),"crop"]
+      calib_best[i,NULL,"past"]<-factors_data_sub[which.min(divergence_data_sub$past),"past"]
+    }
 
-    #error_area_factor<-aggregate(error_area_factor$crop, list(error_area_factor$dummy.1), FUN=sum)
-    error_area_factor<-aggregate(error_divergence$crop, list(error_divergence$dummy.1), FUN=sum)
-    time_step<-error_area_factor[error_area_factor$x==min(error_area_factor$x),1]
-
-    calib_best<-as.magpie(calib_factor[calib_factor$dummy.1==time_step,])[,,c("crop","past")]
 
     comment <- c(" description: Regional yield calibration file",
                  " unit: -",
-                 paste0(" note: Best set of calibration factors based on minimum overall error"),
+                 paste0(" note: Best calibration factor from the run"),
                  " origin: scripts/calibration/calc_calib.R (path relative to model main directory)",
                  paste0(" creation date: ",date()))
     write.magpie(round(setYears(calib_best,NULL),2), calib_file, comment = comment)
-    write_log(calib_best,     "calib_factor.cs3"     , "best_area")
+
+    write_log(calib_best,     "calib_factor.cs3"     , "best")
 
 ####
   return(TRUE)

@@ -10,7 +10,7 @@ source("config/default.cfg")
 
 #Factor cost realizations
 realization<-c("sticky_feb18")
-mode<-c("regional","global")
+mode<-c("regional")
 climate<-c("nocc")
 share<-c("constant")
 RCP<-c("6p0")
@@ -30,7 +30,7 @@ for (r in realization){
             for (m in mode){
        #Scenario setting[]
        cfg<-gms::setScenario(cfg,c(c,ssp))
-       cfg$title<-paste0("H_runs_calib_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
+       cfg$title<-paste0("H_runs_calib2_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
 
         cfg$force_download <- TRUE
 
@@ -44,7 +44,7 @@ for (r in realization){
          "rev4.52_h12_magpie.tgz",
          "rev4.52_h12_validation.tgz",
          "additional_data_rev3.86.tgz",
-         "additional_regional_sticky.tgz",
+         "calib_sticky_regional.tgz",
         calib_file)
 
         #recalibrate

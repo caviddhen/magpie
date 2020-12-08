@@ -18,7 +18,7 @@ SSPS<-c("SSP2")
 #year_shock<-c(7)
 resolutions<-c("c200","c400")
 #year_shock<-c(10)
-#year<-c(2025)
+year<-c(2025)
 
 for (rel in resolutions){
 for (r in realization){

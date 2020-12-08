@@ -22,7 +22,7 @@ source("config/default.cfg")
 cfg$results_folder <- "output/:title::date:"
 cfg$recalibrate <- TRUE
 
-realization<-c("sticky_feb18")
+realization<-c("mixed_feb17")
 resolution<-c("c200")
 rcp<-c("6p0")
 #realization<-c("sticky_feb18")
@@ -31,7 +31,7 @@ for (i in realization){
 for (r in resolution){
 for (rc in rcp){
 
-cfg$title <- paste0("calib_run_best_",i,"_",r,"_")
+cfg$title <- paste0("calib_run_best_",i,"_")
 
 
 cfg$input <- c(paste0("isimip_rcp-IPSL_CM5A_LR-rcp",rc,"-co2_rev48_",r,"_690d3718e151be1b450b394c1064b1c5.tgz"),

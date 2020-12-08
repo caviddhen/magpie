@@ -24,7 +24,7 @@ cfg$recalibrate <- TRUE
 
 ###################################################################################################
 realization<-c("sticky_feb18")
-mode<-c("regional")
+mode<-c("regional","global")
 resolution<-c("c200")
 rcp<-c("6p0")
 #realization<-c("sticky_feb18")
@@ -34,7 +34,7 @@ for (r in resolution){
 for (rc in rcp){
   for (m in mode){
 
-cfg$title <- paste0("calib_run_best_",i,"_",r,"_",m,"_")
+cfg$title <- paste0("calib_run_best_",i,"_",m,"_")
 
 
 cfg$input <- c(paste0("isimip_rcp-IPSL_CM5A_LR-rcp",rc,"-co2_rev48_",r,"_690d3718e151be1b450b394c1064b1c5.tgz"),

@@ -19,8 +19,8 @@ $endif.c2
 $endif.c1
 
 *' calculation of capital needed per unit produced
-i38_capital_need(i,kcr,"mobile") = f38_fac_req_per_ton(kcr) * f38_capital_cost_share(i) / pm_interest(t,i) * (1-f38_immobile(i))*f38_variable_marginal(i);
-i38_capital_need(i,kcr,"immobile") = f38_fac_req_per_ton(kcr)*f38_capital_cost_share(i) / pm_interest(t,i) * f38_immobile(i)*f38_variable_marginal(i);
+i38_capital_need(i,kcr,"mobile") = f38_fac_req_per_ton(kcr) * f38_capital_cost_share(i) / pm_interest(t,i) * (1-f38_immobile(i));
+i38_capital_need(i,kcr,"immobile") = f38_fac_req_per_ton(kcr)*f38_capital_cost_share(i) / pm_interest(t,i) * f38_immobile(i);
 
 if (ord(t) = 1,
 

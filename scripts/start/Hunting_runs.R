@@ -10,7 +10,7 @@ source("config/default.cfg")
 
 #Factor cost realizations
 realization<-c("sticky_feb18")
-mode<-c("global")
+mode<-c("global","regional")
 climate<-c("cc","nocc")
 share<-c("constant")
 RCP<-c("6p0")
@@ -30,14 +30,14 @@ for (r in realization){
             for (m in mode){
        #Scenario setting[]
        cfg<-gms::setScenario(cfg,c(c,ssp))
-       cfg$title<-paste0("Runs_FUA_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
+       cfg$title<-paste0("Trends_runs_",rel,"_",ssp,"_rcp_",rc,"_",c,"_",r,"_",m,"_")
 
         cfg$force_download <- TRUE
 
          if(m == "global"){
-           calib_file<-"calibration_H12_sticky_feb18_c200__04Dec20.tgz"
-         }else{
-            calib_file<-"calib_sticky_regional.tgz"
+           calib_file<-"calibration_H12_sticky_feb18_c200_global__09Dec20.tgz"
+         }else if(m=="regional"){
+            calib_file<-"calibration_H12_sticky_feb18_c200_regional__09Dec20.tgz"
          }
 
         cfg$input <- c(paste0("isimip_rcp-IPSL_CM5A_LR-rcp",rc,"-co2_rev48_",rel,"_690d3718e151be1b450b394c1064b1c5.tgz"),
@@ -45,13 +45,13 @@ for (r in realization){
          "rev4.52_h12_validation.tgz",
          "additional_data_rev3.86.tgz",
          "additional_regional_sticky.tgz",
-         "calibration_H12_mixed_feb17_c200__08Dec20.tgz")
+         calib_file)
 
         #recalibrate
         cfg$recalibrate <- FALSE
 
         cfg$gms$factor_costs <- r
-        #cfg$gms$c38_sticky_mode<-m
+        cfg$gms$c38_sticky_mode<-m
 
         start_run(cfg=cfg)
            }

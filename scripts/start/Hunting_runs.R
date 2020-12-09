@@ -9,14 +9,14 @@ source("scripts/start_functions.R")
 source("config/default.cfg")
 
 #Factor cost realizations
-realization<-c("mixed_feb17")
+realization<-c("sticky_feb18")
 mode<-c("regional")
 climate<-c("cc","nocc")
 share<-c("constant")
 RCP<-c("6p0")
 SSPS<-c("SSP2")
 #year_shock<-c(7)
-resolutions<-c("c400")
+resolutions<-c("c400","c200")
 #year_shock<-c(10)
 year<-c(2025)
 

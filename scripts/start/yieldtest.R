@@ -16,8 +16,8 @@ source("config/default.cfg")
 
 cfg$input <- c("rev4.51+mrmagpie10_yieldtest_h12_5a23c697b74f282b13acf0cdc4b8f06f_cellularmagpie.tgz",
 "rev4.52_h12_magpie.tgz",
- "rev4.51+mrmagpie10_h12_validation_debug.tgz",                                     
- "additional_data_rev3.92.tgz")
+"rev4.51+mrmagpie10_h12_validation_debug.tgz",
+"additional_data_rev3.92.tgz")
 
 
 

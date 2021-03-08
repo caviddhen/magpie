@@ -1,4 +1,4 @@
-*** |  (C) 2008-2020 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -16,7 +16,8 @@
 
 sets
 
-   i all economic regions /CAZ,CHA,EUR,IND,JPN,LAM,MEA,NEU,OAS,REF,SSA,USA/
+   i all economic regions /
+       CAZ,CHA,EUR,IND,JPN,LAM,MEA,NEU,OAS,REF,SSA,USA /
 
    iso list of iso countries /
        ABW,AFG,AGO,AIA,ALA,ALB,AND,ARE,ARG,ARM,
@@ -46,37 +47,34 @@ sets
        VIR,VNM,VUT,WLF,WSM,YEM,ZAF,ZMB,ZWE /
 
    j number of LPJ cells /
-       CAZ_1*CAZ_26,
-       CHA_27*CHA_48,
-       EUR_49*EUR_51,
-       IND_52*IND_58,
-       JPN_59*JPN_60,
-       LAM_61*LAM_93,
-       MEA_94*MEA_117,
-       NEU_118*NEU_123,
-       OAS_124*OAS_140,
-       REF_141*REF_151,
-       SSA_152*SSA_193,
-       USA_194*USA_200/
+       CAZ_1*CAZ_8,
+       CHA_9*CHA_30,
+       EUR_31*EUR_37,
+       IND_38*IND_44,
+       JPN_45*JPN_45,
+       LAM_46*LAM_84,
+       MEA_85*MEA_111,
+       NEU_112*NEU_118,
+       OAS_119*OAS_129,
+       REF_130*REF_142,
+       SSA_143*SSA_181,
+       USA_182*USA_200 /
 
-   cell(i,j) number of LPJ cells per region i
-      /
-       CAZ . CAZ_1*CAZ_26
-       CHA . CHA_27*CHA_48
-       EUR . EUR_49*EUR_51
-       IND . IND_52*IND_58
-       JPN . JPN_59*JPN_60
-       LAM . LAM_61*LAM_93
-       MEA . MEA_94*MEA_117
-       NEU . NEU_118*NEU_123
-       OAS . OAS_124*OAS_140
-       REF . REF_141*REF_151
-       SSA . SSA_152*SSA_193
-       USA . USA_194*USA_200
-      /
+   cell(i,j) number of LPJ cells per region i /
+       CAZ . CAZ_1*CAZ_8
+       CHA . CHA_9*CHA_30
+       EUR . EUR_31*EUR_37
+       IND . IND_38*IND_44
+       JPN . JPN_45*JPN_45
+       LAM . LAM_46*LAM_84
+       MEA . MEA_85*MEA_111
+       NEU . NEU_112*NEU_118
+       OAS . OAS_119*OAS_129
+       REF . REF_130*REF_142
+       SSA . SSA_143*SSA_181
+       USA . USA_182*USA_200 /
 
-   i_to_iso(i,iso) mapping regions to iso countries
-      /
+   i_to_iso(i,iso) mapping regions to iso countries /
        CAZ . (AUS,CAN,HMD,NZL,SPM)
        CHA . (CHN,HKG,MAC,TWN)
        EUR . (ALA,AUT,BEL,BGR,CYP,CZE,DEU,DNK,ESP,EST)
@@ -109,8 +107,8 @@ sets
        SSA . (MYT,NAM,NER,NGA,REU,RWA,SEN,SHN,SLE,SOM)
        SSA . (SSD,STP,SWZ,SYC,TCD,TGO,TZA,UGA,ZAF,ZMB)
        SSA . (ZWE)
-       USA . (USA)
-      /
+       USA . (USA) /
+
 ;
 *######################### R SECTION END (SETS) ################################
 *###############################################################################
@@ -190,6 +188,7 @@ $If "%c_timesteps%"== "5year" /y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y
 $If "%c_timesteps%"== "5year2050" /y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y2035,y2040,y2045,y2050/;
 $If "%c_timesteps%"== "5year2070" /y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y2035,y2040,y2045,y2050,y2055,y2060,y2065,y2070/;
 $If "%c_timesteps%"== "quicktest" /y1995,y2010,y2025/;
+$If "%c_timesteps%"== "quicktest2" /y1995,y2020,y2050,y2100/;
 $If "%c_timesteps%"== "1" /y1995/;
 $If "%c_timesteps%"== "2" /y1995,y2000/;
 $If "%c_timesteps%"== "3" /y1995,y2000,y2010/;
@@ -210,6 +209,7 @@ $If "%c_timesteps%"=="17" /y1995,y2000,y2010,y2020,y2030,y2040,y2050,y2060,y2070
 $If "%c_timesteps%"=="past" /y1965,y1970,y1975,y1980,y1985,y1990,y1995,y2000,y2005,y2010/;
 $If "%c_timesteps%"=="pastandfuture" /y1965,y1970,y1975,y1980,y1985,y1990,y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y2035,y2040,y2045,y2050,y2055,y2060,y2065,y2070,y2075,y2080,y2085,y2090,y2095,y2100/;
 set ct(t) Current time period;
+set ct_all(t_all) Current time period for loops over t_all;
 
 alias(t,t2);
 

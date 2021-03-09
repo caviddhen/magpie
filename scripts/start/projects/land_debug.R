@@ -31,10 +31,10 @@ cfg$recalibrate <- "ifneeded"
 for(land in c("landmatrix_dec18","feb15")){
 for (factor in c("sticky_feb18", "mixed_feb17")){
     # Set cc
-    cfg<-gms::setScenario(cfg,cc)
+    cfg<-gms::setScenario(cfg,"cc")
 
     # Set factor costs
-    cfg$gms$factor_costs = factor
+    cfg$gms$factor_costs <- factor
 
 
     # Set land matrix

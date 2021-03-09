@@ -27,12 +27,18 @@ for (k in 1:length(climate)){
 
         #Change the results folder name
         #NBC STANDS FOR NEW BEST CALIBRATION
-        cfg$title<-paste0("New_LPJmL_Test_0yield_GFDL_ssp370_",realization[j],"_",climate[k])
+        cfg$title<-paste0("New_LPJmL_Test_0_yield_GFDL_ssp370_",realization[j],"_",climate[k])
 
         cfg <- setScenario(cfg,climate[k])
 
+        cfg$input <- c("rev4.58_h12_validation.tgz",
+                 "additional_data_rev3.98.tgz",
+                 "rev4.58+mrmagpie_LPJmL_new_h12_ee4336a969c590c612a80f2a9db04bdc_cellularmagpie_debug.tgz",
+                 "rev4.58+mrmagpie_LPJmL_new_h12_magpie_debug.tgz",
+                 "newlpj_mixed_030821.tgz")
+
         #recalibrate
-        #cfg$recalibrate <- TRUE
+        cfg$recalibrate <- FALSE
 
         #AEI
 #        cfg$gms$c41_initial_irrigation_area  <- AEI[i]

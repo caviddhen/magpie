@@ -15,7 +15,8 @@ source("config/default.cfg")
 #clustering<-c("c200")
 
 #Factor cost realizations
-realization<-c("mixed_feb17","sticky_feb18")
+#realization<-c("mixed_feb17","sticky_feb18")
+realization<-c("mixed_feb17")
 climate<-c("cc","nocc")
 #AEI<-c("LUH2v2","Siebert")
 #AEI<-c("LUH2v2")
@@ -26,12 +27,12 @@ for (k in 1:length(climate)){
 
         #Change the results folder name
         #NBC STANDS FOR NEW BEST CALIBRATION
-        cfg$title<-paste0("New_LPJmL_GFDL_ssp370_",realization[j],"_",climate[k])
+        cfg$title<-paste0("New_LPJmL_Test_0yield_GFDL_ssp370_",realization[j],"_",climate[k])
 
         cfg <- setScenario(cfg,climate[k])
 
         #recalibrate
-        cfg$recalibrate <- TRUE
+        #cfg$recalibrate <- TRUE
 
         #AEI
 #        cfg$gms$c41_initial_irrigation_area  <- AEI[i]

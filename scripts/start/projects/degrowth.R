@@ -235,7 +235,7 @@ cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b45
                                               cfg$gms$s15_waste_scen <- 1.1
 
                                               cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-        
+
 
                                             cfg$title <- paste0("Degr_22_scale_GHG_EAT")
                                           start_run(cfg=cfg)

@@ -1,4 +1,4 @@
-# |  (C) 2008-2020 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -9,233 +9,60 @@
 # description: start run with default.cfg settings
 # position: 1
 # ------------------------------------------------
+library(gms)
 
 # Load start_run(cfg) function which is needed to start MAgPIE runs
 source("scripts/start_functions.R")
-
 source("config/default.cfg")
+source("scripts/start/extra/lpjml_addon.R")
 
 cfg$force_download <- TRUE
 cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=NULL,
                                 "./patch_inputdata"=NULL),
                            getOption("magpie_repos"))
 
+cfg$crop_calib_max<- 2
+cfg$best_calib <- TRUE
+cfg$gms$factor_costs <- "sticky_feb18"
+cfg$gms$c38_sticky_mode  <- "free"
 
-## degrowth scale
-#cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-#                                    "rev4.52_h12_magpie.tgz",
-#                                    "rev4.52_h12_validation.tgz",
-#                                    "calibration_H12_c200_26Feb20.tgz",
-#                                    "additional_data_rev3.86.tgz",
-#               "patch_degr_sust_scale.tgz")
-#
-#                cfg$title <- paste0("Degr_22_sust_scale")
+degr_scens <- list(NULL, "patch_degr_sust_scale.tgz", "patch_degr_fair_dist.tgz")
+input <- cfg$input
+degr_flag <- "_BAU"
+eat_flag <- NULL
+ghg_flag <- NULL
+## BAU
+for (degr in degr_scens){
+  for (eat in c("NOEAT", "EAT")){
+    for (ghg in c("R2M41-SSP2-NPi","R2M41-SSP2-Budg600")){
 
-                #start run
-#                start_run(cfg=cfg)
+  cfg$input <- c(input, degr)
+  if (!is.null(degr)){
+    if(degr =="patch_degr_sust_scale.tgz"){
+    degr_flag <- "_SCALE"
+  } else if (degr=="patch_degr_fair_dist.tgz"){
+    degr_flag <- "_FAIR"
+    }}
 
-## steady state
-cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                    "rev4.52_h12_magpie.tgz",
-                                    "rev4.52_h12_validation.tgz",
-                                    "calibration_H12_c200_26Feb20.tgz",
-                                    "additional_data_rev3.86.tgz",
-               "patch_degr_steady_state.tgz")
+  if (eat =="EAT"){
+      cfg$gms$s15_exo_diet <- 1
+      cfg$gms$c15_exo_scen_targetyear <- "y2030"
+      cfg$gms$s15_exo_waste <- 1
+      cfg$gms$s15_waste_scen <- 1.1
+      eat_flag <- "_EAT"} else{
 
-               cfg$title <- paste0("Degr_22_steady_state")
+      cfg$gms$s15_exo_diet <- 0
+      cfg$gms$c15_exo_scen_targetyear <- "y2030"
+      cfg$gms$s15_exo_waste <- 0
+      cfg$gms$s15_waste_scen <- 1
+      eat_flag <- NULL}
 
-               #start run
-               start_run(cfg=cfg)
+  cfg$gms$c56_pollutant_prices <- ghg
+  if (ghg == "R2M41-SSP2-Budg600"){
+    ghg_flag <- "_GHG"
+  } else {ghg_flag <- NULL}
 
+cfg$title <- paste0("Degr_0621", degr_flag,ghg_flag, eat_flag)
+start_run(cfg=cfg)
 
-###fair distribution
-
-#cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-#                                    "rev4.52_h12_magpie.tgz",
-#                                    "rev4.52_h12_validation.tgz",
-#                                    "calibration_H12_c200_26Feb20.tgz",
-#                                    "additional_data_rev3.86.tgz",
-#                                    "patch_degr_fair_dist.tgz")
-#              cfg$title <- paste0("Degr_22_fair_dist")
-#              start_run(cfg=cfg)
-
-
-### BAU
-#cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-#                                    "rev4.52_h12_magpie.tgz",
-#                                    "rev4.52_h12_validation.tgz",
-#                                    "calibration_H12_c200_26Feb20.tgz",
-#                                    "additional_data_rev3.86.tgz")
-
-#                                    cfg$title <- paste0("Degr_22_SSP2_default")
-#                                    start_run(cfg=cfg)
-
-
-#### GHG pricing w/ fair distrib -sust degr
-#cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-#                                    "rev4.52_h12_magpie.tgz",
-#                                    "rev4.52_h12_validation.tgz",
-#                                    "calibration_H12_c200_26Feb20.tgz",
-#                                    "additional_data_rev3.86.tgz",
-#                                    "patch_degr_fair_dist.tgz")
-#cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-#      cfg$title <- paste0("Degr_22_sust_degr")
-#      start_run(cfg=cfg)
-
-### fair with GHG and EAT Lancet
-#cfg$gms$s15_exo_diet <- 1
-#    cfg$gms$c15_exo_scen_targetyear <- "y2030"
-#    cfg$gms$s15_exo_waste <- 1
-#    cfg$gms$s15_waste_scen <- 1.1
-#    cfg$title <- paste0("Degr_22_trans")
-#    start_run(cfg=cfg)
-
-### EAT only
-#cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-#                                    "rev4.52_h12_magpie.tgz",
-#                                    "rev4.52_h12_validation.tgz",
-#                                    "calibration_H12_c200_26Feb20.tgz",
-#                                    "additional_data_rev3.86.tgz")
-
-#                                    cfg$gms$s15_exo_diet <- 1
-#                                        cfg$gms$c15_exo_scen_targetyear <- "y2030"
-#                                        cfg$gms$s15_exo_waste <- 1
-#                                        cfg$gms$s15_waste_scen <- 1.1
-#                                        cfg$title <- paste0("Degr_22_trans")
-#                                    cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-NPi"
-#                                    cfg$title <- paste0("Degr_22_EAT")
-#                                    start_run(cfg=cfg)
-
-
-## GHG only
-
-#cfg$gms$s15_exo_diet <- 0
-#  cfg$gms$s15_exo_waste <- 0
-#  cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-#  cfg$title <- paste0("Degr_22_ghg_price")
-#  start_run(cfg=cfg)
-
-
-## fair EAT
-
-cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                    "rev4.52_h12_magpie.tgz",
-                                    "rev4.52_h12_validation.tgz",
-                                    "calibration_H12_c200_26Feb20.tgz",
-                                    "additional_data_rev3.86.tgz",
-                                    "patch_degr_fair_dist.tgz")
-
-                                    cfg$gms$s15_exo_diet <- 1
-                                cfg$gms$c15_exo_scen_targetyear <- "y2030"
-                                     cfg$gms$s15_exo_waste <- 1
-                                  cfg$gms$s15_waste_scen <- 1.1
-                                cfg$title <- paste0("Degr_22_fair_EAT")
-                                  start_run(cfg=cfg)
-
-## SS EAT
-
-cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                                                      "rev4.52_h12_magpie.tgz",
-                                                                      "rev4.52_h12_validation.tgz",
-                                                                      "calibration_H12_c200_26Feb20.tgz",
-                                                                      "additional_data_rev3.86.tgz",
-                                                                      "patch_degr_steady_state.tgz")
-
-                                                                      cfg$gms$s15_exo_diet <- 1
-                                                                  cfg$gms$c15_exo_scen_targetyear <- "y2030"
-                                                                       cfg$gms$s15_exo_waste <- 1
-                                                                    cfg$gms$s15_waste_scen <- 1.1
-                                                                  cfg$title <- paste0("Degr_22_steady_EAT")
-                                                                    start_run(cfg=cfg)
-  ## SS GHG
-cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                                          "rev4.52_h12_magpie.tgz",
-                                                          "rev4.52_h12_validation.tgz",
-                                                          "calibration_H12_c200_26Feb20.tgz",
-                                                            "additional_data_rev3.86.tgz",
-                                                                "patch_degr_steady_state.tgz")
-
-                                                      cfg$gms$s15_exo_diet <- 0
-                                                       cfg$gms$s15_exo_waste <- 0
-                                                      cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-
-
-                                                                cfg$title <- paste0("Degr_22_steady_GHG")
-                                                        start_run(cfg=cfg)
-
-## SS EAT AND GHG
-
-cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                                          "rev4.52_h12_magpie.tgz",
-                                                          "rev4.52_h12_validation.tgz",
-                                                          "calibration_H12_c200_26Feb20.tgz",
-                                                            "additional_data_rev3.86.tgz",
-                                                                "patch_degr_steady_state.tgz")
-
-                                                                cfg$gms$s15_exo_diet <- 1
-                                                            cfg$gms$c15_exo_scen_targetyear <- "y2030"
-                                                                 cfg$gms$s15_exo_waste <- 1
-                                                              cfg$gms$s15_waste_scen <- 1.1
-                                                      cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-
-                                                      cfg$title <- paste0("Degr_22_steady_GHG_EAT")
-                                                        start_run(cfg=cfg)
-
-
-
-#Scale EAT
-  cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                                "rev4.52_h12_magpie.tgz",
-                                          "rev4.52_h12_validation.tgz",
-                                        "calibration_H12_c200_26Feb20.tgz",
-                                        "additional_data_rev3.86.tgz",
-                                          "patch_degr_sust_scale.tgz")
-
-                                          cfg$gms$s15_exo_diet <- 1
-                                      cfg$gms$c15_exo_scen_targetyear <- "y2030"
-                                           cfg$gms$s15_exo_waste <- 1
-                                        cfg$gms$s15_waste_scen <- 1.1
-
-                                        cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-NPi"
-
-
-                                      cfg$title <- paste0("Degr_22_scale_GHG")
-                                    start_run(cfg=cfg)
-
-
-  ## Scale GHG
-    cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                            "rev4.52_h12_magpie.tgz",
-                                          "rev4.52_h12_validation.tgz",
-                                        "calibration_H12_c200_26Feb20.tgz",
-                                "additional_data_rev3.86.tgz",
-                            "patch_degr_sust_scale.tgz")
-
-                            cfg$gms$s15_exo_diet <- 0
-                   cfg$gms$s15_exo_waste <- 0
-                      cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-
-
-          cfg$title <- paste0("Degr_22_scale_GHG")
-        start_run(cfg=cfg)
-
-
-
-### Scale EAT AND GHG
-        cfg$input <- c("isimip_rcp-IPSL_CM5A_LR-rcp2p6-co2_rev48_c200_690d3718e151be1b450b394c1064b1c5.tgz",
-                                                      "rev4.52_h12_magpie.tgz",
-                                                "rev4.52_h12_validation.tgz",
-                                              "calibration_H12_c200_26Feb20.tgz",
-                                              "additional_data_rev3.86.tgz",
-                                                "patch_degr_sust_scale.tgz")
-
-                                                cfg$gms$s15_exo_diet <- 1
-                                            cfg$gms$c15_exo_scen_targetyear <- "y2030"
-                                                 cfg$gms$s15_exo_waste <- 1
-                                              cfg$gms$s15_waste_scen <- 1.1
-
-                                              cfg$gms$c56_pollutant_prices <- "R2M41-SSP2-Budg600"
-
-
-                                            cfg$title <- paste0("Degr_22_scale_GHG_EAT")
-                                          start_run(cfg=cfg)
+}}}

@@ -21,6 +21,9 @@ cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=
                                 "./patch_inputdata"=NULL),
                            getOption("magpie_repos"))
 
+
+cfg$input[5] <-"calibration_H12_newlpjml_bestcalib_fc-sticky-free_crop-endoApr21_20May21.tgz"
+
 cfg$crop_calib_max<- 2
 cfg$best_calib <- TRUE
 cfg$gms$factor_costs <- "sticky_feb18"
@@ -62,7 +65,7 @@ for (degr in degr_scens){
     ghg_flag <- "_GHG"
   } else {ghg_flag <- NULL}
 
-cfg$title <- paste0("Degr_0621", degr_flag,ghg_flag, eat_flag)
+cfg$title <- paste0("Degr_0721", degr_flag,ghg_flag, eat_flag)
 start_run(cfg=cfg)
 
 }}}

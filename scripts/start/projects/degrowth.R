@@ -34,7 +34,8 @@ input <- cfg$input
 degr_flag <- "_BAU"
 eat_flag <- NULL
 ghg_flag <- NULL
-## BAU
+
+
 for (degr in degr_scens){
   for (eat in c("NOEAT", "EAT")){
     for (ghg in c("R2M41-SSP2-NPi","R2M41-SSP2-Budg600")){
@@ -66,6 +67,6 @@ for (degr in degr_scens){
   } else {ghg_flag <- NULL}
 
 cfg$title <- paste0("Degr_0721", degr_flag,ghg_flag, eat_flag)
-start_run(cfg=cfg)
-
+#start_run(cfg=cfg)
+print(cfg$input)
 }}}

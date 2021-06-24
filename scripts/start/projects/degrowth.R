@@ -52,7 +52,7 @@ for (degr in degr_scens){
       cfg$gms$s15_exo_diet <- 1
       cfg$gms$c15_exo_scen_targetyear <- "y2030"
       cfg$gms$s15_exo_waste <- 1
-      cfg$gms$s15_waste_scen <- 1.1
+      cfg$gms$s15_waste_scen <- 1.2
       eat_flag <- "_EAT"} else{
 
       cfg$gms$s15_exo_diet <- 0
@@ -66,7 +66,7 @@ for (degr in degr_scens){
     ghg_flag <- "_GHG"
   } else {ghg_flag <- NULL}
 
-cfg$title <- paste0("Degr_0821", degr_flag,ghg_flag, eat_flag)
+cfg$title <- paste0("Degr_1221", degr_flag,ghg_flag, eat_flag)
 #start_run(cfg=cfg)
 print(cfg$input)
 }}}

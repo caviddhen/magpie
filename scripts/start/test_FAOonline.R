@@ -1,0 +1,35 @@
+# |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
+# |  authors, and contributors see CITATION.cff file. This file is part
+# |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
+# |  AGPL-3.0, you are granted additional permissions described in the
+# |  MAgPIE License Exception, version 1.0 (see LICENSE file).
+# |  Contact: magpie@pik-potsdam.de
+
+# -------------------------------------------------------------
+# description: test with new fao data
+# ------------------------------------------------------------
+
+library(gms)
+source("scripts/start_functions.R")
+source("config/default.cfg")
+
+cfg$title   = paste0("FAOnline3_default_lpjml5")
+
+start_run(cfg=cfg)
+
+
+cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_05ef33a8_cellularmagpie_debug_c200_IPSL-CM6A-LR-ssp126_lpjml-066f36d1.tgz",
+               regional    = "rev4.63+FAO_onlineDC_h12_magpie_debug.tgz",
+               validation  = "rev4.62_h12_validation.tgz",
+               calibration = "calibration_H12_newlpjml_bestcalib_fc-sticky-free_crop-endoApr21-allM_20May21.tgz",
+               additional  = cfg$input[grep("additional_data", cfg$input)])
+
+cfg$force_download <- TRUE
+
+#recalibrate
+cfg$recalibrate <- TRUE
+
+cfg$title   = paste0("FAOnline3_online_lpjml5")
+
+start_run(cfg=cfg)
+

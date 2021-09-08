@@ -15,10 +15,10 @@ source("config/default.cfg")
 
 cfg$title   = paste0("FAOnline3_default_lpjml5")
 
-start_run(cfg=cfg)
+#start_run(cfg=cfg)
 
 
-cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_05ef33a8_cellularmagpie_debug_c200_IPSL-CM6A-LR-ssp126_lpjml-066f36d1.tgz",
+cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_8ccecc72_cellularmagpie_debug_c200_MRI-ESM2-0-ssp370_lpjml-066f36d1.tgz",
                regional    = "rev4.63+FAO_onlineDC_h12_magpie_debug.tgz",
                validation  = "rev4.63_h12_validation.tgz",
                calibration = "calibration_H12_newlpjml_bestcalib_fc-sticky-free_crop-endoApr21-allM_20May21.tgz",
@@ -29,6 +29,6 @@ cfg$force_download <- TRUE
 #recalibrate
 cfg$recalibrate <- TRUE
 
-cfg$title   = paste0("FAOnline3_online_lpjml5")
+cfg$title   = paste0("FAOnline3_online")
 
 start_run(cfg=cfg)

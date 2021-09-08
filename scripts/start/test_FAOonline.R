@@ -21,7 +21,7 @@ cfg$title   = paste0("FAOnline3_default_lpjml5")
 cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_8ccecc72_cellularmagpie_debug_c200_MRI-ESM2-0-ssp370_lpjml-066f36d1.tgz",
                regional    = "rev4.63+FAO_onlineDC_h12_magpie_debug.tgz",
                validation  = "rev4.63_h12_validation.tgz",
-               calibration = "calibration_H12_newlpjml_bestcalib_fc-sticky-free_crop-endoApr21-allM_20May21.tgz",
+               calibration = "calibration_FAOonline_08Sep21.tgz",
                additional  = cfg$input[grep("additional_data", cfg$input)])
 
 cfg$force_download <- TRUE

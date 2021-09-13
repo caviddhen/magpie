@@ -13,9 +13,9 @@ library(gms)
 source("scripts/start_functions.R")
 source("config/default.cfg")
 
-cfg$title   = paste0("FAOnline3_default_lpjml5")
+cfg$title   = paste0("FAOnline5_default")
 
-#start_run(cfg=cfg)
+start_run(cfg=cfg)
 
 
 cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_8ccecc72_cellularmagpie_debug_c200_MRI-ESM2-0-ssp370_lpjml-066f36d1.tgz",
@@ -29,6 +29,6 @@ cfg$force_download <- TRUE
 #recalibrate
 cfg$recalibrate <- TRUE
 
-cfg$title   = paste0("FAOnline3_online")
+cfg$title   = paste0("FAOnline5_online")
 
 start_run(cfg=cfg)

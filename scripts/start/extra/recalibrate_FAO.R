@@ -19,8 +19,8 @@ source("scripts/start_functions.R")
 source("config/default.cfg")
 
 
-cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_8ccecc72_cellularmagpie_debug_c200_MRI-ESM2-0-ssp370_lpjml-066f36d1.tgz",
-               regional    = "rev4.63+FAO_onlineDC_h12_magpie_debug.tgz",
+cfg$input <- c(cellular    = "rev4.63+FAOonline_DC_h12_8ccecc72_cellularmagpie_debug_c200_MRI-ESM2-0-ssp370_lpjml-066f36d1.tgz",
+               regional    = "rev4.63+FAOonline_DC_h12_magpie_debug.tgz",
                validation  = "rev4.63_h12_validation.tgz",
                additional  = cfg$input[grep("additional_data", cfg$input)])
 

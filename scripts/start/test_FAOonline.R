@@ -13,7 +13,7 @@ library(gms)
 source("scripts/start_functions.R")
 source("config/default.cfg")
 
-cfg$title   = paste0("FAOnline5_default")
+cfg$title   = paste0("FAOnline6_default")
 
 start_run(cfg=cfg)
 
@@ -21,7 +21,7 @@ start_run(cfg=cfg)
 cfg$input <- c(cellular    = "rev4.63+FAO_onlineDC_h12_8ccecc72_cellularmagpie_debug_c200_MRI-ESM2-0-ssp370_lpjml-066f36d1.tgz",
                regional    = "rev4.63+FAO_onlineDC_h12_magpie_debug.tgz",
                validation  = "rev4.63_h12_validation.tgz",
-               calibration = "calibration_FAOonline_08Sep21.tgz",
+               calibration = "calibration_FAOonline2_15Sept_15Sep21.tgz",
                additional  = cfg$input[grep("additional_data", cfg$input)])
 
 cfg$force_download <- TRUE
@@ -29,6 +29,6 @@ cfg$force_download <- TRUE
 #recalibrate
 cfg$recalibrate <- TRUE
 
-cfg$title   = paste0("FAOnline5_online")
+cfg$title   = paste0("FAOnline6_online")
 
 start_run(cfg=cfg)

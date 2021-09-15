@@ -26,10 +26,10 @@ cfg$input <- c(cellular    = "rev4.63+FAOonline_DC_h12_8ccecc72_cellularmagpie_d
 
       cfg$results_folder <- "output/:title:"
       cfg$recalibrate <- TRUE
-      cfg$title <- paste0("FAOonline_calib")
+      cfg$title <- paste0("FAOonline_calib_15sept")
       cfg$gms$c_timesteps <- 1
       cfg$output <- c("rds_report")
       cfg$sequential <- TRUE
       cfg$force_download <- TRUE
       start_run(cfg,codeCheck=FALSE)
-      magpie4::submitCalibration("FAOonline")
+      magpie4::submitCalibration("FAOonline2_15Sept")

@@ -13,6 +13,7 @@ loop(t_all,
   i09_gdp_ppp_iso(t_all,iso) = f09_gdp_ppp_iso(t_all,iso,"SSP2");
   i09_gdp_mer_iso(t_all,iso) = f09_gdp_mer_iso(t_all,iso,"SSP2");
   im_pop_iso(t_all,iso) = f09_pop_iso(t_all,iso,"SSP2");
+  im_pop_grid(t_all,j) = f09_pop_grid(t_all,j,"SSP2");
   im_development_state(t_all,i) = f09_development_state(t_all,i,"SSP2");
 else
   im_physical_inactivity(t_all,iso,sex,age) = f09_physical_inactivity(t_all,iso,"%c09_gdp_scenario%",sex,age);
@@ -20,6 +21,7 @@ else
   i09_gdp_ppp_iso(t_all,iso) = f09_gdp_ppp_iso(t_all,iso,"%c09_gdp_scenario%");
   i09_gdp_mer_iso(t_all,iso) = f09_gdp_mer_iso(t_all,iso,"%c09_gdp_scenario%");
   im_pop_iso(t_all,iso) = f09_pop_iso(t_all,iso,"%c09_pop_scenario%");
+  im_pop_grid(t_all,j) = f09_pop_grid(t_all,j,"%c09_pop_scenario%");
   im_development_state(t_all,i) = f09_development_state(t_all,i,"%c09_gdp_scenario%");
  );
 );

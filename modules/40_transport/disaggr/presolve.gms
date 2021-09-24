@@ -6,6 +6,4 @@ p40_dem_food_cell(j2,kfo)          =
 
 *' maybe put sum over entire top of division
 
-
-
 vm_costs_additional_mon.fx(i)=0;

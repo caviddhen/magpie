@@ -1,6 +1,6 @@
 parameters
  p40_dem_food_cell                          per capita food demand within a region
-
+;
 
 
 positive variables

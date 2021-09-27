@@ -1,7 +1,7 @@
 
 sets
 
-kff(k) Food and Feed primary products
+kff(kall) Food and Feed primary products
   / alcohol, brans, cassav_sp, fish,  groundnut, livst_chick, livst_egg, livst_milk, livst_pig, livst_rum,
     maiz, molasses, oils, others, potato, puls_pro, rapeseed, rice_pro, scp, soybean,
     sugar, sugr_beet, sugr_cane, sunflower, tece, trce, cottn_pro, foddr, oilcakes,

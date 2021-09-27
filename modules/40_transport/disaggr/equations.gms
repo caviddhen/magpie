@@ -26,8 +26,10 @@ q40_feed_liv(j2,kfeed) ..
 q40_transport_ff(j2,kff) ..
                  v40_tprod(j2,kff)  =e=
                    vm_prod(j2, kff)$(s40_transport = 0) +
-                   v40_tfood(j2, kff, "from")$(s40_transport = 1 or s40_transport = 3) +
-                   v40_tfood(j2, kff, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
+                   v40_tfood(j2, kfop, "from")$(s40_transport = 1 or s40_transport = 3) +
+                   v40_tfood(j2, kfop, "to")$(  s40_transport = 2 or s40_transport = 3) +
+                   v40_tfeed(j2, kfeed, "from")$(s40_transport = 1 or s40_transport = 3) +
+                   v40_tfeed(j2, kfeed, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
                                  ;
 
 *' 'vm_tprod' is the interface variable to the transport module and is specified for
@@ -43,6 +45,6 @@ q40_transport_noff(j2,knonff) ..
 
 
 
-q40_cost_transport(j2,k) ..
-                vm_cost_transp(j2,k) =e= vm_tprod(j2,k)*f40_distance(j2)
+q40_cost_transport(j2,kall) ..
+                vm_cost_transp(j2,kall) =e= vm_tprod(j2,kall)*f40_distance(j2)
                                         * f40_transport_costs(k);

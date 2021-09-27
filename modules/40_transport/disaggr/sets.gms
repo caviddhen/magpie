@@ -7,7 +7,7 @@ kff(kall) Food and Feed primary products
     sugar, sugr_beet, sugr_cane, sunflower, tece, trce, cottn_pro, foddr, oilcakes,
     pasture /
 
-kfo(kall) Food primary products
+kfop(kall) Food primary products
   / tece,maiz,trce,rice_pro,soybean,rapeseed,groundnut,sunflower,puls_pro,
   potato,cassav_sp,sugr_cane,sugr_beet,
   oils,sugar,molasses,alcohol,brans,scp,

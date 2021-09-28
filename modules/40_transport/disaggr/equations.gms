@@ -10,7 +10,7 @@
 
 q40_local_food(j2, kfop) ..
                  vm_prod(j2, kfop) =g=
-                    p40_dem_food_cell(j2, kfop) + v40_tfood(j2, kfop, "from") - v40_tfood(j2, kfop, "to")
+                    sum(ct,p40_dem_food_cell(ct,j2, kfop)) + v40_tfood(j2, kfop, "from") - v40_tfood(j2, kfop, "to")
 				 ;
 
 q40_feed_liv(j2,kfeed) ..

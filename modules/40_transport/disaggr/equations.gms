@@ -16,7 +16,7 @@ q40_local_food(j2, kfop) ..
 q40_feed_liv(j2,kfeed) ..
                 vm_prod(j2,kfeed) -  sum(kli,vm_prod(j2,kli)
                * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kfeed))) =g=
-                 v40_tprod(j2, kfeed, "from") - v40_tprod(j2, kfeed, "to")
+                 v40_tfeed(j2, kfeed, "from") - v40_tfeed(j2, kfeed, "to")
                  ;
 
 

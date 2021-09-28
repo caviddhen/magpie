@@ -37,14 +37,12 @@ q40_transport_ff(j2,kff) ..
 *' to just additional feed stuff transported from (1), or to (2) a cluster, or both (3) is subject
 *' to transport costs.
 
-*' For all non feed production items full transport costs occur:
+*' For all non food non feed production items full transport costs occur:
 
 q40_transport_noff(j2,knonff) ..
-                 vm_tprod(j2,knoff) =e= vm_prod(j2,knoff);
+                 vm_tprod(j2,knonff) =e= vm_prod(j2,knonff);
 
 
-
-
-q40_cost_transport(j2,kall) ..
-                vm_cost_transp(j2,kall) =e= vm_tprod(j2,kall)*f40_distance(j2)
+q40_cost_transport(j2,k) ..
+                vm_cost_transp(j2,k) =e= vm_tprod(j2,k)*f40_distance(j2)
                                         * f40_transport_costs(k);

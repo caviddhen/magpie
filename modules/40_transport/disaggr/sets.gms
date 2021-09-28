@@ -12,7 +12,7 @@ kfeed(kff) Feed primary Products
      foddr, pasture, cottn_pro, livst_rum, livst_pig,
      livst_chick, livst_egg, livst_milk, fish /
 
-kfop(kff) Food primary Products
+kfop(kfo) Food primary Products
 / tece, maiz, trce, rice_pro, soybean, rapeseed, groundnut, sunflower,
   puls_pro, potato, cassav_sp, sugr_cane, sugr_beet, others,
   livst_rum, livst_pig, livst_chick, livst_egg, livst_milk, fish /

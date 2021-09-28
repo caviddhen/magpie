@@ -7,6 +7,3 @@ p40_dem_food_cell(t, j,kfop)          =
 *' maybe put sum over entire top of division
 
 vm_costs_additional_mon.fx(i)=0;
-
-
-sum((ct,cell(i2,j2),kforage2),im_feed_baskets(ct,i2,kli_rum,kforage2))

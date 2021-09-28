@@ -46,9 +46,9 @@ q40_transport_feed(j2,kfeed) ..
 *' For all non food non feed production items full transport costs occur:
 
 q40_transport_noff(j2,knonff) ..
-                 vm_tprod(j2,knonff) =e= vm_prod(j2,knonff);
+                 v40_tprod(j2,knonff) =e= vm_prod(j2,knonff);
 
 
 q40_cost_transport(j2,k) ..
-                vm_cost_transp(j2,k) =e= vm_tprod(j2,k)*f40_distance(j2)
+                vm_cost_transp(j2,k) =e= v40_tprod(j2,k)*f40_distance(j2)
                                         * f40_transport_costs(k);

@@ -6,7 +6,7 @@ parameters
 positive variables
  v40_tfood(j, kfop, dir)                         Transported food production to or from a cluster (mio. tDM per yr)
  v40_tfeed(j, kfeed, dir)                         Transported feed production to or from a cluster (mio. tDM per yr)
- v40_tprod(j,kff)                                    Transported production (mio. tDM per yr)
+ v40_tprod(j,k)                                    Transported production (mio. tDM per yr)
  vm_cost_transp(j,k)                               Transportation costs (mio. USD05MER per yr)
 ;
 

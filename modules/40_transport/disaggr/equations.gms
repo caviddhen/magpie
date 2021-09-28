@@ -23,14 +23,20 @@ q40_feed_liv(j2,kfeed) ..
 *' Note that this implies that there is no transported feed stuff in the case of
 *' matching demand and supply within a cluster. This feed is assumed to be consumed on farm.
 
-q40_transport_ff(j2,kff) ..
-                 v40_tprod(j2,kff)  =e=
-                   vm_prod(j2, kff)$(s40_transport = 0) +
+q40_transport_food(j2,kfop) ..
+                 v40_tprod(j2,kfop)  =e=
+                   vm_prod(j2, kfop)$(s40_transport = 0) +
                    v40_tfood(j2, kfop, "from")$(s40_transport = 1 or s40_transport = 3) +
-                   v40_tfood(j2, kfop, "to")$(  s40_transport = 2 or s40_transport = 3) +
-                   v40_tfeed(j2, kfeed, "from")$(s40_transport = 1 or s40_transport = 3) +
-                   v40_tfeed(j2, kfeed, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
+                   v40_tfood(j2, kfop, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
                                  ;
+
+q40_transport_feed(j2,kfeed) ..
+                      v40_tprod(j2,kfeed)  =e=
+                      vm_prod(j2, kfeed)$(s40_transport = 0) +
+                      v40_tfeed(j2, kfeed, "from")$(s40_transport = 1 or s40_transport = 3) +
+                      v40_tfeed(j2, kfeed, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
+                                  ;
+
 
 *' 'vm_tprod' is the interface variable to the transport module and is specified for
 *' different settings of 's71_transport', ranging from all feed stuff is accounted for transport (0),

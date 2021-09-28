@@ -1,5 +1,5 @@
 parameters
- p40_dem_food_cell(j, kfo[])                          per capita food demand within a region
+ p40_dem_food_cell(j, kfop)                          per capita food demand within a region
 ;
 
 

@@ -3,7 +3,7 @@ sets
 kff(k) Food and Feed primary products
       /  cassav_sp, fish,  groundnut, livst_chick, livst_egg, livst_milk, livst_pig, livst_rum,
         maiz, others, potato, puls_pro, rapeseed, rice_pro, soybean,
-        sugr_beet, sugr_cane, sunflower, tece, trce, cottn_pro, foddr, oilcakes,
+        sugr_beet, sugr_cane, sunflower, tece, trce, cottn_pro, foddr,
         pasture /
 
 kfeed(k) Feed primary Products

@@ -39,9 +39,9 @@ q40_transport_food(j2,k) ..
 
 q40_transport_proc(j2,ksd) ..
            v40_tprod_proc(j2,ksd)  =e=
-           vm_prod(j2, ksd)$(s40_transport = 0) +
-           v40_tfeed(j2, ksd, "from")$(s40_transport = 1 or s40_transport = 3) +
-           v40_tfeed(j2, ksd, "to")$(s40_transport = 2 or s40_transport = 3) + 0
+           sum(cell(i2,j2), vm_supply(i2,ksd))$(s40_transport = 0) +
+           v40_tproc(j2, ksd, "from")$(s40_transport = 1 or s40_transport = 3) +
+           v40_tproc(j2, ksd, "to")$(s40_transport = 2 or s40_transport = 3) + 0
                              ;
 q40_transport_feed(j2,kfeed) ..
                       v40_tprod_feed(j2,kfeed)  =e=

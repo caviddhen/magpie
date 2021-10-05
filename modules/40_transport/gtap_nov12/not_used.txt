@@ -6,6 +6,8 @@
 # |  Contact: magpie@pik-potsdam.de
 name,type,reason
 p40_dem_food_cell, input, not needed
+vm_supply, input, not needed
+vm_dem_processing, input, not needed
 im_pop_grid, input, not needed
 im_feed_baskets, input, not needed
 fm_nutrition_attributes, input, not needed

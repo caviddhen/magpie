@@ -4,6 +4,4 @@ p40_dem_food_cell(t, j,kfo)          =
                (fm_nutrition_attributes(t,kfo,"kcal") * 10**6)
                 ;
 
-*' maybe put sum over entire top of division
-
 vm_costs_additional_mon.fx(i)=0;

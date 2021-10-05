@@ -9,10 +9,16 @@
 *' can be exported). We calculate the transorted feed stuff splitted into 'from' and 'to' by
 
 q40_local_food(j2, kfop) ..
-                 vm_prod(j2, kfop) =g=
+                 vm_prod(j2, k) =g=
                     sum(ct,p40_dem_food_cell(ct,j2, kfop)) +
                      v40_tfood(j2, kfop, "from") - v40_tfood(j2, kfop, "to")
 				 ;
+
+q40_local_proc(j2,ksd) ..
+                          sum(cell(i2,j2), vm_supply(i2,ksd))  =g=
+                          sum(cell(i2,j2), vm_dem_processing(i2,ksd)) +
+                           v40_tproc(j2, ksd, "from") - v40_tproc(j2, ksd, "to")
+                           ;
 
 q40_feed_liv(j2,kfeed) ..
                 vm_prod(j2,kfeed) -  sum(kli,vm_prod(j2,kli)
@@ -31,12 +37,19 @@ q40_transport_food(j2,kfop) ..
                    v40_tfood(j2, kfop, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
                                  ;
 
+q40_transport_proc(j2,ksd) ..
+           v40_tprod_proc(j2,ksd)  =e=
+           vm_prod(j2, ksd)$(s40_transport = 0) +
+           v40_tfeed(j2, ksd, "from")$(s40_transport = 1 or s40_transport = 3) +
+           v40_tfeed(j2, ksd, "to")$(s40_transport = 2 or s40_transport = 3) + 0
+                             ;
 q40_transport_feed(j2,kfeed) ..
                       v40_tprod_feed(j2,kfeed)  =e=
                       vm_prod(j2, kfeed)$(s40_transport = 0) +
                       v40_tfeed(j2, kfeed, "from")$(s40_transport = 1 or s40_transport = 3) +
                       v40_tfeed(j2, kfeed, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
                                   ;
+
 *' urban don't pay to but from
 *' rural pay processed from
 *' rural don't pay any for local food
@@ -51,12 +64,8 @@ q40_transport_feed(j2,kfeed) ..
 *' to just additional feed stuff transported from (1), or to (2) a cluster, or both (3) is subject
 *' to transport costs.
 
-*' For all non food non feed production items full transport costs occur:
+*' For all other items  production items full transport costs occur
 
-q40_transport_noff(j2,knonff) ..
-                 v40_tprod(j2,knonff) =e= vm_prod(j2,knonff);
-
-
-q40_cost_transport(j2,k) ..
-                vm_cost_transp(j2,k) =e= (v40_tprod_food(j2,k)+v40_tprod_feed)*f40_distance(j2)
-                                        * f40_transport_costs(k);
+q40_cost_transport(j2,kall) ..
+                vm_cost_transp(j2,kall) =e= (v40_tprod_food(j2,kfo)+v40_tprod_feed(j2, kfeed) + v40_tproc(j2,ksd))*f40_distance(j2)
+                                        * f40_transport_costs(kall);

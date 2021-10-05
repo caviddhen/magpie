@@ -6,13 +6,13 @@ parameters
 positive variables
  v40_tfood(j, kfop, dir)                         Transported food production to or from a cluster (mio. tDM per yr)
  v40_tfeed(j, kfeed, dir)                         Transported processed food to or from a cluster (mio. tDM per yr)
- v40_tproc(j, kall, dir)                         Transported feed production to or from a cluster (mio. tDM per yr)
+ v40_tproc(j, ksd, dir)                         Transported feed production to or from a cluster (mio. tDM per yr)
  vm_cost_transp(j,k)                               Transportation costs (mio. USD05MER per yr)
 ;
 
 equations
  q40_local_food(j,kfop)                  Local food constraint
- q40_local_proc(j2,kall)                 Local processed food transported
+ q40_local_proc(j,ksd)                 Local processed food transported
  q40_feed_liv(j,kfeed)                  Production constraint for livestock products (mio. tDM per yr)
  q40_transport_food(j,kfop)              Determination of transported food production
  q40_transport_feed(j,kfeed)              Determination of transported feed production

@@ -67,5 +67,5 @@ q40_transport_feed(j2,kfeed) ..
 *' For all other items  production items full transport costs occur
 
 q40_cost_transport(j2,kall) ..
-                vm_cost_transp(j2,kall) =e= (v40_tprod_food(j2,k)$(k=kall)+v40_tprod_feed(j2, kfeed)$(kfeed=kall) + v40_tprod_proc(j2,ksd$(ksd=kall)))*f40_distance(j2)
+                vm_cost_transp(j2,kall) =e= (v40_tprod_food(j2,k)$(kall=k)+v40_tprod_feed(j2, kfeed)$(kall=kfeed) + v40_tprod_proc(j2,ksd)$(kall=ksd)))*f40_distance(j2)
                                         * f40_transport_costs(kall);

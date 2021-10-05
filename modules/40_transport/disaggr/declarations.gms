@@ -11,7 +11,7 @@ positive variables
 ;
 
 equations
- q40_local_food(j,kfop)                  Local food constraint
+ q40_local_food(j,k)                  Local food constraint
  q40_local_proc(j,ksd)                 Local processed food transported
  q40_feed_liv(j,kfeed)                  Production constraint for livestock products (mio. tDM per yr)
  q40_transport_food(j,kfop)              Determination of transported food production

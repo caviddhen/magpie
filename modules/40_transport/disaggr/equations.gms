@@ -34,7 +34,7 @@ q40_transport_food(j2,k) ..
                  v40_tprod_food(j2,k)  =e=
                    vm_prod(j2, k)$(s40_transport = 0) +
                    v40_tfood(j2, k, "from")$(s40_transport = 1 or s40_transport = 3) +
-                   v40_tfood(j2, k, "to")$(  s40_transport = 2 or s40_transport = 3) + 0
+                   v40_tfood(j2, k, "to")$(s40_transport = 2 or s40_transport = 3) + 0
                                  ;
 
 q40_transport_proc(j2,ksd) ..

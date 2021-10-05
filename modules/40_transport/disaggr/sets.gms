@@ -6,7 +6,7 @@ kff(kall) Food and Feed primary products
         sugr_beet, sugr_cane, sunflower, tece, trce, cottn_pro, foddr,
         pasture /
 
-kfeed(kall) Feed primary Products
+kfeed(k) Feed primary Products
    / tece, maiz, trce, rice_pro, soybean, rapeseed, groundnut, sunflower,
      puls_pro, potato, cassav_sp, sugr_cane, sugr_beet, others,
      foddr, pasture, cottn_pro, livst_rum, livst_pig,

@@ -8,7 +8,7 @@ positive variables
  v40_tfeed(j, kfeed, dir)                         Transported processed food to or from a cluster (mio. tDM per yr)
  v40_tproc(j, ksd, dir)                         Transported feed production to or from a cluster (mio. tDM per yr)
  v40_tprod_food(j, k)                          Total transported food accounted for in transport costs (mio. tDM per yr)
- v40_tprod_feed(j, kfeed)                          Total transported feed accounted for in transport costs (mio. tDM per yr)
+ v40_tprod_feed(j, k)                          Total transported feed accounted for in transport costs (mio. tDM per yr)
  v40_tprod_proc(j, ksd)                          Total transported processed food accounted for in transport costs (mio. tDM per yr)
  vm_cost_transp(j,kall)                               Transportation costs (mio. USD05MER per yr)
 ;

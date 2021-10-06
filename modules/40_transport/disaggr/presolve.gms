@@ -1,6 +1,6 @@
 
 p40_dem_food_cell(t, j,k)          =
-          (sum(cell(i,j),(pm_kcal_pc_calibrated(t,i,k) * 365)) * im_pop_grid(t,j)) /
+          (sum(cell(i,j),(pm_kcal_pc_calibrated(t,i,kfo)$kall(k)* 365)) * im_pop_grid(t,j)) /
                (fm_nutrition_attributes(t,k,"kcal") * 10**6)
                 ;
 

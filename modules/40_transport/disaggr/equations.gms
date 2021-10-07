@@ -8,12 +8,12 @@
 *' negative (additional feed stuff is needed in a cell) or positive (surplus feed stuff
 *' can be exported). We calculate the transorted feed stuff splitted into 'from' and 'to' by
 
+
 q40_local_food(j2, kfop) ..
                  vm_prod(j2, kfop) =g=
-                    sum(ct,p40_dem_food_cell(ct,j2, kfo))$kfop(k) +
+                    sum(ct,p40_dem_food_cell(ct,j2, kfop)) +
                      v40_tfood(j2, kfop, "from") - v40_tfood(j2, kfop, "to")
 				 ;
-
 
 q40_feed_liv(j2,kfeed) ..
                 vm_prod(j2,kfeed) -  sum(kli,vm_prod(j2,kli)

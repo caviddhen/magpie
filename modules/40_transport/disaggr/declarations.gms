@@ -15,12 +15,9 @@ positive variables
 
 equations
  q40_local_food(j,kfop)                  Local food constraint
- q40_local_proc(j,ksd)                 Local processed food transported
  q40_feed_liv(j,kfeed)                  Production constraint for livestock products (mio. tDM per yr)
  q40_transport_food(j,kfop)              Determination of transported food production
  q40_transport_feed(j,kfeed)              Determination of transported feed production
- q40_transport_proc(j,ksd)               Determination of transported proc production
- q40_transport_noff(j,knonff)    Transport costs for non-food and feed
  q40_cost_transport(j,k)   Cellular transport costs for k (mio. USD05MER per yr)
 
 ;

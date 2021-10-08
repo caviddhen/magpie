@@ -1,5 +1,5 @@
 parameters
- i40_urban_shr(t_all, j)                                   urban population share
+ i40_urban_shr(t_all, j, urb)                                   urban population share
  i40_dem_food_cell(t, j, kall, urb)                          per capita primary food demand within a region by urban pop
 ;
 
@@ -35,4 +35,3 @@ parameters
  oq40_cost_transport(t,j,k,type)     Cellular transport costs for k (mio. USD05MER per yr)
 ;
 *##################### R SECTION END (OUTPUT DECLARATIONS) #####################
-

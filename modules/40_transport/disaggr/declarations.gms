@@ -1,5 +1,5 @@
 parameters
- i40_urban_shr(t_all, j, urb)                                   urban population share
+ i40_urban_shr(t_all, j)                                   urban population share
  i40_dem_food_cell(t, j, kall, urb)                          per capita primary food demand within a region by urban pop
 ;
 

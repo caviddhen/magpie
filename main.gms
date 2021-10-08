@@ -254,7 +254,7 @@ $setglobal natveg  dynamic_feb21
 $setglobal factor_costs  sticky_feb18
 $setglobal landconversion  devstate
 
-$setglobal transport  gtap_nov12
+$setglobal transport  disaggr
 $setglobal area_equipped_for_irrigation  endo_apr13
 $setglobal water_demand  agr_sector_aug13
 $setglobal water_availability  total_water_aug13
@@ -269,14 +269,14 @@ $setglobal phosphorus  off
 $setglobal awms  ipcc2006_aug16
 $setglobal ghg_policy  price_jan20
 $setglobal maccs  on_sep16
-$setglobal peatland  off
+$setglobal peatland  on
 $setglobal som  static_jan19
 
 $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  foragebased_aug18
+$setglobal disagg_lvst  off
 
 $setglobal timber  default
 

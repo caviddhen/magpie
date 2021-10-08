@@ -10,7 +10,7 @@ parameters
   im_pop_iso(t_all,iso)                              Population (mio. per yr)
   im_pop(t_all,i)                                    Population (mio. per yr)
   i09_pop_urban_iso(t_all,iso)                        Urban Population (mio. per yr)
-  im_pop_urban(t_all,i)
+  im_pop_urban(t_all,i)                               Urban Population (mio. per yr)
   im_pop_grid(t_all,j)                               Population (mio. per yr)
 
 * GDP in MER

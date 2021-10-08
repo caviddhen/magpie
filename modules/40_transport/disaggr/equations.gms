@@ -8,11 +8,12 @@
 *' negative (additional feed stuff is needed in a cell) or positive (surplus feed stuff
 *' can be exported). We calculate the transorted feed stuff splitted into 'from' and 'to' by
 
+*' ########### CURRENTLY ONLY PRIMARY PRODUCTION ###########
 
 q40_local_food(j2, kfop) ..
                  vm_prod(j2, kfop) =g=
-                    sum(ct,p40_dem_food_cell(ct,j2, kfop)) +
-                     v40_tfood(j2, kfop, "from") - v40_tfood(j2, kfop, "to")
+                    sum(urb, sum(ct,i40_dem_food_cell(ct,j2, kfop, urb)) +
+                     v40_tfood(j2, kfop, "from", urb) - v40_tfood(j2, kfop, "to", urb))
 				 ;
 
 q40_feed_liv(j2,kfeed) ..
@@ -27,21 +28,20 @@ q40_feed_liv(j2,kfeed) ..
 
 q40_transport_food(j2,kfop) ..
                  v40_tprod_food(j2,kfop)  =e=
-                   vm_prod(j2, kfop)$(s40_transport = 0) +
-                   v40_tfood(j2, kfop, "from")$(s40_transport = 1 or s40_transport = 3) +
-                   v40_tfood(j2, kfop, "to")$(s40_transport = 2 or s40_transport = 3) + 0
+                   sum(urb, v40_tfood(j2, kfop, "from", "urban") +
+                   v40_tfood(j2, kfop, "to", urb)) + 0
                                  ;
 
 q40_transport_feed(j2,kfeed) ..
                       v40_tprod_feed(j2,kfeed)  =e=
-                      vm_prod(j2, kfeed)$(s40_transport = 0) +
-                      v40_tfeed(j2, kfeed, "from")$(s40_transport = 1 or s40_transport = 3) +
-                      v40_tfeed(j2, kfeed, "to")$(s40_transport = 2 or s40_transport = 3) + 0
+                      v40_tfeed(j2, kfeed, "from") +
+                      v40_tfeed(j2, kfeed, "to") + 0
                                   ;
 
 *' urban don't pay to but from
 *' rural pay processed from
 *' rural don't pay any for local food
+
 
 *' urban and rural? use urban and rural share, all production by default rural,
 *' for local urban share one cost factor and transport across regions would satisfy

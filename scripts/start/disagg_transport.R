@@ -26,11 +26,18 @@ cfg$info$flag <- "disaggr_transport2" # choose a meaningful flag.
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
 # start a run with default settings
-cfg$title <- .title("default")
-start_run(cfg, codeCheck = TRUE)
+#cfg$title <- .title("default")
+#start_run(cfg, codeCheck = TRUE)
 
 #transport run
-cfg$gms$transport <- "disaggr"
-cfg$title <- .title("disaggr")
+#cfg$gms$transport <- "disaggr"
+#cfg$title <- .title("disaggr")
+
+#start_run(cfg, codeCheck = TRUE)
+
+
+#off run
+cfg$gms$transport <- "off"
+cfg$title <- .title("off")
 
 start_run(cfg, codeCheck = TRUE)

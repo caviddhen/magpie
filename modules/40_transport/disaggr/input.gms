@@ -4,6 +4,7 @@ s40_pasture_transport_costs  Transport costs for pasture (USD05MER per tDM per m
 
 
 parameters
+
 f40_distance(j) Transport distance to urban center (min)
 /
 $ondelim

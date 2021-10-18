@@ -12,6 +12,7 @@ parameters
   i09_pop_urban_iso(t_all,iso)                        Urban Population (mio. per yr)
   im_pop_urban(t_all,i)                               Urban Population (mio. per yr)
   im_pop_grid(t_all,j)                               Population (mio. per yr)
+  im_pop_urban_grid(t_all,j)                               Population (mio. per yr)
 
 * GDP in MER
   i09_gdp_mer_iso(t_all,iso)                  Income in market exchange rates (mio. USD05MER per yr)

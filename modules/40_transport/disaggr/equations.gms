@@ -36,7 +36,7 @@ q40_feed_liv(j2,kfeed) ..
 q40_transport_food(j2,kfop) ..
                  v40_tprod_food(j2,kfop)  =e=
                    sum(urb, v40_tfood(j2, kfop, "from", "rural") +
-                       v40_tproc(j2, ksd, "from", urb) +
+*'                  v40_tproc(j2, ksd, "from", urb) +
                    v40_tfood(j2, kfop, "to", urb)) + 0
                                  ;
 

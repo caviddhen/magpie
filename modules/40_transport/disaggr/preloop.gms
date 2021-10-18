@@ -1,7 +1,7 @@
 
 
-i40_urban_shr(t_all, j, "urban") = sum(cell(i,j), im_pop_urban(t_all, i) /  im_pop(t_all,i)) ;
-i40_urban_shr(t_all, j, "rural") = sum(cell(i,j), (im_pop(t_all, i) -  im_pop_urban(t_all, i)) / im_pop(t_all,i)) ;
+i40_urban_shr(t_all, j, "urban") = im_pop_urban_grid(t_all, j) / im_pop_grid(t_all,j)) ;
+i40_urban_shr(t_all, j, "rural") = (im_pop_grid(t_all, j) -  im_pop_urban_grid(t_all, j)) / im_pop_grid(t_all,j)) ;
 
 
 

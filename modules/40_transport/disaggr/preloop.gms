@@ -1,7 +1,7 @@
 
 
 i40_urban_shr(t_all, j, "urban") = im_pop_urban_grid(t_all, j) / im_pop_grid(t_all,j)) ;
-i40_urban_shr(t_all, j, "rural") = (im_pop_grid(t_all, j) -  im_pop_urban_grid(t_all, j)) / im_pop_grid(t_all,j)) ;
+i40_urban_shr(t_all, j, "rural") = (im_pop_grid(t_all, j) -  im_pop_urban_grid(t_all, j)) / im_pop_grid(t_all,j) ;
 
 
 

@@ -34,7 +34,7 @@ else
 i09_gdp_mer(t_all,i) = sum(i_to_iso(i,iso),i09_gdp_mer_iso(t_all,iso));
 i09_gdp_ppp(t_all,i) = sum(i_to_iso(i,iso),i09_gdp_ppp_iso(t_all,iso));
 im_pop(t_all,i) = sum(i_to_iso(i,iso),im_pop_iso(t_all,iso));
-im_pop_urban(t_all,i) = sum(i_to_iso(i,iso),i09_pop_urban_iso(t_all,iso));
+i09_pop_urban(t_all,i) = sum(i_to_iso(i,iso),i09_pop_urban_iso(t_all,iso));
 
 * GPD per capita for MAgPIE regions
  im_gdp_pc_mer(t_all,i)$(

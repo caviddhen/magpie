@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "disaggr_transport3" # choose a meaningful flag.
+cfg$info$flag <- "disaggr_transport4" # choose a meaningful flag.
 
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
@@ -33,7 +33,7 @@ start_run(cfg, codeCheck = TRUE)
 cfg$gms$transport <- "disaggr"
 cfg$title <- .title("disaggr")
 
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 
 #off run

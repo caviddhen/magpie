@@ -20,7 +20,11 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "disaggr_transport4" # choose a meaningful flag.
+cfg$info$flag <- "disaggr_transport5" # choose a meaningful flag.
+
+# newly download data
+cfg$force_download <- TRUE
+
 
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))

@@ -6,8 +6,8 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 parameters
- i34_urban_area(t, j)            Cellular urban area
- i34_urban_area_reg(t, i)        Regional urban area
+ i34_urban_area(j)            Cellular urban area
+ i34_urban_area_reg(i)        Regional urban area
 ;
 
 equations

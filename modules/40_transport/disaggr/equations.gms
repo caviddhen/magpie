@@ -21,7 +21,7 @@
 *'				 ;
 
  q40_local_food(j2, k) ..
-               vm_prod(j2, k) - (sum((ct,urb), i40_dem_food_cell(ct,j2, k, urb))  =g=
+               vm_prod(j2, k) - sum((ct,urb), i40_dem_food_cell(ct,j2, k, urb))  =g=
                sum(urb, v40_tfood(j2, k, "from", urb) - v40_tfood(j2, k, "to", urb))
 				 ;
 

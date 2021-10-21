@@ -15,4 +15,4 @@ i34_urban_area(t_all, j) = f34_UrbanLand(t_all, j,"%c09_gdp_scenario%");
 );
 
 * aggregate to regional
-im_urban_area_reg(t_all, i) = sum(cell(i,j), im_urban_area(t_all, j));
+i34_urban_area_reg(t_all, i) = sum(cell(i,j), i34_urban_area(t_all, j));

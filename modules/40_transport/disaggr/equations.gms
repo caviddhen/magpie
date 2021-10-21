@@ -20,15 +20,15 @@
 *'                    sum(urb, v40_tfood(j2, k, "from", urb) - v40_tfood(j2, k, "to", urb))
 *'				 ;
 
- q40_local_food(j2, k) ..
-               vm_prod(j2, k) - sum((ct,urb), i40_dem_food_cell(ct,j2, k, urb))  =g=
-               sum(urb, v40_tfood(j2, k, "from", urb) - v40_tfood(j2, k, "to", urb))
+ q40_local_food(j2, kfop) ..
+               vm_prod(j2, kfop) - sum((ct,urb), i40_dem_food_cell(ct,j2, kfop, urb))  =g=
+               sum(urb, v40_tfood(j2, kfop, "from", urb) - v40_tfood(j2, kfop, "to", urb))
 				 ;
 
   q40_transport_food(j2,k) ..
-                  v40_tcost(j2,k)  =e=
-                    sum(urb, v40_tfood(j2, k, "from", "rural") +
-                   v40_tfood(j2, k, "to", urb)) + 0
+                  v40_tcost(j2,kfop)  =e=
+                    sum(urb, v40_tfood(j2, kfop, "from", "rural") +
+                   v40_tfood(j2, kfop, "to", urb)) + 0
                    ;
 
 q40_cost_transport(j2,k) ..

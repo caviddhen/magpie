@@ -12,11 +12,37 @@
 
 *' Cellular demand has to match production + transportation
 
-q40_local_food(j2, kfop) ..
-                 vm_prod(j2, kfop) =g=
-                    sum(urb, sum(ct,i40_dem_food_cell(ct,j2, kfop, urb)) +
-                     v40_tfood(j2, kfop, "from", urb) - v40_tfood(j2, kfop, "to", urb))
+*' q40_local_food(j2, k) ..
+*'                 vm_prod(j2, k) -
+*'                    (sum((ct,urb), i40_dem_food_cell(ct,j2, k, urb)) +
+*'                    sum(kli,vm_prod(j2,kli) *
+*'                         sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kfeed))))  =g=
+*'                    sum(urb, v40_tfood(j2, k, "from", urb) - v40_tfood(j2, k, "to", urb))
+*'				 ;
+
+ q40_local_food(j2, k) ..
+               vm_prod(j2, k) - (sum((ct,urb), i40_dem_food_cell(ct,j2, k, urb))  =g=
+               sum(urb, v40_tfood(j2, k, "from", urb) - v40_tfood(j2, k, "to", urb))
 				 ;
+
+  q40_transport_food(j2,k) ..
+                  v40_tcost(j2,k)  =e=
+                    sum(urb, v40_tfood(j2, k, "from", "rural") +
+                   v40_tfood(j2, k, "to", urb)) + 0
+                   ;
+
+q40_cost_transport(j2,k) ..
+                 vm_cost_transp(j2,k) =e=
+                 v40_tcost(j2, k)*f40_distance(j2)
+                 * f40_transport_costs(k);
+
+*' When demand is greater it has in a cell both urb and rur have to pay;
+* ' When rural wants to export it has to pay
+
+*' look at shadow price of q40_local_food  vm_prod
+
+*' merge food and feed !!!
+
 *' secondary Products
 
 *' q40_local_proc(j2,ksd) ..
@@ -25,31 +51,21 @@ q40_local_food(j2, kfop) ..
 *'                                                     i40_urban_shr(j, urb) +
 *'                              v40_tproc(j2, ksd, "from", urb) - v40_tproc(j2, ksd, "to", urb))
 *'                            ;
-q40_feed_liv(j2,kfeed) ..
-                vm_prod(j2,kfeed) -  sum(kli,vm_prod(j2,kli)
-               * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kfeed))) =g=
-                 v40_tfeed(j2, kfeed, "from") - v40_tfeed(j2, kfeed, "to")
-                 ;
+*' q40_feed_liv(j2,kfeed) ..
+*'                vm_prod(j2,kfeed) -  sum(kli,vm_prod(j2,kli)
+*'                  * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kfeed))) =g=
+*'                    v40_tfeed(j2, kfeed, "from") - v40_tfeed(j2, kfeed, "to")
+*'                    ;
 
 *' amount counted in transportation costs
 
-q40_transport_food(j2,kfop) ..
-                 v40_tprod_food(j2,kfop)  =e=
-                   sum(urb, v40_tfood(j2, kfop, "from", "rural") +
-*'                  v40_tproc(j2, ksd, "from", urb) +
-                   v40_tfood(j2, kfop, "to", urb)) + 0
-                                 ;
 
-q40_transport_feed(j2,kfeed) ..
-                      v40_tprod_feed(j2,kfeed)  =e=
-                      v40_tfeed(j2, kfeed, "from") +
-                      v40_tfeed(j2, kfeed, "to") + 0
-                                  ;
 
-  q40_cost_transport(j2,k) ..
-                vm_cost_transp(j2,k) =e=
-                (v40_tprod_food(j2, k)+v40_tprod_feed(j2, k))*f40_distance(j2)
-                * f40_transport_costs(k);
+*'   q40_transport_feed(j2,kfeed) ..
+*'                         v40_tprod_feed(j2,kfeed)  =e=
+*'                         v40_tfeed(j2, kfeed, "from") +
+*'                         v40_tfeed(j2, kfeed, "to") + 0
+*'                                     ;
 
 
 *' urban don't pay to but from

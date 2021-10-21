@@ -25,7 +25,7 @@
                sum(urb, v40_tfood(j2, kfop, "from", urb) - v40_tfood(j2, kfop, "to", urb))
 				 ;
 
-  q40_transport_food(j2,k) ..
+  q40_transport_food(j2,kfop) ..
                   v40_tcost(j2,kfop)  =e=
                     sum(urb, v40_tfood(j2, kfop, "from", "rural") +
                    v40_tfood(j2, kfop, "to", urb)) + 0

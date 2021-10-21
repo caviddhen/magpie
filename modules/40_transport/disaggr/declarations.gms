@@ -12,7 +12,7 @@ positive variables
 
 equations
  q40_local_food(j,kfop)                  Local food constraint
- q40_transport_food(j,k)              Determination of transported food production
+ q40_transport_food(j,kfop)              Determination of transported food production
  q40_cost_transport(j,k)   Cellular transport costs for k (mio. USD05MER per yr)
 
 ;

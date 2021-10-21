@@ -6,13 +6,13 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 * get the scenario GDP & Populaiton data for iso countries
-loop(t,
- if(m_year(t) <= sm_fix_SSP2,
-  i34_urban_area(t, j) = f34_UrbanLand_c200(t, j,"SSP2");
+loop(t_all,
+ if(m_year(t_all) <= sm_fix_SSP2,
+  i34_urban_area(t_all, j) = f34_UrbanLand_c200(t_all, j,"SSP2");
 else
-i34_urban_area(t, j) = f34_UrbanLand_c200(j,"%c09_gdp_scenario%");
+i34_urban_area(t_all, j) = f34_UrbanLand_c200(j,"%c09_gdp_scenario%");
  );
 );
 
-* aggregate to regional 
-im_urban_area_reg(t, i) = sum(cell(i,j), im_urban_area(t, j));
+* aggregate to regional
+im_urban_area_reg(t_all, i) = sum(cell(i,j), im_urban_area(t_all, j));

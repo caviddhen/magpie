@@ -5,7 +5,7 @@
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
 
-table f34_UrbanLand(t, j, gdp_scen09)     Urban land
+table f34_UrbanLand(t_all, j, gdp_scen09)     Urban land
 $ondelim
 $include "./modules/34_urban/exo21/input/f34_UrbanLand.cs3"
 $offdelim

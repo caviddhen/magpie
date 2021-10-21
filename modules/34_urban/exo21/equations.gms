@@ -16,4 +16,4 @@ q34_urban_cell(j2) ..
             vm_land(j2,"urban") =l= sum(ct, i34_urban_area(ct, j2));
 
 q34_urban_land(i2) ..
-            sum(cell(i,j), vm_land(i2,"urban")) =e= sum(ct, i34_urban_area_reg(ct, i2));
+            sum(cell(i,j), vm_land(j2,"urban")) =e= sum(ct, i34_urban_area_reg(ct, i2));

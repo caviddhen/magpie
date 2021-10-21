@@ -35,16 +35,3 @@ cfg$gms$landconversion <- "transition_dec20"
 # start a run with default settings
 cfg$title <- .title("on")
 start_run(cfg, codeCheck = TRUE)
-
-#transport run
-cfg$gms$transport <- "disaggr"
-cfg$title <- .title("disaggr")
-
-start_run(cfg, codeCheck = TRUE)
-
-
-#off run
-cfg$gms$transport <- "off"
-cfg$title <- .title("off")
-
-#start_run(cfg, codeCheck = TRUE)

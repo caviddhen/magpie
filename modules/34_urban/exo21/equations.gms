@@ -13,7 +13,7 @@
 *' is multiplied with an annuity factor to distribute these costs over time.
 
 q34_urban_cell(j2) ..
-            vm_land(j2,"urban") =l= i34_urban(j2);
+            vm_land(j2,"urban") =l= sum(ct, i34_urban(ct, j2));
 
 q34_urban_land(i2) ..
-            sum(cell(i,j), vm_land(i2,"urban")) =e= i34_urban_area_reg(i2);
+            sum(cell(i,j), vm_land(i2,"urban")) =e= sum(ct, i34_urban_area_reg(ct, i2));

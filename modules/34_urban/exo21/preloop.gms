@@ -6,39 +6,13 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 * get the scenario GDP & Populaiton data for iso countries
-loop(t_all,
- if(m_year(t_all) <= sm_fix_SSP2,
-  i34_urban_area(j) = f34_UrbanLand_c200(j,"SSP2");
+loop(t,
+ if(m_year(t) <= sm_fix_SSP2,
+  i34_urban_area(t, j) = f34_UrbanLand_c200(t, j,"SSP2");
 else
-i34_urban_area(j) = f34_UrbanLand_c200(j,"%c09_gdp_scenario%");
+i34_urban_area(t, j) = f34_UrbanLand_c200(j,"%c09_gdp_scenario%");
  );
 );
 
-* get the scenario GDP & Populaiton data for MAgPIE regions
-im_urban_area_reg(i) = sum(cell(i,j), im_urban_area(j))
-
-* GPD per capita for MAgPIE regions
- im_gdp_pc_mer(t_all,i)$(
-     sum(i_to_iso(i,iso),
-       im_pop_iso(t_all,iso)
-     ) >0 ) =
-                             sum(i_to_iso(i,iso),
-                               i09_gdp_mer_iso(t_all,iso)
-                             ) / sum(i_to_iso(i,iso),
-                                 im_pop_iso(t_all,iso)
-                             );
-
- i09_gdp_pc_ppp(t_all,i)$(
-     sum(i_to_iso(i,iso),
-       im_pop_iso(t_all,iso)
-     ) >0 ) =
-                             sum(i_to_iso(i,iso),
-                                i09_gdp_ppp_iso(t_all,iso)
-                             ) / sum(i_to_iso(i,iso),
-                                 im_pop_iso(t_all,iso)
-                             );
-
-* GDP per capita for ISO countries
-im_gdp_pc_ppp_iso(t_all,iso)=0;
-im_gdp_pc_ppp_iso(t_all,iso)$(i09_gdp_ppp_iso(t_all,iso)*im_pop_iso(t_all,iso)>0)  = i09_gdp_ppp_iso(t_all,iso)/im_pop_iso(t_all,iso);
-im_gdp_pc_ppp_iso(t_all,iso)$(im_gdp_pc_ppp_iso(t_all,iso)=0) = sum(i_to_iso(i,iso), i09_gdp_pc_ppp(t_all,i));
+* aggregate to regional 
+im_urban_area_reg(t, i) = sum(cell(i,j), im_urban_area(t, j));

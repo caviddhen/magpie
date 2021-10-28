@@ -23,6 +23,4 @@ knonff(kall) non feed non food primary products
 dir direction of transport route
       / from, to /
 
-urb urban rural distinction
-     /urban, rural/
 ;

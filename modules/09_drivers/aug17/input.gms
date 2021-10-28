@@ -41,7 +41,7 @@ $ondelim
 $include "./modules/09_drivers/input/f09_pop_grid.cs3"
 $offdelim;
 
-table f09_pop_urban_grid(t_all,j,pop_scen09) Population (mio. capita per yr)
+table f09_pop_urban_grid(t_all,j,pop_scen09, urb) Population (mio. capita per yr)
 $ondelim
 $include "./modules/09_drivers/input/f09_urbanpop_grid.cs3"
 $offdelim;

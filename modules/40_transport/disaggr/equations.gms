@@ -12,29 +12,28 @@
 
 *' Cellular demand has to match production + transportation
 
-*' q40_local_food(j2, k) ..
-*'                 vm_prod(j2, k) -
-*'                    (sum((ct,urb), i40_dem_food_cell(ct,j2, k, urb)) +
-*'                    sum(kli,vm_prod(j2,kli) *
-*'                         sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kfeed))))  =g=
-*'                    sum(urb, v40_tfood(j2, k, "from", urb) - v40_tfood(j2, k, "to", urb))
-*'				 ;
+*' to is what is imported
+*' from is exported
 
- q40_local_food(j2, kfop) ..
-               vm_prod(j2, kfop) - sum((ct,urb), i40_dem_food_cell(ct,j2, kfop, urb))  =g=
-               sum(urb, v40_tfood(j2, kfop, "from", urb) - v40_tfood(j2, kfop, "to", urb))
+ q40_local_food(j2, kff) ..
+                 vm_prod(j2, kff)  -   sum(urb, v40_tfood(j2, kff, "from", urb) - v40_tfood(j2, kff, "to", urb))
+                    =g=
+                    (sum((ct,urb), i40_dem_food_cell(ct,j2, kff, urb)) +
+                    sum(kli,vm_prod(j2,kli) *
+                         sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kff))))
 				 ;
 
-  q40_transport_food(j2,kfop) ..
-                  v40_tcost(j2,kfop)  =e=
-                    sum(urb, v40_tfood(j2, kfop, "from", "rural") +
-                   v40_tfood(j2, kfop, "to", urb)) + 0
+
+q40_transport_food(j2,kff) ..
+                  v40_amount_charged(j2,kff)  =e=
+                    v40_tfood(j2, kff, "to", "rural") +
+                   sum(urb, v40_tfood(j2, kff, "from", urb)) + 0
                    ;
 
-q40_cost_transport(j2,k) ..
-                 vm_cost_transp(j2,k) =e=
-                 v40_tcost(j2, k)*f40_distance(j2)
-                 * f40_transport_costs(k);
+q40_cost_transport(j2,kff) ..
+                 vm_cost_transp(j2,kff) =e=
+                 v40_amount_charged(j2, kff)*f40_distance(j2)
+                 * f40_transport_costs(kff);
 
 *' When demand is greater it has in a cell both urb and rur have to pay;
 * ' When rural wants to export it has to pay

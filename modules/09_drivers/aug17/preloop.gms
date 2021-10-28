@@ -15,7 +15,7 @@ loop(t_all,
   im_pop_iso(t_all,iso) = f09_pop_iso(t_all,iso,"SSP2");
   i09_pop_urban_iso(t_all,iso) = f09_pop_urban_iso(t_all,iso,"SSP2");
   im_pop_grid(t_all,j) = f09_pop_grid(t_all,j,"SSP2");
-  im_pop_urban_grid(t_all,j) = f09_pop_urban_grid(t_all,j,"SSP2");
+  im_pop_urban_grid(t_all,j) = f09_pop_urban_grid(t_all,j,"SSP2", "urban");
   im_development_state(t_all,i) = f09_development_state(t_all,i,"SSP2");
 else
   im_physical_inactivity(t_all,iso,sex,age) = f09_physical_inactivity(t_all,iso,"%c09_gdp_scenario%",sex,age);

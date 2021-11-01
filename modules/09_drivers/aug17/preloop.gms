@@ -25,7 +25,7 @@ else
   im_pop_iso(t_all,iso) = f09_pop_iso(t_all,iso,"%c09_pop_scenario%");
   i09_pop_urban_iso(t_all,iso) = f09_pop_urban_iso(t_all,iso,"%c09_pop_scenario%");
   im_pop_grid(t_all,j) = f09_pop_grid(t_all,j,"%c09_pop_scenario%");
-  im_pop_urban_grid(t_all,j) = f09_pop_urban_grid(t_all,j,"%c09_pop_scenario%");
+  im_pop_urban_grid(t_all,j) = f09_pop_urban_grid(t_all,j,"%c09_pop_scenario%", "urban");
   im_development_state(t_all,i) = f09_development_state(t_all,i,"%c09_gdp_scenario%");
  );
 );

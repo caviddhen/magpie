@@ -13,6 +13,10 @@ variables
  vm_cost_transp(j,k)      Transportation costs (mio. USD05MER per yr)
 ;
 
+positive variables
+ vm_cost_packaging(j, k)                           packaging cost (mio. USD05MER per yr)
+;
+
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################
 parameters
  ov_cost_transp(t,j,k,type)      Transportation costs (mio. USD05MER per yr)

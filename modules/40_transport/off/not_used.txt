@@ -14,5 +14,4 @@ fm_nutrition_attributes, input, not needed
 pm_kcal_pc_calibrated, input, not needed
 vm_costs_additional_mon, input, not needed
 im_feed_baskets, input, not needed
-vm_cost_packaging, input, not needed
 v40_dem_for_local, input, not needed

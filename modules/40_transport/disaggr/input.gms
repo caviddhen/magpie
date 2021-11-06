@@ -1,5 +1,6 @@
 scalars
 s40_pasture_transport_costs  Transport costs for pasture (USD05MER per tDM per min)     / 0 /
+s40_packaging_costs          Packaging cost add-on for products exported from cluster  / 100 /
 ;
 
 

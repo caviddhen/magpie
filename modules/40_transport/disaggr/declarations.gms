@@ -1,3 +1,7 @@
+scalars
+ s40_packaging_costs                 packaging cost add-on for products exported from cluster
+;
+
 parameters
  i40_urban_shr(t_all, j, urb)                                   urban population share
  i40_dem_food_cell(t, j, k, urb)                          per capita primary food demand within a region by urban pop
@@ -5,6 +9,7 @@ parameters
 
 
 positive variables
+ vm_dem_for_local(j, kff, urb)                      Local food demand (mio. tDM per yr)
  v40_tfood(j, kff, dir, urb)                         Transported food production to or from a cluster (mio. tDM per yr)
  v40_amount_charged(j, k)                              Total transported feed accounted for in transport costs (mio. tDM per yr)
  vm_cost_transp(j,k)                               Transportation costs (mio. USD05MER per yr)

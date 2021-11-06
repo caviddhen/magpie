@@ -15,19 +15,48 @@
 *' to is what is imported
 *' from is exported
 
- q40_local_food(j2, kff) ..
-                 vm_prod(j2, kff)  -   sum(urb, v40_tfood(j2, kff, "from", urb) - v40_tfood(j2, kff, "to", urb))
-                    =g=
-                    (sum((ct,urb), i40_dem_food_cell(ct,j2, kff, urb)) +
-                    sum(kli,vm_prod(j2,kli) *
-                         sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kff))))
-				 ;
+*' local food constraint
+
+q40_local_food(j2, kff) ..
+                vm_prod(j2, kff)
+                   =g=
+                sum(urb,vm_dem_for_local(j2, kff,urb));
+
+*' rural demand
+q40_rural_demand(j2, kff) ..
+                   vm_dem_for_local(j2, kff,"rural")
+                   =e=
+                   sum(ct,
+                          i40_dem_food_cell(ct,j2, kff, "rural"))
+                   sum(kli,vm_prod(j2,kli) *
+                        sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kff))
+                   + v40_tfood(j2, kff, "from", "rural")
+                   - v40_tfood(j2, kff, "to", "rural")
+
+*' urban
+q40_urban_demand(j2, kff) ..
+                   vm_dem_for_local(j2, kff,"urban")
+                   =e=
+                   sum(ct, i40_dem_food_cell(ct,j2, kff, "urban"))
+               + v40_tfood(j2, kff, "from", "urban")
+                                  - v40_tfood(j2, kff, "to", "urban")
+
+        ;
+
+*'  rural population pays receiving, *'  urban population pays receiving *'  rural farmers pay for exporting
 
 
 q40_transport_food(j2,kff) ..
                   v40_amount_charged(j2,kff)  =e=
                     v40_tfood(j2, kff, "to", "rural") +
-                   sum(urb, v40_tfood(j2, kff, "from", urb)) + 0
+                    vm_dem_for_local(j2, kff,"to", "urban") +
+                   v40_tfood(j2, kff, "from", "rural")) + 0
+                   ;
+*' packaging
+q40_packaging_food(j2,kff) ..
+                  vm_cost_packaging(j2,kff)  =e=
+*'  rural farmers pay for exporting
+                   v40_tfood(j2, kff, "from", "rural")) * s40_packaging_costs
                    ;
 
 q40_cost_transport(j2,kff) ..

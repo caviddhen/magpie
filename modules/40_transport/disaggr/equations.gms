@@ -28,8 +28,8 @@ q40_rural_demand(j2, kff) ..
                    =e=
                    sum(ct,
                           i40_dem_food_cell(ct,j2, kff, "rural"))
-                   sum(kli,vm_prod(j2,kli)) *
-                        sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kff))
+                          sum(kli,vm_prod(j2,kli)
+                          * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kfeed)))
                    + v40_tfood(j2, kff, "from", "rural")
                    - v40_tfood(j2, kff, "to", "rural")
 
@@ -55,8 +55,7 @@ q40_transport_food(j2,kff) ..
 *' packaging
 q40_packaging_food(j2,kff) ..
                   vm_cost_packaging(j2,kff)  =e=
-*'  rural farmers pay for exporting
-                   v40_tfood(j2, kff, "from", "rural")) * s40_packaging_costs
+                   v40_tfood(j2, kff, "from", "rural") * s40_packaging_costs
                    ;
 
 q40_cost_transport(j2,kff) ..

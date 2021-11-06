@@ -31,7 +31,7 @@ cfg$force_download <- TRUE
 
 # start a run with default settings
 cfg$title <- .title("default")
-start_run(cfg, codeCheck = TRUE)
+#start_run(cfg, codeCheck = TRUE)
 
 #transport run
 cfg$gms$transport <- "disaggr"
@@ -44,4 +44,4 @@ start_run(cfg, codeCheck = TRUE)
 cfg$gms$transport <- "off"
 cfg$title <- .title("off")
 
-start_run(cfg, codeCheck = TRUE)
+#start_run(cfg, codeCheck = TRUE)

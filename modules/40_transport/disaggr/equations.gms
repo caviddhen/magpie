@@ -24,7 +24,7 @@ q40_local_food(j2, kff) ..
 
 *' rural demand
 q40_rural_demand(j2, kff) ..
-                   sum(dir, v40_dem_for_local(j2, kff,dir, "rural"))
+                   v40_dem_for_local(j2, kff, "rural")
                    =e=
                    sum(ct,
                           i40_dem_food_cell(ct,j2, kff, "rural")) +
@@ -36,7 +36,7 @@ q40_rural_demand(j2, kff) ..
 
 *' urban
 q40_urban_demand(j2, kff) ..
-                   sum(dir, v40_dem_for_local(j2, kff, dir, "urban"))
+                   v40_dem_for_local(j2, kff, "urban")
                    =e=
                    sum(ct, i40_dem_food_cell(ct,j2, kff, "urban"))
                + v40_tfood(j2, kff, "from", "urban")
@@ -50,7 +50,7 @@ q40_urban_demand(j2, kff) ..
 q40_transport_food(j2,kff) ..
                   v40_amount_charged(j2,kff)  =e=
                     v40_tfood(j2, kff, "to", "rural") +
-                    v40_dem_for_local(j2, kff,"to", "urban") +
+                    v40_tfood(j2, kff,"to", "urban") +
                    v40_tfood(j2, kff, "from", "rural") + 0
                    ;
 *' packaging

@@ -23,7 +23,7 @@ source("config/default.cfg")
 cfg$info$flag <- "disaggr_transport_NEW" # choose a meaningful flag.
 
 # newly download data
-cfg$force_download <- FALSE
+cfg$force_download <- TRUE
 
 
 # support function to create standardized title

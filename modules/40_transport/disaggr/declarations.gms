@@ -21,7 +21,6 @@ equations
  q40_rural_demand(j, kff)               Rural food demand
  q40_urban_demand(j, kff)               Urban food demand
  q40_packaging_food(j, kff)               Additional packing costs equation
- q40_transport_food(j,kff)              Determination of transported food production
  q40_cost_transport(j,k)   Cellular transport costs for k (mio. USD05MER per yr)
 
 ;

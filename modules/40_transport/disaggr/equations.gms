@@ -21,7 +21,7 @@
 q40_local_food(j2, kff) ..
                 vm_prod(j2, kff)
                    =g=
-                sum(urb, v40_dem_for_local(j2, kff, urb);
+                sum(urb, v40_dem_for_local(j2, kff, urb));
 
 *' rural demand
 q40_rural_demand(j2, kff) ..
@@ -55,7 +55,7 @@ q40_cost_transport(j2,kff) ..
                 ( vm_prod(j2,kff)
                     - v40_dem_for_local(j2, kff, "rural")
                     + v40_tfood(j2, kff, "to", "rural")  )
-                                          * f40_distance(j2) * f40_transport_costs(k);
+                                          * f40_distance(j2) * f40_transport_costs(kff);
 
 
 

@@ -17,10 +17,11 @@
 
 *' local food constraint
 
+
 q40_local_food(j2, kff) ..
                 vm_prod(j2, kff)
                    =g=
-                sum((dir,urb), v40_dem_for_local(j2, kff,dir, urb));
+                sum(urb, v40_dem_for_local(j2, kff, urb);
 
 *' rural demand
 q40_rural_demand(j2, kff) ..
@@ -33,7 +34,6 @@ q40_rural_demand(j2, kff) ..
                    - v40_tfood(j2, kff, "to", "rural")
                    ;
 
-
 *' urban
 q40_urban_demand(j2, kff) ..
                    v40_dem_for_local(j2, kff, "urban")
@@ -41,28 +41,23 @@ q40_urban_demand(j2, kff) ..
                    sum(ct, i40_dem_food_cell(ct,j2, kff, "urban"))
                + v40_tfood(j2, kff, "from", "urban")
                                   - v40_tfood(j2, kff, "to", "urban")
-
         ;
 
-*'  rural population pays receiving, *'  urban population pays receiving *'  rural farmers pay for exporting
-
-
-q40_transport_food(j2,kff) ..
-                  v40_amount_charged(j2,kff)  =e=
-                    v40_tfood(j2, kff, "to", "rural") +
-                    v40_tfood(j2, kff,"to", "urban") +
-                   v40_tfood(j2, kff, "from", "rural") + 0
-                   ;
 *' packaging
 q40_packaging_food(j2,kff) ..
                   vm_cost_packaging(j2,kff)  =e=
-                   v40_tfood(j2, kff, "from", "rural") * s40_packaging_costs
+                   (vm_prod(j2, kff) - sum(urb, v40_dem_for_local(j2,kff,urb))) * s40_packaging_costs
                    ;
 
+*' transport costs for everything except for local rural demand. Transport to rural gets extra transport cost
 q40_cost_transport(j2,kff) ..
                  vm_cost_transp(j2,kff) =e=
-                 v40_amount_charged(j2, kff)*f40_distance(j2)
-                 * f40_transport_costs(kff);
+                ( vm_prod(j2,kff)
+                    - v40_dem_for_local(j2, kff, "rural")
+                    + v40_tfood(j2, kff, "to", "rural")  )
+                                          * f40_distance(j2) * f40_transport_costs(k);
+
+
 
 *' When demand is greater it has in a cell both urb and rur have to pay;
 * ' When rural wants to export it has to pay

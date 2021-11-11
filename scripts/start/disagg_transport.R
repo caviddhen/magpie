@@ -34,12 +34,12 @@ cfg$title <- .title("default")
 #start_run(cfg, codeCheck = TRUE)
 
 #transport run
-#cfg$gms$transport <- "disaggr"
-#cfg$gms$disagg_lvst <- "off"
+cfg$gms$transport <- "disaggr"
+cfg$gms$disagg_lvst <- "off"
 
-#cfg$title <- .title("disaggr")
+cfg$title <- .title("disaggr")
 
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 
 #off run

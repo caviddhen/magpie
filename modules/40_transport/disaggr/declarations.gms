@@ -22,7 +22,6 @@ equations
  q40_urban_demand(j, kff)               Urban food demand
  q40_packaging_food(j, kff)               Additional packing costs equation
  q40_cost_transport(j,k)   Cellular transport costs for k (mio. USD05MER per yr)
-
 ;
 
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################

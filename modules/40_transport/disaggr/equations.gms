@@ -58,7 +58,7 @@ q40_cost_transport_prim(j2,k) ..
                 ( vm_prod(j2, k)
                     - v40_dem_for_local(j2, k, "rural")
                     + v40_tfood(j2, k, "to", "rural"))
-                                          * f40_distance(j2) * s40_transport_cost_scalar * fm_attributes("wm", k) f40_transport_costs(k);
+                                          * f40_distance(j2) * s40_transport_cost_scalar * fm_attributes("wm", k) ;
 
   q40_cost_transport_ksd(j2,ksd) ..
                                    vm_cost_transp(j2, ksd) =g=

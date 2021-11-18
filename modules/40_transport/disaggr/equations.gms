@@ -18,45 +18,54 @@
 *' local food constraint
 
 
-q40_local_food(j2, kff) ..
-                vm_prod(j2, kff)
+q40_local_food(j2, k) ..
+                vm_prod(j2, k)
                    =g=
-                sum(urb, v40_dem_for_local(j2, kff, urb));
+                sum(urb, v40_dem_for_local(j2, k, urb));
+
+
+*'@@@@##################### put everything over k
 
 *' rural demand
-q40_rural_demand(j2, kff) ..
-                   v40_dem_for_local(j2, kff, "rural")
+q40_rural_demand(j2, k) ..
+                   v40_dem_for_local(j2, k, "rural")
                    =g=
                    sum(ct,
-                          i40_dem_food_cell(ct,j2, kff, "rural")) +
-                          sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,kff)))
-                   + v40_tfood(j2, kff, "from", "rural")
-                   - v40_tfood(j2, kff, "to", "rural")
+                          i40_dem_food_cell(ct,j2, k, "rural")) +
+                          sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k)))
+                   + v40_tfood(j2, k, "from", "rural")
+                   - v40_tfood(j2, k, "to", "rural")
                    ;
 
 *' urban
-q40_urban_demand(j2, kff) ..
-                   v40_dem_for_local(j2, kff, "urban")
+q40_urban_demand(j2, k) ..
+                   v40_dem_for_local(j2, k, "urban")
                    =g=
-                   sum(ct, i40_dem_food_cell(ct,j2, kff, "urban"))
-               + v40_tfood(j2, kff, "from", "urban")
-                                  - v40_tfood(j2, kff, "to", "urban")
+                   sum(ct, i40_dem_food_cell(ct,j2, k, "urban"))
+               + v40_tfood(j2, k, "from", "urban")
+                                  - v40_tfood(j2, k, "to", "urban")
         ;
 
 *' packaging
-q40_packaging_food(j2,kff) ..
-                  vm_cost_packaging(j2,kff)  =g=
-                   (vm_prod(j2, kff) - sum(urb, v40_dem_for_local(j2,kff,urb))) * s40_packaging_costs
+q40_packaging_food(j2,k) ..
+                  vm_cost_packaging(j2,k)  =g=
+                   (vm_prod(j2, k) - sum(urb, v40_dem_for_local(j2,k,urb))) * s40_packaging_costs
                    ;
 
 *' transport costs for everything except for local rural demand. Transport to rural gets extra transport cost
-q40_cost_transport(j2,kff) ..
-                 vm_cost_transp(j2,kff) =g=
-                ( vm_prod(j2,kff)
-                    - v40_dem_for_local(j2, kff, "rural")
-                    + v40_tfood(j2, kff, "to", "rural")  )
-                                          * f40_distance(j2) * f40_transport_costs(kff);
+q40_cost_transport_prim(j2,k) ..
+                 vm_cost_transp(j2, k) =g=
+                ( vm_prod(j2, k)
+                    - v40_dem_for_local(j2, k, "rural")
+                    + v40_tfood(j2, k, "to", "rural"))
+                                          * f40_distance(j2) * s40_transport_cost_scalar * fm_attributes("wm", k) f40_transport_costs(k);
 
+  q40_cost_transport_ksd(j2,ksd) ..
+                                   vm_cost_transp(j2, ksd) =g=
+                                   sum(ct,
+                                    i40_dem_food_cell(ct,j2, ksd, "rural")) +
+                                    sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k)))
+                                        * f40_distance(j2) * s40_transport_cost_scalar * fm_attributes("wm", ksd) ;
 
 
 *' When demand is greater it has in a cell both urb and rur have to pay;

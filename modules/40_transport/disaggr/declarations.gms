@@ -1,26 +1,29 @@
 scalars
  s40_packaging_costs                 packaging cost add-on for products exported from cluster
+ s40_transport_cost_scalar
 ;
 
 parameters
  i40_urban_shr(t_all, j, urb)                                   urban population share
- i40_dem_food_cell(t, j, k, urb)                          per capita primary food demand within a region by urban pop
+ i40_dem_food_cell(t, j, kall, urb)                          per capita primary food demand within a region by urban pop
 ;
 
 
 positive variables
- v40_dem_for_local(j, kff, urb)                      Local food demand (mio. tDM per yr)
- v40_tfood(j, kff, dir, urb)                         Transported food production to or from a cluster (mio. tDM per yr)
- vm_cost_transp(j,k)                               Transportation costs (mio. USD05MER per yr)
+ v40_dem_for_local(j, k, urb)                      Local food demand (mio. tDM per yr)
+ v40_tfood(j, k, dir, urb)                         Transported food production to or from a cluster (mio. tDM per yr)
+ vm_cost_transp(j, kall)                               Transportation costs (mio. USD05MER per yr)
  vm_cost_packaging(j, k)                           packaging cost (mio. USD05MER per yr)
 ;
 
 equations
- q40_local_food(j,kff)                  Local food constraint
- q40_rural_demand(j, kff)               Rural food demand
- q40_urban_demand(j, kff)               Urban food demand
- q40_packaging_food(j, kff)               Additional packing costs equation
- q40_cost_transport(j,k)   Cellular transport costs for k (mio. USD05MER per yr)
+ q40_local_food(j, k)                  Local food constraint
+ q40_rural_demand(j, k)               Rural food demand
+ q40_urban_demand(j, k)               Urban food demand
+ q40_packaging_food(j, k)               Additional packing costs equation
+ q40_cost_transport_prim(j, k)   Cellular transport costs for k (mio. USD05MER per yr)
+ q40_cost_transport_ksd(j, ksd)   Cellular transport costs for k (mio. USD05MER per yr)
+
 ;
 
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################

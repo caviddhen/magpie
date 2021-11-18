@@ -64,7 +64,7 @@ q40_cost_transport_prim(j2,k) ..
                                    vm_cost_transp(j2, ksd) =g=
                                    sum(ct,
                                     i40_dem_food_cell(ct,j2, ksd, "rural")) +
-                                    sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k)))
+                                    sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,ksd)))
                                         * f40_distance(j2) * s40_transport_cost_scalar * fm_attributes("wm", ksd) ;
 
 

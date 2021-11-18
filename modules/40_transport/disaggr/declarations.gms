@@ -1,6 +1,6 @@
 scalars
  s40_packaging_costs                 packaging cost add-on for products exported from cluster
- s40_transport_cost_scalar
+ s40_transport_cost_scalar           transport cost scalar based on GTAP wheat price
 ;
 
 parameters

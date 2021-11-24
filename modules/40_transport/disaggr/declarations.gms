@@ -11,7 +11,7 @@ parameters
 
 positive variables
  v40_dem_for_local(j, k, urb)                      Local food demand (mio. tDM per yr)
- v40_tfood(j, k, dir, urb)                         Transported food production to or from a cluster (mio. tDM per yr)
+ v40_cell_import(j, k, urb)                         Transported food production to or from a cluster (mio. tDM per yr)
  vm_cost_transp(j, kall)                               Transportation costs (mio. USD05MER per yr)
  vm_cost_packaging(j, k)                           packaging cost (mio. USD05MER per yr)
 ;

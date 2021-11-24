@@ -29,27 +29,27 @@ q40_local_food(j2, k) ..
 *' rural demand
 q40_rural_demand(j2, k) ..
                    v40_dem_for_local(j2, k, "rural")
-                   =g=
+                   =e=
                    sum(ct,
                           i40_dem_food_cell(ct,j2, k, "rural")) +
                           sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k)))
-                   + v40_tfood(j2, k, "from", "rural")
+*'                   + v40_tfood(j2, k, "from", "rural")
                    - v40_tfood(j2, k, "to", "rural")
                    ;
 
 *' urban
 q40_urban_demand(j2, k) ..
                    v40_dem_for_local(j2, k, "urban")
-                   =g=
+                   =e=
                    sum(ct, i40_dem_food_cell(ct,j2, k, "urban"))
-               + v40_tfood(j2, k, "from", "urban")
-                                  - v40_tfood(j2, k, "to", "urban")
+*'                + v40_tfood(j2, k, "from", "urban")
+                 - v40_tfood(j2, k, "to", "urban")
         ;
 
 *' packaging
 q40_packaging_food(j2,k) ..
                   vm_cost_packaging(j2,k)  =g=
-                   (vm_prod(j2, k) - sum(urb, v40_dem_for_local(j2,k,urb))) * s40_packaging_costs
+               (vm_prod(j2, k) - sum(urb, v40_dem_for_local(j2,k,urb))) * s40_packaging_costs
                    ;
 
 *' transport costs for everything except for local rural demand. Transport to rural gets extra transport cost
@@ -57,7 +57,7 @@ q40_cost_transport_prim(j2,k) ..
                  vm_cost_transp(j2, k) =g=
                 ( vm_prod(j2, k)
                     - v40_dem_for_local(j2, k, "rural")
-                    + v40_tfood(j2, k, "to", "rural"))
+                    + v40_tfood(j2, k, "to", "rural") )
                                           * f40_distance(j2) * s40_transport_cost_scalar * fm_attributes("wm", k) ;
 
   q40_cost_transport_ksd(j2,ksd) ..

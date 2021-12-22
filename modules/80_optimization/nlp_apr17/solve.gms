@@ -58,7 +58,7 @@ if(magpie.modelstat > 2 OR magpie.numNOpt > s80_num_nonopt_allowed,
 		   	magpie.optfile = 2;
 	       	solve magpie USING nlp MINIMIZING vm_cost_glo;
 	       	magpie.optfile   = s80_optfile;
-		else	
+		else
 			display "Modelstat > 2 | Retry solve with CONOPT3";
 			option nlp = conopt;
 			solve magpie USING nlp MINIMIZING vm_cost_glo;

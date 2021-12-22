@@ -33,7 +33,6 @@ q40_rural_demand(j2, k) ..
                    sum(ct,
                           i40_dem_food_cell(ct,j2, k, "rural")) +
                           sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k)))
-*'                   + v40_tfood(j2, k, "from", "rural")
                    - v40_cell_import(j2, k, "rural")
                    ;
 
@@ -42,7 +41,6 @@ q40_urban_demand(j2, k) ..
                    v40_dem_for_local(j2, k, "urban")
                    =e=
                    sum(ct, i40_dem_food_cell(ct,j2, k, "urban"))
-*'                + v40_tfood(j2, k, "from", "urban")
                  - v40_cell_import(j2, k, "urban")
         ;
 

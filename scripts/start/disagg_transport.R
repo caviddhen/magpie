@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "disaggr_transport_FourFour" # choose a meaningful flag.
+cfg$info$flag <- "disaggr_transport_FourFour1" # choose a meaningful flag.
 
 # newly download data
 cfg$force_download <- TRUE

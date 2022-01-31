@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "disaggr_transport_FourFour1" # choose a meaningful flag.
+cfg$info$flag <- "disaggr_transport_latest_develop" # choose a meaningful flag.
 
 # newly download data
 cfg$force_download <- TRUE
@@ -34,18 +34,13 @@ cfg$title <- .title("default")
 start_run(cfg, codeCheck = TRUE)
 
 #transport run
-#cfg$gms$transport <- "disaggr"
-#cfg$gms$disagg_lvst <- "off"
+cfg$gms$transport <- "disaggr"
+cfg$gms$disagg_lvst <- "off"
 
-#cfg$title <- .title("disaggr")
+cfg$title <- .title("disaggr_highpckg")
 
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
-
-#off run
-cfg$gms$transport <- "off"
-cfg$gms$disagg_lvst <- "foragebased_aug18"
-
-cfg$title <- .title("off")
-
+cfg$gms$s40_packaging_costs <- 100
+cfg$title <- .title("disaggr_lowpckg")
 start_run(cfg, codeCheck = TRUE)

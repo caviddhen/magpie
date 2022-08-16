@@ -28,15 +28,15 @@ equations
 
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################
 parameters
- ov40_tfood(t,j,kfop,dir,urb,type)   Transported food production to or from a cluster (mio. tDM per yr)
- ov40_tfeed(t,j,kfeed,dir,type)      Transported processed food to or from a cluster (mio. tDM per yr)
- ov40_tprod_food(t,j,k,type)         Total transported food accounted for in transport costs (mio. tDM per yr)
- ov40_tprod_feed(t,j,k,type)         Total transported feed accounted for in transport costs (mio. tDM per yr)
- ov_cost_transp(t,j,k,type)          Transportation costs (mio. USD05MER per yr)
- oq40_local_food(t,j,kfop,type)      Local food constraint
- oq40_feed_liv(t,j,kfeed,type)       Production constraint for livestock products (mio. tDM per yr)
- oq40_transport_food(t,j,kfop,type)  Determination of transported food production
- oq40_transport_feed(t,j,kfeed,type) Determination of transported feed production
- oq40_cost_transport(t,j,k,type)     Cellular transport costs for k (mio. USD05MER per yr)
+ ov40_dem_for_local(t,j,k,urb,type)    Local food demand (mio. tDM per yr)
+ ov40_cell_import(t,j,k,urb,type)      Transported food production to or from a cluster (mio. tDM per yr)
+ ov_cost_transp(t,j,kall,type)         Transportation costs (mio. USD05MER per yr)
+ ov_cost_packaging(t,j,k,type)         packaging cost (mio. USD05MER per yr)
+ oq40_local_food(t,j,k,type)           Local food constraint
+ oq40_rural_demand(t,j,k,type)         Rural food demand
+ oq40_urban_demand(t,j,k,type)         Urban food demand
+ oq40_packaging_food(t,j,k,type)       Additional packing costs equation
+ oq40_cost_transport_prim(t,j,k,type)  Cellular transport costs for k (mio. USD05MER per yr)
+ oq40_cost_transport_ksd(t,j,ksd,type) Cellular transport costs for k (mio. USD05MER per yr)
 ;
 *##################### R SECTION END (OUTPUT DECLARATIONS) #####################

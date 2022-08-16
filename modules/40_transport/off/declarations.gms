@@ -15,6 +15,7 @@ positive variables
 ;
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################
 parameters
- ov_cost_transp(t,j,k,type) Transportation costs (mio. USD05MER)
+ ov_cost_transp(t,j,k,type)    Transportation costs (mio. USD05MER)
+ ov_cost_packaging(t,j,k,type) packaging cost (mio. USD05MER per yr)
 ;
 *##################### R SECTION END (OUTPUT DECLARATIONS) #####################

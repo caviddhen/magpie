@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "disaggr_transport_latest_develop" # choose a meaningful flag.
+cfg$info$flag <- "disaggr_0costs" # choose a meaningful flag.
 
 # newly download data
 cfg$force_download <- TRUE
@@ -29,18 +29,10 @@ cfg$force_download <- TRUE
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
-# start a run with default settings
-cfg$title <- .title("default")
-start_run(cfg, codeCheck = TRUE)
-
 #transport run
 cfg$gms$transport <- "disaggr"
 cfg$gms$disagg_lvst <- "off"
 
-cfg$title <- .title("disaggr_highpckg")
+cfg$title <- .title("disaggr_0transp0pckg")
 
-start_run(cfg, codeCheck = TRUE)
-
-cfg$gms$s40_packaging_costs <- 100
-cfg$title <- .title("disaggr_lowpckg")
 start_run(cfg, codeCheck = TRUE)

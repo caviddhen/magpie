@@ -187,6 +187,7 @@ $title magpie
 * * Input resolution: 0.5
 * * Output resolution: c200
 * * Regionscode: 62eff8f7
+<<<<<<< HEAD
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 *
 * Warning message:
@@ -194,6 +195,13 @@ $title magpie
 *
 * Last modification (input data): Tue Jul  5 14:20:37 2022
 *
+=======
+* * Call: do.call(functiononly, args)
+* 
+* 
+* Last modification (input data): Mon Feb 14 11:39:57 2022
+* 
+>>>>>>> f_transport_disagg
 *###################### R SECTION END (VERSION INFO) ###########################
 
 $offupper
@@ -218,7 +226,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  default
+$setglobal c_title  disaggr_nourb_disaggr_simple01
 
 scalars
 s_use_gdx   use of gdx files                                       / 2 /
@@ -259,7 +267,7 @@ $setglobal labor_prod  off
 $setglobal factor_costs  per_ton_fao_may22
 $setglobal landconversion  calib
 
-$setglobal transport  gtap_nov12
+$setglobal transport  disaggr
 $setglobal area_equipped_for_irrigation  endo_apr13
 $setglobal water_demand  all_sectors_aug13
 $setglobal water_availability  total_water_aug13
@@ -281,7 +289,7 @@ $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  foragebased_aug18
+$setglobal disagg_lvst  off
 
 $setglobal timber  default
 

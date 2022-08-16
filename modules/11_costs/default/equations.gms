@@ -40,6 +40,7 @@
                    + sum(cell(i2,j2),vm_cost_bv_loss(j2))
                    + sum(cell(i2,j2),vm_cost_urban(j2))
                    + sum(cell(i2,j2),vm_water_cost(i2))
+                   + sum((cell(i2,j2),k), vm_cost_packaging(j2,k)) 
 ;
 
 *' The total regional production cost calculation is based on the sum of different

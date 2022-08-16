@@ -35,4 +35,6 @@ sets
        SSP4        . (SSP4)
        SSP5        . (SSP5)
        /
+   urb Urban rural distinction
+            /urban, rural/
 ;

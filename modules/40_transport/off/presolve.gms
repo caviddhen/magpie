@@ -7,3 +7,4 @@
 
 
 vm_cost_transp.fx(j,k) = 0;
+vm_cost_packaging.fx(j,k) = 0;

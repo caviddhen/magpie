@@ -7,9 +7,13 @@
 
 
 *#################### R SECTION START (OUTPUT DEFINITIONS) #####################
- ov_cost_transp(t,j,k,"marginal") = vm_cost_transp.m(j,k);
- ov_cost_transp(t,j,k,"level")    = vm_cost_transp.l(j,k);
- ov_cost_transp(t,j,k,"upper")    = vm_cost_transp.up(j,k);
- ov_cost_transp(t,j,k,"lower")    = vm_cost_transp.lo(j,k);
+ ov_cost_transp(t,j,k,"marginal")    = vm_cost_transp.m(j,k);
+ ov_cost_packaging(t,j,k,"marginal") = vm_cost_packaging.m(j,k);
+ ov_cost_transp(t,j,k,"level")       = vm_cost_transp.l(j,k);
+ ov_cost_packaging(t,j,k,"level")    = vm_cost_packaging.l(j,k);
+ ov_cost_transp(t,j,k,"upper")       = vm_cost_transp.up(j,k);
+ ov_cost_packaging(t,j,k,"upper")    = vm_cost_packaging.up(j,k);
+ ov_cost_transp(t,j,k,"lower")       = vm_cost_transp.lo(j,k);
+ ov_cost_packaging(t,j,k,"lower")    = vm_cost_packaging.lo(j,k);
 *##################### R SECTION END (OUTPUT DEFINITIONS) ######################
 

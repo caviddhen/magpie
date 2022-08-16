@@ -34,7 +34,22 @@ $ondelim
 $include "./modules/09_drivers/input/f09_pop_iso.csv"
 $offdelim;
 
-table f09_development_state(t_all,i,pop_gdp_scen09) Development state according to the World Bank definition where 0=low income country 1=high income country in high income level (1)
+table f09_pop_urban_iso(t_all,iso,pop_scen09) urban Population (mio. capita per yr)
+$ondelim
+$include "./modules/09_drivers/input/f09_urban_iso.csv"
+$offdelim;
+
+table f09_pop_grid(t_all,j,pop_scen09) Population (mio. capita per yr)
+$ondelim
+$include "./modules/09_drivers/input/f09_pop_grid.cs3"
+$offdelim;
+
+table f09_pop_urban_grid(t_all,j,pop_scen09, urb) Population (mio. capita per yr)
+$ondelim
+$include "./modules/09_drivers/input/f09_urbanpop_grid.cs3"
+$offdelim;
+
+table f09_development_state(t_all,i,gdp_scen09) Development state according to the World Bank definition where 0=low income country 1=high income country in high income level (1)
 $ondelim
 $include "./modules/09_drivers/input/f09_development_state.cs3"
 $offdelim;

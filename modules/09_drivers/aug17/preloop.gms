@@ -42,6 +42,9 @@ loop(t_all,
   im_gdp_pc_mer(t_all,i) = i09_gdp_pc_mer_raw(t_all,i,"SSP2");
   im_gdp_pc_mer_iso(t_all,iso) = i09_gdp_pc_mer_iso_raw(t_all,iso,"SSP2");
   im_gdp_pc_ppp_iso(t_all,iso) = i09_gdp_pc_ppp_iso_raw(t_all,iso,"SSP2");
+  i09_pop_urban_iso(t_all,iso) = f09_pop_urban_iso(t_all,iso,"SSP2");
+  im_pop_grid(t_all,j) = f09_pop_grid(t_all,j,"SSP2");
+  im_pop_urban_grid(t_all,j) = f09_pop_urban_grid(t_all,j,"SSP2", "urban");
   im_development_state(t_all,i) = f09_development_state(t_all,i,"SSP2");
 else
   im_physical_inactivity(t_all,iso,sex,age) = f09_physical_inactivity(t_all,iso,"%c09_pal_scenario%",sex,age);
@@ -51,6 +54,9 @@ else
   im_gdp_pc_mer(t_all,i) = i09_gdp_pc_mer_raw(t_all,i,"%c09_gdp_scenario%");
   im_gdp_pc_mer_iso(t_all,iso) = i09_gdp_pc_mer_iso_raw(t_all,iso,"%c09_gdp_scenario%");
   im_gdp_pc_ppp_iso(t_all,iso) = i09_gdp_pc_ppp_iso_raw(t_all,iso,"%c09_gdp_scenario%");
+  i09_pop_urban_iso(t_all,iso) = f09_pop_urban_iso(t_all,iso,"%c09_pop_scenario%");
+  im_pop_grid(t_all,j) = f09_pop_grid(t_all,j,"%c09_pop_scenario%");
+  im_pop_urban_grid(t_all,j) = f09_pop_urban_grid(t_all,j,"%c09_pop_scenario%", "urban");
   im_development_state(t_all,i) = f09_development_state(t_all,i,"%c09_gdp_scenario%");
  );
 );
@@ -58,3 +64,6 @@ else
 * Calculate GDP from p.c. GDP and population of previously selected scenarios
 i09_gdp_mer_iso(t_all,iso) = im_gdp_pc_mer_iso(t_all,iso) * im_pop_iso(t_all,iso);
 i09_gdp_ppp_iso(t_all,iso) = im_gdp_pc_ppp_iso(t_all,iso) * im_pop_iso(t_all,iso);
+
+* get the urban Populaiton data for MAgPIE regions
+i09_pop_urban(t_all,i) = sum(i_to_iso(i,iso),i09_pop_urban_iso(t_all,iso));

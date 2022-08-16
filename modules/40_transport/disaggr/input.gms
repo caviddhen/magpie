@@ -1,6 +1,6 @@
 scalars
 s40_pasture_transport_costs  Transport costs for pasture (USD05MER per tDM per min)          / 0 /
-s40_packaging_costs          Packaging cost add-on for products exported from cluster        / 0 /
+s40_packaging_costs          Packaging cost add-on for products exported from cluster        / 10 /
 s40_transport_cost_scalar     Transport costs scalar based on GTAP wheat (USD05MER per tDM)  / 0 /
 ;
 

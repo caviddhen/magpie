@@ -134,7 +134,7 @@ runOutputs <- function(comp=NULL, output=NULL, outputdir=NULL, submit=NULL) {
       for(outputdir in loop) {
         message("\n# ",name, " -> ", outputdir)
         r_command <- paste0("Rscript output.R outputdir=",paste(outputdir,collapse=","),"  output=",rout," submit=direct")
-        sbatch_command <- paste0("sbatch --job-name=scripts-output --output=log_out-%j.out --error=log_out-%j.err --mail-type=END --time=200 --mem-per-cpu=8000 --wrap=\"",r_command,"\"")
+        sbatch_command <- paste0("sbatch --job-name=scripts-output --output=log_out-%j.out --error=log_out-%j.err --mail-type=END --time=1200 --mem-per-cpu=8000 --wrap=\"",r_command,"\"") 
         if(submit=="direct") {
           tmp.env <- new.env()
           tmp.error <- try(sys.source(script,envir=tmp.env))

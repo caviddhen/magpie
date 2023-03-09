@@ -112,6 +112,12 @@ highres <- function(cfg) {
   #download input files with high resolution
   download_and_update(cfg)
 
+  #make sure force download in original base run to false
+  cfg$force_download <- FALSE
+  cfg$recalibrate <- "ifneeded" 
+  cfg$recalibrate_landconversion_cost <- "ifneeded" #def "ifneeded"
+
+
   #set title
   cfg$title <- paste0("HR_",cfg$title)
   cfg$results_folder <- "output/:title:"

@@ -150,8 +150,8 @@ $title magpie
 * md5sum: 5aa1cfaae8de7adf4c682937fde7ce0f
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.75_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: 2f10f81a8934d5b402b1db08e8718646
+* Used data set: rev4.75_h12_99f75e90_cellularmagpie_c2000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 3e43d6e53533c2b7fa0330b6c9f7a7dc
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: rev4.75_h12_validation.tgz
@@ -166,14 +166,14 @@ $title magpie
 * md5sum: f6bf26be99c5dbd29e13a38af38c0d31
 * Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Low resolution: c200
+* Low resolution: c2000
 * High resolution: 0.5
 * 
-* Total number of cells: 200
+* Total number of cells: 2000
 * 
 * Number of cells per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     6   23    7    6    1   43   27    7   11   12   37   20
+*    81  186   85   66    4  471  252   64  145   86  378  182
 * 
 * Regionscode: 62eff8f7
 * 
@@ -185,28 +185,24 @@ $title magpie
 * 
 * aggregation settings:
 * * Input resolution: 0.5
-* * Output resolution: c200
+* * Output resolution: c2000
 * * Regionscode: 62eff8f7
-* * Cluster distribution: CAZ (6)
-* * Cluster distribution: CHA (23)
-* * Cluster distribution: EUR (7)
-* * Cluster distribution: IND (6)
-* * Cluster distribution: JPN (1)
-* * Cluster distribution: LAM (43)
-* * Cluster distribution: MEA (27)
-* * Cluster distribution: NEU (7)
-* * Cluster distribution: OAS (11)
-* * Cluster distribution: REF (12)
-* * Cluster distribution: SSA (37)
-* * Cluster distribution: USA (20)
+* * Cluster distribution: CAZ (81)
+* * Cluster distribution: CHA (186)
+* * Cluster distribution: EUR (85)
+* * Cluster distribution: IND (66)
+* * Cluster distribution: JPN (4)
+* * Cluster distribution: LAM (471)
+* * Cluster distribution: MEA (252)
+* * Cluster distribution: NEU (64)
+* * Cluster distribution: OAS (145)
+* * Cluster distribution: REF (86)
+* * Cluster distribution: SSA (378)
+* * Cluster distribution: USA (182)
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
-* Warning messages:
-* 1: Settings are unknown in provided cfg (cfg$gms$s40_transport_cost_scalar)!
-* 2: In gms::update_modules_embedding() :
-*   ./modules/38_factor_costs/mixed_feb17/realization.gms not found, this realization cannot be used!
 * 
-* Last modification (input data): Tue Aug 16 12:13:42 2022
+* Last modification (input data): Mon Sep 12 10:11:45 2022
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -232,10 +228,10 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  disaggr_0transp10pckg_disaggr_LocalFood1
+$setglobal c_title  HR_disaggr_gtapdefault_DFoodRecal
 
 scalars
-s_use_gdx   use of gdx files                                       / 2 /
+s_use_gdx   use of gdx files                                       / 1 /
 ;
 ********************************************************************************
 
@@ -245,7 +241,7 @@ $setglobal drivers  aug17
 $setglobal land  landmatrix_dec18
 $setglobal costs  default
 $setglobal interest_rate  select_apr20
-$setglobal tc  endo_jan22
+$setglobal tc  exo
 $setglobal yields  managementcalib_aug19
 
 $setglobal food  anthropometrics_jan18
@@ -255,12 +251,12 @@ $setglobal production  flexreg_apr16
 $setglobal residues  flexreg_apr16
 $setglobal processing  substitution_may21
 
-$setglobal trade  selfsuff_reduced
+$setglobal trade  exo
 $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
 
-$setglobal crop  endo_apr21
+$setglobal crop  penalty_apr22
 $setglobal past  endo_jun13
 
 $setglobal forestry  dynamic_feb21
@@ -273,7 +269,7 @@ $setglobal labor_prod  off
 $setglobal factor_costs  per_ton_fao_may22
 $setglobal landconversion  calib
 
-$setglobal transport  disaggr
+$setglobal transport  gtap_nov12
 $setglobal area_equipped_for_irrigation  endo_apr13
 $setglobal water_demand  all_sectors_aug13
 $setglobal water_availability  total_water_aug13
@@ -299,7 +295,7 @@ $setglobal disagg_lvst  off
 
 $setglobal timber  default
 
-$setglobal optimization  nlp_apr17
+$setglobal optimization  nlp_par
 
 ****************************END MODULE SETUP************************************
 

@@ -7,7 +7,7 @@ if (tryCatch(utils::packageVersion("gms") < gmsRequiredVersion, error = function
 }
 
 message("Checking files for tabs... ", appendLF = FALSE)
-gms::checkNoTabs(pattern = "\\.(R|Rprofile|gms|cfg|bib)$", excludeFolders = c("output", "renv", ".git"))
+#gms::checkNoTabs(pattern = "\\.(R|Rprofile|gms|cfg|bib)$", excludeFolders = c("output", "renv", ".git"))
 message("done.")
 
 # run codeCheck

@@ -142,9 +142,9 @@ if (s15_elastic_demand = 1 AND m_year(t) > sm_fix_SSP2,
 * We calibrate countries with zero food demand according to FAOSTAT
 * down to zero to match FAO world totals.
 * Values are rounded to avoid path dependencies of MAgPIE solver.
-       pm_kcal_pc_calibrated(t,i,kfo)=p15_kcal_pc(t,i,kfo)+p15_balanceflow_kcal(t,i,kfo);
-       pm_kcal_pc_calibrated(t,i,kfo)=round(pm_kcal_pc_calibrated(t,i,kfo),2);
-       pm_kcal_pc_calibrated(t,i,kfo)$(pm_kcal_pc_calibrated(t,i,kfo)<0)=0;
+    pm_kcal_pc_calibrated(t,i,kfo)=p15_kcal_pc(t,i,kfo)+p15_balanceflow_kcal(t,i,kfo);
+    pm_kcal_pc_calibrated(t,i,kfo)=round(pm_kcal_pc_calibrated(t,i,kfo),2);
+    pm_kcal_pc_calibrated(t,i,kfo)$(pm_kcal_pc_calibrated(t,i,kfo)<0)=0;
 
 
 *###############################################################################
@@ -163,15 +163,15 @@ if (s15_elastic_demand = 1 AND m_year(t) > sm_fix_SSP2,
 * Substitution of ruminant beef with poultry:
 p15_kcal_pc_calibrated_orig(t,i,kfo) = pm_kcal_pc_calibrated(t,i,kfo);
 pm_kcal_pc_calibrated(t,i,"livst_rum") =
-               p15_kcal_pc_calibrated_orig(t,i,"livst_rum") * i15_ruminant_fadeout(t,i);
+            p15_kcal_pc_calibrated_orig(t,i,"livst_rum") * i15_ruminant_fadeout(t,i);
 pm_kcal_pc_calibrated(t,i,"livst_chick") = p15_kcal_pc_calibrated_orig(t,i,"livst_chick")
-             + p15_kcal_pc_calibrated_orig(t,i,"livst_rum") * (1-i15_ruminant_fadeout(t,i));
+            + p15_kcal_pc_calibrated_orig(t,i,"livst_rum") * (1-i15_ruminant_fadeout(t,i));
 
 
 * Substitution of fish with poultry:
 p15_kcal_pc_calibrated_orig(t,i,kfo) = pm_kcal_pc_calibrated(t,i,kfo);
 pm_kcal_pc_calibrated(t,i,"fish") =
-               p15_kcal_pc_calibrated_orig(t,i,"fish") * i15_fish_fadeout(t,i);
+            p15_kcal_pc_calibrated_orig(t,i,"fish") * i15_fish_fadeout(t,i);
 pm_kcal_pc_calibrated(t,i,"livst_chick") = p15_kcal_pc_calibrated_orig(t,i,"livst_chick")
              + p15_kcal_pc_calibrated_orig(t,i,"fish") * (1-i15_fish_fadeout(t,i));
 
@@ -179,7 +179,7 @@ pm_kcal_pc_calibrated(t,i,"livst_chick") = p15_kcal_pc_calibrated_orig(t,i,"livs
 * Fade-out of alcohol consumption without substitution:
 p15_kcal_pc_calibrated_orig(t,i,kfo) = pm_kcal_pc_calibrated(t,i,kfo);
 pm_kcal_pc_calibrated(t,i,"alcohol") =
-               p15_kcal_pc_calibrated_orig(t,i,"alcohol") * i15_alcohol_fadeout(t,i);
+              p15_kcal_pc_calibrated_orig(t,i,"alcohol") * i15_alcohol_fadeout(t,i);
 
 
 * Substitution of livestock products (without fish) with plant-based food commodities:

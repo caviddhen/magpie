@@ -1,9 +1,11 @@
-*** |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2023 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
 *** |  MAgPIE License Exception, version 1.0 (see LICENSE file).
 *** |  Contact: magpie@pik-potsdam.de
+
+$if set RESTARTPOINT $goto %RESTARTPOINT%
 
 $title magpie
 
@@ -69,7 +71,7 @@ $title magpie
 *' carbon when agricultural land is taken out of production and the associated regrowth of natural
 *' vegetation generates negative emissions from land-use change.
 *' Nitrogen emissions ([51_nitrogen]) are estimated based on nitrogen budgets for croplands,
-*' pastures ([50_nr_budgets]) and the livestock sector ([55_awms]) (@bodirsky_reactive_2014).
+*' pastures ([50_nr_soil_budget]) and the livestock sector ([55_awms]) (@bodirsky_reactive_2014).
 *' CH4 emissions are based on
 *' livestock feed and rice cultivation areas (@popp_food_2010). In the case of mitigation
 *' policies for the land sector, the model can reduce CO2 emissions by restraining land-use
@@ -146,64 +148,51 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.75_h12_magpie.tgz
-* md5sum: 5aa1cfaae8de7adf4c682937fde7ce0f
+* Used data set: rev4.81_h12_magpie.tgz
+* md5sum: 89bfe8e5c74dd8ba72c023a785d01989
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.75_h12_99f75e90_cellularmagpie_c2000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: 3e43d6e53533c2b7fa0330b6c9f7a7dc
+* Used data set: rev4.81_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 93fa9d97ad83b0bcc4e9ec8e9b741566
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.75_h12_validation.tgz
-* md5sum: 167d809a808874dc71f64977b0e67708
+* Used data set: rev4.81_h12_validation.tgz
+* md5sum: 07eb91a745b1a176ac35cf0d6536d68a
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: additional_data_rev4.26.tgz
-* md5sum: f3c348b7428faae898b7e10ec9a89e41
+* Used data set: additional_data_rev4.36.tgz
+* md5sum: e24c46872f77dc15ad8603bdac1e6065
 * Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: calibration_H12_per_ton_fao_may22_28May22.tgz
-* md5sum: f6bf26be99c5dbd29e13a38af38c0d31
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz
+* md5sum: e771e9b6f2202124db3f3bc296596b17
+* Repository: /p/projects/landuse/data/input/calibration
 * 
-* Low resolution: c2000
+* Low resolution: c200
 * High resolution: 0.5
 * 
-* Total number of cells: 2000
+* Total number of cells: 200
 * 
 * Number of cells per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*    81  186   85   66    4  471  252   64  145   86  378  182
+*     6   23    7    6    1   43   27    7   11   12   37   20
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.75
+* Regions data revision: 4.81
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.75
+* * Revision: 4.81
 * 
 * aggregation settings:
 * * Input resolution: 0.5
 * * Output resolution: c2000
 * * Regionscode: 62eff8f7
-* * Cluster distribution: CAZ (81)
-* * Cluster distribution: CHA (186)
-* * Cluster distribution: EUR (85)
-* * Cluster distribution: IND (66)
-* * Cluster distribution: JPN (4)
-* * Cluster distribution: LAM (471)
-* * Cluster distribution: MEA (252)
-* * Cluster distribution: NEU (64)
-* * Cluster distribution: OAS (145)
-* * Cluster distribution: REF (86)
-* * Cluster distribution: SSA (378)
-* * Cluster distribution: USA (182)
-* * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
+* * Call: do.call(functiononly, args)
 * 
 * 
 * Last modification (input data): Mon Sep 12 10:11:45 2022
-* 
 *###################### R SECTION END (VERSION INFO) ###########################
 
 $offupper
@@ -226,12 +215,12 @@ $offlisting
 **************************MODEL SPECIFIC SCALARS********************************
 *                    Key parameters during model runs
 
-$setglobal c_timesteps  coup2100
+$setglobal c_timesteps  calib
 $setglobal c_past  till_2010
-$setglobal c_title  HR_disaggr_gtapdefault_DFoodRecal
+$setglobal c_title  BilatPRFade_ON_Nofadeout
 
 scalars
-s_use_gdx   use of gdx files                                       / 1 /
+s_use_gdx   use of gdx files                                       / 0 /
 ;
 ********************************************************************************
 
@@ -266,7 +255,7 @@ $setglobal natveg  dynamic_feb21
 
 $setglobal employment  exo_may22
 $setglobal labor_prod  off
-$setglobal factor_costs  per_ton_fao_may22
+$setglobal factor_costs  sticky_feb18
 $setglobal landconversion  calib
 
 $setglobal transport  gtap_nov12
@@ -276,14 +265,14 @@ $setglobal water_availability  total_water_aug13
 $setglobal biodiversity  bii_target
 $setglobal climate  static
 
-$setglobal nr_soil_budget  exoeff_aug16
-$setglobal nitrogen  ipcc2006_sep16
+$setglobal nr_soil_budget  macceff_aug22
+$setglobal nitrogen  rescaled_jan21
 $setglobal carbon  normal_dec17
-$setglobal methane  ipcc2006_flexreg_apr16
+$setglobal methane  ipcc2006_aug22
 $setglobal phosphorus  off
 $setglobal awms  ipcc2006_aug16
-$setglobal ghg_policy  price_jan20
-$setglobal maccs  on_sep16
+$setglobal ghg_policy  price_aug22
+$setglobal maccs  on_aug22
 $setglobal peatland  on
 $setglobal som  static_jan19
 

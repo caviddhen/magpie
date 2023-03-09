@@ -1,4 +1,4 @@
-# |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2023 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -20,19 +20,20 @@ library(gms)
 options("magclass.verbosity" = 1)
 
 ############################# BASIC CONFIGURATION #############################
-if(!exists("source_include")) {
+if (!exists("source_include")) {
   outputdir <- NULL
   readArgs("outputdir")
 }
 
-cfg <- gms::loadConfig(file.path(outputdir, "config.yml"))
-gdx	<- file.path(outputdir,"fulldata.gdx")
+cfg     <- gms::loadConfig(file.path(outputdir, "config.yml"))
+gdx     <- file.path(outputdir,"fulldata.gdx")
 rds_iso <- paste0(outputdir, "/report_iso.rds")
 ###############################################################################
 
-report <- getReportIso(gdx,scenario = cfg$title)
+report <- getReportIso(gdx, scenario = cfg$title, dir = outputdir)
 q <- as.quitte(report)
-if(all(is.na(q$value))) stop("No values in reporting!")
+if (all(is.na(q$value))) {
+  stop("No values in reporting!")
+}
 
-saveRDS(q,file=rds_iso, version = 2,compress = "xz")
-
+saveRDS(q, file = rds_iso, version = 2, compress = "xz")

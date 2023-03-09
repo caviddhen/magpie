@@ -1,0 +1,39 @@
+Global .Rprofile loaded! (R version 4.1.2 (2021-11-01))
+4 packages in personal lib '/home/davidch/R/x86_64-pc-linux-gnu-library/4.1':
+- furrr
+- ggsankey
+- ineq
+- remotes
+see https://redmine.pik-potsdam.de/projects/mo/wiki/R_packages_on_cluster
+
+# extra/disaggregation.R -> ./output/HR_disaggr_GTAPtransp10pckgEAT_DFoodRecal/
+Loading required package: gdx
+Loading required package: gdxrrw
+Loading required package: magclass
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+proj_as_proj_string: Cannot find proj.db
+proj_as_wkt: Cannot find proj.db
+proj_create: Cannot find proj.db
+proj_as_wkt: Cannot find proj.db
+proj_as_proj_string: Cannot find proj.db
+proj_as_wkt: Cannot find proj.db
+proj_create: Cannot find proj.db
+proj_as_wkt: Cannot find proj.db
+Disaggregation crop types
+Disaggregation Forestry
+
+Warning message:
+In interpolateAvlCroplandWeighted(x = land_lr, x_ini_lr = land_ini_lr,  :
+  Cluster level differences of urban land between magpie and input data are
+          greater than 5% of the total range of urban land values in a cluster.
+          Consider the urban implementation, maybe something's wrong.

@@ -1,0 +1,20 @@
+Global .Rprofile loaded! (R version 4.1.2 (2021-11-01))
+4 packages in personal lib '/home/davidch/R/x86_64-pc-linux-gnu-library/4.1':
+- furrr
+- ggsankey
+- ineq
+- remotes
+see https://redmine.pik-potsdam.de/projects/mo/wiki/R_packages_on_cluster
+
+# extra/highres.R -> ./output/disaggr_GTAPtransp10pckg_LocalFood_2022-08-29_16.23.15/
+Loading required package: gdxrrw
+2022-08-30 09:11:27: acquiring model lock...
+Error in gms::model_lock(timeout1 = 1, check_interval = runif(1, 10, 30)) : 
+  model_lock: could not acquire lock within timeout1 = 1 h. Check what holds the lock or increase timeout1.
+In addition: Warning message:
+In gms::model_lock(timeout1 = 1, check_interval = runif(1, 10, 30)) :
+  check_interval setting is deprecated and ignored.
+
+Warning message:
+In runsubmit(output, alloutputdirs = outputdir, submit, "scripts/output/") :
+  Script extra/highres.R was stopped by an error and not executed properly!

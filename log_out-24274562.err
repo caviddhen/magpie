@@ -1,0 +1,119 @@
+Global .Rprofile loaded! (R version 4.1.2 (2021-11-01))
+4 packages in personal lib '/home/davidch/R/x86_64-pc-linux-gnu-library/4.1':
+- furrr
+- ggsankey
+- ineq
+- remotes
+see https://redmine.pik-potsdam.de/projects/mo/wiki/R_packages_on_cluster
+
+# rds_report.R -> ./output/HR_disaggr_gtapdefault_DFoodRecal/
+Loading required package: gdx
+Loading required package: gdxrrw
+Start getReport(gdx)...
+   reportPopulation(gdx)                                     success 1.40s
+   reportIncome(gdx)                                         success 1.13s
+   reportPriceGHG(gdx)                                       success 1.04s
+   reportFoodExpenditure(gdx)                                success 3.46s
+   reportKcal(gdx,detail=detail)                             ERROR 1.38s
+   reportProtein(gdx,detail=detail)                          ERROR 1.43s
+   reportIntakeDetailed(gdx,detail=detail)                   ERROR 5.13s
+   reportAnthropometrics(gdx)                                success 6.83s
+   reportLivestockShare(gdx)                                 success 0.70s
+   reportLivestockDemStructure(gdx)                          ERROR 0.91s
+   reportVegfruitShare(gdx)                                  success 0.69s
+   reportPriceShock(gdx)                                     no return value 0.007s
+   reportPriceElasticities(gdx)                              success 5.51s
+   reportDemand(gdx,detail=detail)                           success 3.89s
+   reportDemandBioenergy(gdx,detail=detail)                  success 2.08s
+   reportFeed(gdx,detail=detail)                             success 2.12s
+   reportProduction(gdx,detail=detail)                       success 0.45s
+   reportProductionBioenergy(gdx,detail=detail)              success 0.44s
+   reportTrade(gdx,detail=detail)                            success 3.10s
+   reportLandUse(gdx)                                        success 5.10s
+   reportLandUseChange(gdx)                                  success 3.66s
+   reportNetForestChange(gdx)                                success 0.36s
+   reportPeatland(gdx)                                       success 0.60s
+   reportProtectedArea(gdx)                                  success 0.69s
+   reportCroparea(gdx,detail=detail)                         success 5.72s
+   reportNitrogenBudgetCropland(gdx)                         success 7.50s
+   reportNitrogenBudgetPasture(gdx)                          success 0.51s
+   reportManure(gdx)                                         success 0.21s
+   reportNitrogenPollution(gdx)                              ERROR 7.78s
+   reportYields(gdx,detail=detail)                           success 8.93s
+   reportYieldsCropCalib(gdx,detail=detail)                  success 6.80s
+   reportYieldsCropRaw(gdx,detail=detail)                    success 8.59s
+   reportTau(gdx)                                            success 3.40s
+   reportTc(gdx)                                             success 5.92s
+   reportAgriResearchIntensity(gdx)                          success 0.16s
+   reportEmissions(gdx)                                      success 134.48s
+   reportEmissionsBeforeTechnicalMitigation(gdx)             success 0.41s
+   reportCosts(gdx)                                          success 4.51s
+   reportCostsPresolve(gdx)                                  no return value 0.007s
+   reportCostTransport(gdx)                                  success 1.48s
+   reportCostTC(gdx)                                         success 0.092s
+   reportCostsFertilizer(gdx)                                success 0.31s
+   reportCostOverall(gdx)                                    success 0.12s
+   reportCostCapitalStocks(gdx)                              no return value 0.014s
+   reportCostCapitalInvestment(gdx)                          no return value 0.012s
+   reportCostsAEI(gdx)                                       success 0.09s
+   reportCostInputsCrop(gdx)                                 success 0.12s
+   reportCostsInputFactors(gdx)                              success 0.64s
+   reportCostsOptimization(gdx)                              success 5.52s
+   reportCostsAccounting(gdx)                                success 5.00s
+   reportCostsAdaptationCrops(gdx,type = 'investment')       ERROR 0.086s
+   reportCostsWithoutIncentives(gdx)                         success 5.24s
+   reportAgGDP(gdx)                                          ERROR 0.30s
+   reportConsumVal(gdx)                                      success 0.66s
+   reportPriceFoodIndex(gdx,baseyear = 'y2010')              success 4.29s
+   reportPriceFoodIndex(gdx,baseyear = 'y2020')              success 4.42s
+   reportExpenditureFoodIndex(gdx)                           success 6.21s
+   reportPriceAgriculture(gdx)                               success 0.16s
+   reportPriceBioenergy(gdx)                                 success 0.17s
+   reportPriceLand(gdx)                                      success 0.40s
+   reportPriceWater(gdx)                                     success 0.72s
+   reportValueTrade(gdx)                                     ERROR 1.03s
+   reportProcessing(gdx, indicator='primary_to_process')     success 0.34s
+   reportProcessing(gdx, indicator='secondary_from_primary') success 0.77s
+   reportAEI(gdx)                                            success 0.20s
+   reportWaterUsage(gdx)                                     success 4.66s
+   reportWaterAvailability(gdx)                              success 0.31s
+   reportAAI(gdx)                                            success 2.37s
+   reportSOM(gdx)                                            success 4.71s
+   reportGrowingStock(gdx, indicator='relative')             success 14.27s
+   reportGrowingStock(gdx, indicator='absolute')             success 10.87s
+   reportSDG1(gdx)                                           success 0.063s
+   reportSDG2(gdx)                                           success 9.92s
+   reportSDG3(gdx)                                           success 4.37s
+   reportSDG6(gdx)                                           success 6.55s
+   reportSDG12(gdx)                                          success 4.83s
+   reportSDG15(gdx)                                          success 12.58s
+   reportForestYield(gdx)                                    no return value 0.028s
+   reportharvested_area_timber(gdx)                          no return value 0.018s
+   reportPlantationEstablishment(gdx)                        success 3.17s
+   reportRotationLength(gdx)                                 success 0.18s
+   reportTimber(gdx)                                         success 1.07s
+   reportBII(gdx)                                            success 1.44s
+   reportCropDiversity(gdx)                                  success 9.06s
+   reportPriceWoodyBiomass(gdx)                              no return value 3.23s
+   reportCarbonstock(gdx)                                    success 8.73s
+   reportGrasslandManagement(gdx)                            Disabled (no managed pastures) 0.067s
+   reportGrassStats(gdx)                                     Disabled (no managed pastures) 0.006s
+   reportGrasslandYields(gdx)                                Disabled (No separate grassland yields) 0.069s
+   reportLSUGrasslands(gdx)                                  Disabled (No LSU management) 0.012s
+   reportAgEmployment(gdx, type = 'absolute', detail = TRUE) success 0.68s
+   reportAgEmployment(gdx, type = 'share', detail = TRUE)    success 0.65s
+   reportHourlyLaborCosts(gdx)                               success 0.68s
+   reportRelativeHourlyLaborCosts(gdx)                       success 0.24s
+   reportTotalHoursWorked(gdx)                               success 0.51s
+   reportOutputPerWorker(gdx)                                ERROR 0.16s
+   reportValueMaterialDemand(gdx)                            success 0.46s
+   reportFactorCostShares(gdx, type = 'baseline')            success 0.65s
+   reportFactorCostShares(gdx, type = 'optimization')        success 0.65s
+   reportFactorCostShares(gdx, type = 'accounting')          ERROR 0.54s
+   reportWageDevelopment(gdx)                                success 0.49s
+   reportWaterIndicators(gdx, dir = dir)                     ERROR 13.76s
+Total runtime:  437.08s
+No id found in runstatistics.rda. Calling lucode2::runstatistics() to create one.
+Created the id 166274249200480
+
+There were 35 warnings (use warnings() to see them)

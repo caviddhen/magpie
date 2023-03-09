@@ -1,4 +1,4 @@
-*** |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2023 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -41,10 +41,10 @@ solve m15_food_demand USING nlp MAXIMIZING v15_objective;
 
 * in case of problems try CONOPT3
 if(m15_food_demand.modelstat > 2,
-	display "Modelstat > 2 | Retry solve with CONOPT3";
-	option nlp = conopt;
-	solve m15_food_demand USING nlp MAXIMIZING v15_objective;
-	option nlp = conopt4;
+  display "Modelstat > 2 | Retry solve with CONOPT3";
+  option nlp = conopt;
+  solve m15_food_demand USING nlp MAXIMIZING v15_objective;
+  option nlp = conopt4;
 );
 
 p15_modelstat(t) = m15_food_demand.modelstat;
@@ -76,7 +76,7 @@ if(p15_modelstat(t) > 2 AND p15_modelstat(t) ne 7,
 
 
  p15_delta_income(t,i,curr_iter15) = p15_income_pc_real_ppp(t,i) /
-						( sum(i_to_iso(i,iso),
+            ( sum(i_to_iso(i,iso),
                                im_gdp_pc_ppp_iso(t,iso)
                                * im_pop_iso(t,iso)
                              ) / sum(i_to_iso(i,iso),
@@ -354,7 +354,7 @@ if(s15_exo_diet = 1,
   if(s15_alc_scen>0,
     i15_intake_detailed_scen_target(t,i,"alcohol") = p15_intake_detailed_regr(t,i,"alcohol");
     i15_intake_detailed_scen_target(t,i,"alcohol")$(i15_intake_detailed_scen_target(t,i,"alcohol") > s15_alc_scen*i15_intake_scen_target(t,i))
-	   = s15_alc_scen*i15_intake_scen_target(t,i);
+     = s15_alc_scen*i15_intake_scen_target(t,i);
      );
 
   i15_intake_detailed_scen_target(t,i,EAT_staples) = (
@@ -383,9 +383,7 @@ if(s15_exo_diet = 1,
 
     p15_kcal_pc_calibrated_orig(t,i,kfo) = pm_kcal_pc_calibrated(t,i,kfo);
     pm_kcal_pc_calibrated(t,i,kfo) = p15_kcal_pc_calibrated_orig(t,i,kfo) * (1-i15_exo_foodscen_fader(t,i))
-                        + i15_kcal_pc_scen_target(t,i,kfo) * i15_exo_foodscen_fader(t,i);
-
-
+                                    + i15_kcal_pc_scen_target(t,i,kfo) * i15_exo_foodscen_fader(t,i);
 );
 *' @stop
 

@@ -1,0 +1,103 @@
+Global .Rprofile loaded!
+
+Attaching package: ‘gms’
+
+The following objects are masked from ‘package:lucode2’:
+
+    get_info, getfiledestinations
+
+
+# rds_report.R -> ./output/disaggr_highpckg_disaggr_transport_latest_develop_2022-01-31_11.35.56/
+Loading required package: gdx
+Loading required package: gdxrrw
+Start getReport(gdx)...
+   reportPopulation(gdx)                                     success 1.30s
+   reportIncome(gdx)                                         success 0.61s
+   reportPriceGHG(gdx)                                       success 0.69s
+   reportFoodExpenditure(gdx)                                success 4.17s
+   reportKcal(gdx,detail=detail)                             ERROR 0.65s
+   reportProtein(gdx,detail=detail)                          ERROR 0.58s
+   reportIntakeDetailed(gdx,detail=detail)                   ERROR 4.84s
+   reportAnthropometrics(gdx)                                success 7.49s
+   reportLivestockShare(gdx)                                 success 0.33s
+   reportLivestockDemStructure(gdx)                          ERROR 0.38s
+   reportVegfruitShare(gdx)                                  success 0.60s
+   reportPriceShock(gdx)                                     no return value 0.005s
+   reportPriceElasticities(gdx)                              success 5.05s
+   reportDemand(gdx,detail=detail)                           success 4.09s
+   reportDemandBioenergy(gdx,detail=detail)                  success 2.09s
+   reportFeed(gdx,detail=detail)                             success 2.15s
+   reportProduction(gdx,detail=detail)                       success 0.44s
+   reportProductionBioenergy(gdx,detail=detail)              success 0.42s
+   reportTrade(gdx,detail=detail)                            success 2.57s
+   reportLandUse(gdx)                                        success 0.38s
+   reportLandUseChange(gdx)                                  success 0.31s
+   reportNetForestChange(gdx)                                success 0.18s
+   reportPeatland(gdx)                                       success 0.27s
+   reportProtectedArea(gdx)                                  ERROR 0.001s
+   reportCroparea(gdx,detail=detail)                         success 1.15s
+   reportNitrogenBudgetCropland(gdx)                         success 2.14s
+   reportNitrogenBudgetPasture(gdx)                          success 0.26s
+   reportManure(gdx)                                         success 0.18s
+   reportYields(gdx,detail=detail)                           success 2.61s
+   reportYieldsCropCalib(gdx,detail=detail)                  success 3.20s
+   reportYieldsCropRaw(gdx,detail=detail)                    success 2.59s
+   reportTau(gdx)                                            success 0.79s
+   reportTau2(gdx)                                           Disabled (No separate grassland tau) 0.009s
+   reportTc(gdx)                                             success 0.64s
+   reportEmissions(gdx)                                      success 23.09s
+   reportEmissionsBeforeTechnicalMitigation(gdx)             success 0.46s
+   reportCosts(gdx)                                          success 2.76s
+   reportCostsPresolve(gdx)                                  no return value 0.005s
+   reportCostTransport(gdx)                                  success 0.41s
+   reportCostTC(gdx)                                         success 0.088s
+   reportCostsFertilizer(gdx)                                success 0.31s
+   reportCostOverall(gdx)                                    success 0.10s
+   reportCostCapitalStocks(gdx)                              success 0.12s
+   reportCostCapitalInvestment(gdx)                          success 0.17s
+   reportCostsAEI(gdx)                                       success 0.087s
+   reportCostInputsCrop(gdx)                                 success 0.28s
+   reportCostsInputFactors(gdx)                              success 1.38s
+   reportCostsOptimization(gdx)                              success 2.62s
+   reportCostsAccounting(gdx)                                success 2.89s
+   reportCostsAdaptationCrops(gdx,type = 'investment')       success 3.03s
+   reportAgGDP(gdx)                                          success 1.15s
+   reportConsumVal(gdx)                                      success 0.54s
+   reportPriceFoodIndex(gdx)                                 success 1.46s
+   reportExpenditureFoodIndex(gdx)                           success 5.65s
+   reportPriceAgriculture(gdx)                               success 0.12s
+   reportPriceBioenergy(gdx)                                 success 0.13s
+   reportPriceLand(gdx)                                      success 0.20s
+   reportPriceWater(gdx)                                     success 0.35s
+   reportValueTrade(gdx)                                     ERROR 0.90s
+   reportProcessing(gdx, indicator='primary_to_process')     success 0.31s
+   reportProcessing(gdx, indicator='secondary_from_primary') success 0.74s
+   reportAEI(gdx)                                            success 0.13s
+   reportWaterUsage(gdx)                                     success 0.74s
+   reportWaterAvailability(gdx)                              success 0.11s
+   reportAAI(gdx)                                            success 0.24s
+   reportSOM(gdx)                                            success 1.44s
+   reportGrowingStock(gdx, indicator='relative')             success 2.11s
+   reportGrowingStock(gdx, indicator='absolute')             success 0.94s
+   reportSDG1(gdx)                                           success 0.82s
+   reportSDG2(gdx)                                           success 10.46s
+   reportSDG3(gdx)                                           success 5.72s
+   reportSDG6(gdx)                                           success 1.48s
+   reportSDG12(gdx)                                          success 5.69s
+   reportSDG15(gdx)                                          success 2.59s
+   reportForestYield(gdx)                                    no return value 0.017s
+   reportharvested_area_timber(gdx)                          no return value 0.012s
+   reportPlantationEstablishment(gdx)                        success 0.20s
+   reportRotationLength(gdx)                                 success 0.11s
+   reportTimber(gdx)                                         success 0.57s
+   reportBII(gdx)                                            success 0.45s
+   reportPriceWoodyBiomass(gdx)                              no return value 0.28s
+   reportCarbonstock(gdx)                                    success 1.42s
+   reportCattle(gdx)                                         no return value 0.008s
+   reportGrasslandSoilCarbon(gdx)                            ERROR 0.00s
+   reportGrasslandYields(gdx)                                Disabled (No separate grassland yields) 0.008s
+Total runtime:  159.21s
+No id found in runstatistics.rda. Calling lucode2::runstatistics() to create one.
+Created the id 164372604886717
+
+There were 21 warnings (use warnings() to see them)

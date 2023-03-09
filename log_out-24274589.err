@@ -1,0 +1,11 @@
+Global .Rprofile loaded! (R version 4.1.2 (2021-11-01))
+4 packages in personal lib '/home/davidch/R/x86_64-pc-linux-gnu-library/4.1':
+- furrr
+- ggsankey
+- ineq
+- remotes
+see https://redmine.pik-potsdam.de/projects/mo/wiki/R_packages_on_cluster
+
+# output_check.R -> ./output/disaggr_gtapdefault_DFoodRecal_2022-09-07_10.24.13/
+Output looks good, no problems found!
+

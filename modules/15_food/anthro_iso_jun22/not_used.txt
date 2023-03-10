@@ -1,3 +1,1 @@
 name,type,reason
-pm_kcal_pc_calibrated,input,questionnaire
-fm_nutrition_attributes,input,questionnaire

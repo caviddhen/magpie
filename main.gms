@@ -148,25 +148,25 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.81_h12_magpie.tgz
-* md5sum: 89bfe8e5c74dd8ba72c023a785d01989
+* Used data set: rev4.82HRlocaldem_h12_magpie.tgz
+* md5sum: ab45ef810456eae5fcf66feda121f24a
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.81_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: 93fa9d97ad83b0bcc4e9ec8e9b741566
+* Used data set: rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 8bfb196c93ae301298c8529d86671ad3
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.81_h12_validation.tgz
-* md5sum: 07eb91a745b1a176ac35cf0d6536d68a
+* Used data set: rev4.82HRlocaldem_h12_validation.tgz
+* md5sum: 7ceee6dd58cbea6f293667572987b9a7
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: additional_data_rev4.36.tgz
-* md5sum: e24c46872f77dc15ad8603bdac1e6065
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: additional_data_rev4.39.tgz
+* md5sum: f16ed9d9354ed41e1435da5b7739ba76
+* Repository: /p/projects/landuse/data/input/archive
 * 
 * Used data set: calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz
 * md5sum: e771e9b6f2202124db3f3bc296596b17
-* Repository: /p/projects/landuse/data/input/calibration
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -175,24 +175,33 @@ $title magpie
 * 
 * Number of cells per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     6   23    7    6    1   43   27    7   11   12   37   20
+*     6   17    9    8    1   44   26    7   10   13   38   21
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.81
+* Regions data revision: 4.82
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.81
+* * Revision: 4.82
 * 
 * aggregation settings:
 * * Input resolution: 0.5
-* * Output resolution: c2000
+* * Output resolution: c200
 * * Regionscode: 62eff8f7
-* * Call: do.call(functiononly, args)
+* * Number of clusters per region:
+*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     6   17    9    8    1   44   26    7   10   13   38   21
+* * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
+* Warning messages:
+* 1: In gms::update_modules_embedding() :
+*   ./modules/38_factor_costs/mixed_reg_feb17/realization.gms not found, this realization cannot be used!
+* 2: In gms::update_modules_embedding() :
+*   ./modules/51_nitrogen/ipcc2006_sep16/realization.gms not found, this realization cannot be used!
 * 
-* Last modification (input data): Mon Sep 12 10:11:45 2022
+* Last modification (input data): Fri Mar 10 11:33:58 2023
+* 
 *###################### R SECTION END (VERSION INFO) ###########################
 
 $offupper
@@ -215,9 +224,9 @@ $offlisting
 **************************MODEL SPECIFIC SCALARS********************************
 *                    Key parameters during model runs
 
-$setglobal c_timesteps  calib
+$setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  BilatPRFade_ON_Nofadeout
+$setglobal c_title  disaggc500_1003_disaggr
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -230,17 +239,17 @@ $setglobal drivers  aug17
 $setglobal land  landmatrix_dec18
 $setglobal costs  default
 $setglobal interest_rate  select_apr20
-$setglobal tc  exo
+$setglobal tc  endo_jan22
 $setglobal yields  managementcalib_aug19
 
-$setglobal food  anthropometrics_jan18
+$setglobal food  anthro_iso_jun22
 $setglobal demand  sector_may15
 $setglobal production  flexreg_apr16
 
 $setglobal residues  flexreg_apr16
 $setglobal processing  substitution_may21
 
-$setglobal trade  exo
+$setglobal trade  selfsuff_reduced
 $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
@@ -255,10 +264,10 @@ $setglobal natveg  dynamic_feb21
 
 $setglobal employment  exo_may22
 $setglobal labor_prod  off
-$setglobal factor_costs  sticky_feb18
+$setglobal factor_costs  per_ton_fao_may22
 $setglobal landconversion  calib
 
-$setglobal transport  gtap_nov12
+$setglobal transport  disaggr
 $setglobal area_equipped_for_irrigation  endo_apr13
 $setglobal water_demand  all_sectors_aug13
 $setglobal water_availability  total_water_aug13
@@ -284,7 +293,7 @@ $setglobal disagg_lvst  off
 
 $setglobal timber  default
 
-$setglobal optimization  nlp_par
+$setglobal optimization  nlp_apr17
 
 ****************************END MODULE SETUP************************************
 

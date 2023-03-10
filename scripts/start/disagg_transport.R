@@ -20,11 +20,10 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "DFoodRecal" # choose a meaningful flag.
+cfg$info$flag <- "1003_disaggr" # choose a meaningful flag.
 
 # newly download data
-cfg$force_download <- FALSE
-
+cfg$force_download <- TRUE
 
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
@@ -36,51 +35,60 @@ cfg$gms$transport <- "gtap_nov12"
 
 cfg$gms$crop <- "penalty_apr22"
 
-cfg$title <- .title("disaggr_gtapdefault")
+cfg$title <- .title("gtapdefault")
 
-#start_run(cfg, codeCheck = TRUE)
+cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
+               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
+               additional  = "additional_data_rev4.39.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
 
-cfg$gms$s15_exo_diet <- 1              
-cfg$title <- .title("disaggr_gtapdefaultEAT")
 start_run(cfg, codeCheck = TRUE)
 
 cfg$gms$transport <- "disaggr"
-cfg$gms$s40_transport_cost_scalar  <- 0.1062 
-cfg$gms$s40_packaging_costs  <- 10
+cfg$gms$s40_packaging_costs <- 100
+cfg$gms$s40_transport_cost_scalar <- 0.1062
 
+cfg$title <- .title("disaggc200")
+start_run(cfg, codeCheck = TRUE)
 
-cfg$title <- .title("disaggr_GTAPtransp10pckg")
+cfg$title <- .title("disaggc500")
+cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
+               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c500_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "WARNINGS1rev4.82HRlocaldem_h12_validation.tgz",
+               additional  = "additional_data_rev4.39.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
+start_run(cfg, codeCheck = TRUE)
 
-cfg$recalibrate <- TRUE 
-cfg$recalibrate_landconversion_cost <- TRUE
-cfg$gms$s15_exo_diet <- 0             
+cfg$title <- .title("disaggc1000")
+cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
+               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c1000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
+               additional  = "additional_data_rev4.39.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
+start_run(cfg, codeCheck = TRUE)
 
-#start_run(cfg, codeCheck = TRUE)
-cfg$gms$s15_exo_diet <- 1              
-cfg$title <- .title("disaggr_GTAPtransp10pckgEAT")
+cfg$title <- .title("disaggc2000")
+cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
+               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c2000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
+               additional  = "additional_data_rev4.39.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
 start_run(cfg, codeCheck = TRUE)
 
 
-cfg$gms$s40_packaging_costs  <- 0
+cfg$title <- .title("disaggc5000")
+cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
+               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c5000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
+               additional  = "additional_data_rev4.39.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
+start_run(cfg, codeCheck = TRUE)
 
-cfg$title <- .title("disaggr_0transp0pckg")
-
-
-#start_run(cfg, codeCheck = TRUE)
-cfg$gms$s40_transport_cost_scalar  <- 0.1062 
-
-cfg$title <- .title("disaggr_GTAPtransp0pckg")
-
-cfg$recalibrate <- TRUE 
-
-#start_run(cfg, codeCheck = TRUE)
-
-cfg$gms$s40_transport_cost_scalar  <- 0 
-cfg$gms$s40_packaging_costs  <- 10
-
-
-cfg$title <- .title("disaggr_0transp10pckg")
-cfg$recalibrate <- TRUE 
-cfg$recalibrate_landconversion_cost <- TRUE
-
-#start_run(cfg, codeCheck = TRUE)
+cfg$title <- .title("disaggc10000")
+cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
+               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c10000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
+               additional  = "additional_data_rev4.39.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
+start_run(cfg, codeCheck = TRUE)

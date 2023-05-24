@@ -38,9 +38,7 @@ bii_hr_out_file <- file.path(outputdir, "cell.bii_0.5.mz")
 
 cfg <- gms::loadConfig(file.path(outputdir, "config.yml"))
 
-sizelimit <- getOption("magclass_sizeLimit")
-options(magclass_sizeLimit = 1e+12)
-on.exit(options(magclass_sizeLimit = sizelimit))
+withr::local_options(list(magclass_sizeLimit = 1e+12))
 
 if (length(map_file) == 0) stop("Could not find map file!")
 if (length(map_file) > 1) {
@@ -248,6 +246,7 @@ land_hr <- interpolateAvlCroplandWeighted(
   comment = "unit: grid-cell land area fraction",
   message = "Write outputs cell.land_share"
 )
+gc()
 
 # ---------------------------------
 #  Disaggregate MAgPIE crop types
@@ -261,6 +260,7 @@ area_shr_hr <- .dissagcrop(gdx, land_hr, map = map_file)
   comment = "unit: croparea fractions of total grid-cell",
   message = "Write outputs cell.cropara_share"
 )
+gc()
 
 # ---------------------------------
 #  Split land pools
@@ -326,6 +326,8 @@ land_split_hr <- mbind(land_split_hr, farea_hr)
   comment = "unit: grid-cell land area fraction",
   message = "Write cropsplit land area share"
 )
+gc()
+
 # --------------------------------
 # Disaggregate BII
 # --------------------------------
@@ -409,8 +411,6 @@ bii_hr <- dimSums(land_bii_hr * bii_hr, dim = 3, na.rm = TRUE)
   comment = "unitless",
   message = "Write output BII at 0.5°"
 )
-# Clean up
-rm(bii_hr)
+gc()
 
 message("Finished disaggregation")
-gc()

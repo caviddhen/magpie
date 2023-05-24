@@ -148,25 +148,25 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.82HRlocaldem_h12_magpie.tgz
-* md5sum: ab45ef810456eae5fcf66feda121f24a
-* Repository: /p/projects/rd3mod/inputdata/output
+* Used data set: rev4.85_h12_magpie.tgz
+* md5sum: NA
+* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: 8bfb196c93ae301298c8529d86671ad3
-* Repository: /p/projects/rd3mod/inputdata/output
+* Used data set: rev4.85_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: NA
+* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.82HRlocaldem_h12_validation.tgz
-* md5sum: 7ceee6dd58cbea6f293667572987b9a7
-* Repository: /p/projects/rd3mod/inputdata/output
+* Used data set: rev4.85_h12_validation.tgz
+* md5sum: NA
+* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
 * 
-* Used data set: additional_data_rev4.39.tgz
-* md5sum: f16ed9d9354ed41e1435da5b7739ba76
-* Repository: /p/projects/landuse/data/input/archive
+* Used data set: additional_data_rev4.43.tgz
+* md5sum: NA
+* Repository: scp://cluster.pik-potsdam.de/p/projects/landuse/data/input/archive
 * 
-* Used data set: calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz
-* md5sum: e771e9b6f2202124db3f3bc296596b17
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: calibration_H12_per_ton_fao_may22_glo_23Mar23.tgz
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -179,11 +179,11 @@ $title magpie
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.82
+* Regions data revision: 4.85
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.82
+* * Revision: 4.85
 * 
 * aggregation settings:
 * * Input resolution: 0.5
@@ -194,13 +194,8 @@ $title magpie
 *     6   17    9    8    1   44   26    7   10   13   38   21
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
-* Warning messages:
-* 1: In gms::update_modules_embedding() :
-*   ./modules/38_factor_costs/mixed_reg_feb17/realization.gms not found, this realization cannot be used!
-* 2: In gms::update_modules_embedding() :
-*   ./modules/51_nitrogen/ipcc2006_sep16/realization.gms not found, this realization cannot be used!
 * 
-* Last modification (input data): Fri Mar 10 11:33:58 2023
+* Last modification (input data): Fri Apr 28 16:30:54 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 

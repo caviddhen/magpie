@@ -20,75 +20,50 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "1003_disaggr" # choose a meaningful flag.
-
-# newly download data
-cfg$force_download <- TRUE
+cfg$info$flag <- "0506_disaggr" # choose a meaningful flag.
 
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
-#transport run
-cfg$gms$disagg_lvst <- "off"
-
-cfg$gms$transport <- "gtap_nov12"
-
 cfg$gms$crop <- "penalty_apr22"
 
-cfg$title <- .title("gtapdefault")
+ #for (res in c("c200", "c500", "c1000", "c2000") ){
+   for (res in c("c200")){
+      for (trans in c("gtap_nov12", "disaggr")){
+       for (liv in c("off", "foragebased_aug18")){
+         for (tr in c(0, 1)) {
+          for (cost in c(0, 10, 50, 100)){
+          
+cfg$gms$transport <- trans
 
-cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
-               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
-               additional  = "additional_data_rev4.39.tgz",
-               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
+if (trans == "disaggr"){
+cfg$gms$s40_packaging_costs <- cost
+}
 
+reshash <-  c("c200", "c500", "c1000", "c2000")
+names(reshash) <- c("fd712c0b", "313af4df", "d97bab65", "99f75e90")
+
+#disagg  liv
+cfg$gms$disagg_lvst <- liv
+
+#trade tariff
+cfg$gms$s21_trade_tariff <- tr
+
+cfg$input <- c(regional    = "rev4.87LocalDem_h12_magpie.tgz",
+               cellular    = paste0("rev4.87LocalDem_h12_", names(reshash)[which(reshash == res)], "_cellularmagpie_",res, "_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz"),
+               validation  = "rev4.87LocalDem_h12_validation.tgz",
+               additional  = "additional_data_rev4.43.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_23Mar23.tgz")
+
+cfg$title <- .title(paste0(trans, "_", cost, "PkC_", liv, "Liv_", tr, "Tariff" ))
+
+
+if (trans == "gtap_nov12") {
+   if (cost == 0) {
 start_run(cfg, codeCheck = TRUE)
+   }
+} else {
+  start_run(cfg, codeCheck = TRUE)
+}
 
-cfg$gms$transport <- "disaggr"
-cfg$gms$s40_packaging_costs <- 100
-cfg$gms$s40_transport_cost_scalar <- 0.1062
-
-cfg$title <- .title("disaggc200")
-start_run(cfg, codeCheck = TRUE)
-
-cfg$title <- .title("disaggc500")
-cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
-               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c500_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "WARNINGS1rev4.82HRlocaldem_h12_validation.tgz",
-               additional  = "additional_data_rev4.39.tgz",
-               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
-start_run(cfg, codeCheck = TRUE)
-
-cfg$title <- .title("disaggc1000")
-cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
-               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c1000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
-               additional  = "additional_data_rev4.39.tgz",
-               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
-start_run(cfg, codeCheck = TRUE)
-
-cfg$title <- .title("disaggc2000")
-cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
-               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c2000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
-               additional  = "additional_data_rev4.39.tgz",
-               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
-start_run(cfg, codeCheck = TRUE)
-
-
-cfg$title <- .title("disaggc5000")
-cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
-               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c5000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
-               additional  = "additional_data_rev4.39.tgz",
-               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
-start_run(cfg, codeCheck = TRUE)
-
-cfg$title <- .title("disaggc10000")
-cfg$input <- c(regional    = "rev4.82HRlocaldem_h12_magpie.tgz",
-               cellular    = "rev4.82HRlocaldem_h12_fd712c0b_cellularmagpie_c10000_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.82HRlocaldem_h12_validation.tgz",
-               additional  = "additional_data_rev4.39.tgz",
-               calibration = "calibration_H12_per_ton_fao_may22_glo_13Feb23.tgz")
-start_run(cfg, codeCheck = TRUE)
+ }}}}}

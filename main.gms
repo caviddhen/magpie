@@ -148,25 +148,25 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.85_h12_magpie.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
+* Used data set: rev4.87LocalDem_h12_magpie.tgz
+* md5sum: d5f60c2a007b77d73190240c8d67b2ec
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.85_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
+* Used data set: rev4.87LocalDem_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 67a969a7d672e2c9688d8aa4bffb3ea1
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.85_h12_validation.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
+* Used data set: rev4.87LocalDem_h12_validation.tgz
+* md5sum: d1d4c9c4cee0d4c9d85bfaf5d689acc6
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: additional_data_rev4.43.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/landuse/data/input/archive
+* md5sum: 7f537e5df805af11f0e67e84e6010290
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: calibration_H12_per_ton_fao_may22_glo_23Mar23.tgz
-* md5sum: NA
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
+* md5sum: f4411e867825f64319f278e1eeddf25b
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -179,11 +179,11 @@ $title magpie
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.85
+* Regions data revision: 4.87
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.85
+* * Revision: 4.87
 * 
 * aggregation settings:
 * * Input resolution: 0.5
@@ -195,7 +195,7 @@ $title magpie
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Fri Apr 28 16:30:54 2023
+* Last modification (input data): Mon Jun  5 16:54:49 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -221,7 +221,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  disaggc500_1003_disaggr
+$setglobal c_title  disaggr_50PkC_foragebased_aug18Liv_1Tariff_0506_disaggr
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -284,7 +284,7 @@ $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  off
+$setglobal disagg_lvst  foragebased_aug18
 
 $setglobal timber  default
 

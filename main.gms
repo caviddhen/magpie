@@ -221,7 +221,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  disaggr_50PkC_foragebased_aug18Liv_1Tariff_0506_disaggr
+$setglobal c_title  disaggr_100PkC_foragebased_aug18Liv_1Tariff_0506_disaggr
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /

@@ -1,6 +1,7 @@
 *' @description The disaggr realization is transported related.
 
 *####################### R SECTION START (PHASES) ##############################
+$Ifi "%phase%" == "sets" $include "./modules/40_transport/disaggr/sets.gms"
 $Ifi "%phase%" == "declarations" $include "./modules/40_transport/disaggr/declarations.gms"
 $Ifi "%phase%" == "input" $include "./modules/40_transport/disaggr/input.gms"
 $Ifi "%phase%" == "equations" $include "./modules/40_transport/disaggr/equations.gms"

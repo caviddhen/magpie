@@ -156,6 +156,10 @@ $title magpie
 * md5sum: 67a969a7d672e2c9688d8aa4bffb3ea1
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
+* Used data set: rev4.871LocalDem_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: ca0c44efaa3b9aff47891001db945621
+* Repository: /p/projects/rd3mod/inputdata/output
+* 
 * Used data set: rev4.87LocalDem_h12_validation.tgz
 * md5sum: d1d4c9c4cee0d4c9d85bfaf5d689acc6
 * Repository: /p/projects/rd3mod/inputdata/output
@@ -195,7 +199,7 @@ $title magpie
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Mon Jun  5 16:54:49 2023
+* Last modification (input data): Wed Jun 28 14:03:08 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -221,7 +225,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  disaggr_100PkC_foragebased_aug18Liv_1Tariff_0506_disaggr
+$setglobal c_title  TESTrun_2707_newTr
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -284,7 +288,7 @@ $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  foragebased_aug18
+$setglobal disagg_lvst  off
 
 $setglobal timber  default
 

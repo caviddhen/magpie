@@ -13,3 +13,5 @@ pm_kcal_pc_calibrated, input, not needed
 im_feed_baskets, input, not needed
 v40_dem_for_local, input, not needed
 fm_attributes, input, not needed
+im_development_state, input, not needed
+vm_prod_res,input,not needed

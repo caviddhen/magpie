@@ -5,10 +5,9 @@ i40_urban_shr(t_all, j, "rural") = (im_pop_grid(t_all, j) -  im_pop_urban_grid(t
 
 
 
+ i40_food_proc_demand(t_all, j, k) = sum(cell(i,j), (f40_food_proc_demand(k, "lic") 
+                                       - (f40_food_proc_demand(k, "lic") - f40_food_proc_demand(k, "hic")) * im_development_state(t_all,i))) ;
 
-*' use regional first
-*' p40_food_demand_cell.fx(j,kall) = sum(cell(i,j), vm_dem_food(i2,kfo) ;
+ i40_feed_proc_demand(t_all, j, k) = sum(cell(i,j), (f40_feed_proc_demand(k, "lic") 
+                                       - (f40_feed_proc_demand(k, "lic") - f40_feed_proc_demand(k, "hic")) * im_development_state(t_all,i))) ;
 
-*' p40_food_demand_cell.fx(j,kall) = sum(cell(iso,j), p15_kcal_pc(i,kall)) ;
-
-*' iso to j conversion? matrix of j to iso . start with regional ? divide by population grid pop

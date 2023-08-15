@@ -14,12 +14,17 @@ kroughage(kall) roughage products for local ruminant consumption
 / pasture, res_cereals,res_fibrous, res_nonfibrous /
 
  fvc food value chain type
-  / trad, ind /
+  / trad, industr /
   
  kli_rum(kli) Ruminant livestock
    /
    livst_rum, livst_milk
    /
+
+k_nonprim(kall) All products except for k
+/
+set.ksd, set.kforestry, set.kres
+/
 
 ;
 

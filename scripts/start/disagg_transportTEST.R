@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "1008_wKSDcosts5" #choose a meaningful flag.
+cfg$info$flag <- "1508_wKSDcosts6" #choose a meaningful flag.
 cfg$force_download <- FALSE
 
 # support function to create standardized title
@@ -45,5 +45,5 @@ cfg$gms$transport <- "disaggr"
 cfg$gms$disagg_lvst <- "off"
 
 
-cfg$title <- .title(paste0("Disagg"))
+cfg$title <- .title(paste0("Disagg_noIndus"))
   start_run(cfg, codeCheck = TRUE)

@@ -62,12 +62,12 @@ q40_urban_demand_local(j2, k) ..
         ;
 
 *' industrialised regional supply chain
-q40_demand_reg(j2, k, urb) ..
-                   v40_dem_for_local(j2, k, urb, "industr")
-                   =e=
-                   sum(ct,
-                          i40_dem_food_cell(ct,j2, k, urb) * (i40_food_proc_demand(ct, j2, k) ) ) 
-                       - v40_cell_import(j2, k, urb, "industr");
+*' q40_demand_reg(j2, k, urb) ..
+*'                    v40_dem_for_local(j2, k, urb, "industr")
+*'                    =e=
+*'                    sum(ct,
+*'                           i40_dem_food_cell(ct,j2, k, urb) * (i40_food_proc_demand(ct, j2, k) ) ) 
+*'                        - v40_cell_import(j2, k, urb, "industr");
 
 *' vm_dem_packaged, add processed share to feed baskets, remove import                        sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k))) 
                    

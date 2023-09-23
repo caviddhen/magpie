@@ -28,7 +28,7 @@ equations
  q40_rural_demand_ruminant_feed(j, kres)   Rural ruminant feed demand 
 
  q40_urban_demand_local(j, kall)               Urban food demand for local products
- q40_demand_reg(j, kall, urb)                  Food demand for regional products
+* q40_demand_reg(j, kall, urb)                  Food demand for regional products
  q40_agg_pack_prim(j, kall)                    Additional packing costs equation for primary products
  q40_agg_pack_nonprim(j, kall)                 Additional packing costs equation for nonprimary products
  q40_cost_transport_prim(j, kall)              Cellular transport costs for k
@@ -47,7 +47,6 @@ parameters
  oq40_rural_demand_subs(t,j,kall,type)          Rural food demand for subsistence products
  oq40_rural_demand_ruminant_feed(t,j,kres,type) Rural ruminant feed demand 
  oq40_urban_demand_local(t,j,kall,type)         Urban food demand for local products
- oq40_demand_reg(t,j,kall,urb,type)             Food demand for regional products
  oq40_agg_pack_prim(t,j,kall,type)              Additional packing costs equation for primary products
  oq40_agg_pack_nonprim(t,j,kall,type)           Additional packing costs equation for nonprimary products
  oq40_cost_transport_prim(t,j,kall,type)        Cellular transport costs for k

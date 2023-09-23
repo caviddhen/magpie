@@ -9,7 +9,6 @@
  oq40_rural_demand_subs(t,j,kall,"marginal")          = q40_rural_demand_subs.m(j,kall);
  oq40_rural_demand_ruminant_feed(t,j,kres,"marginal") = q40_rural_demand_ruminant_feed.m(j,kres);
  oq40_urban_demand_local(t,j,kall,"marginal")         = q40_urban_demand_local.m(j,kall);
- oq40_demand_reg(t,j,kall,urb,"marginal")             = q40_demand_reg.m(j,kall,urb);
  oq40_agg_pack_prim(t,j,kall,"marginal")              = q40_agg_pack_prim.m(j,kall);
  oq40_agg_pack_nonprim(t,j,kall,"marginal")           = q40_agg_pack_nonprim.m(j,kall);
  oq40_cost_transport_prim(t,j,kall,"marginal")        = q40_cost_transport_prim.m(j,kall);
@@ -23,7 +22,6 @@
  oq40_rural_demand_subs(t,j,kall,"level")             = q40_rural_demand_subs.l(j,kall);
  oq40_rural_demand_ruminant_feed(t,j,kres,"level")    = q40_rural_demand_ruminant_feed.l(j,kres);
  oq40_urban_demand_local(t,j,kall,"level")            = q40_urban_demand_local.l(j,kall);
- oq40_demand_reg(t,j,kall,urb,"level")                = q40_demand_reg.l(j,kall,urb);
  oq40_agg_pack_prim(t,j,kall,"level")                 = q40_agg_pack_prim.l(j,kall);
  oq40_agg_pack_nonprim(t,j,kall,"level")              = q40_agg_pack_nonprim.l(j,kall);
  oq40_cost_transport_prim(t,j,kall,"level")           = q40_cost_transport_prim.l(j,kall);
@@ -37,7 +35,6 @@
  oq40_rural_demand_subs(t,j,kall,"upper")             = q40_rural_demand_subs.up(j,kall);
  oq40_rural_demand_ruminant_feed(t,j,kres,"upper")    = q40_rural_demand_ruminant_feed.up(j,kres);
  oq40_urban_demand_local(t,j,kall,"upper")            = q40_urban_demand_local.up(j,kall);
- oq40_demand_reg(t,j,kall,urb,"upper")                = q40_demand_reg.up(j,kall,urb);
  oq40_agg_pack_prim(t,j,kall,"upper")                 = q40_agg_pack_prim.up(j,kall);
  oq40_agg_pack_nonprim(t,j,kall,"upper")              = q40_agg_pack_nonprim.up(j,kall);
  oq40_cost_transport_prim(t,j,kall,"upper")           = q40_cost_transport_prim.up(j,kall);
@@ -51,7 +48,6 @@
  oq40_rural_demand_subs(t,j,kall,"lower")             = q40_rural_demand_subs.lo(j,kall);
  oq40_rural_demand_ruminant_feed(t,j,kres,"lower")    = q40_rural_demand_ruminant_feed.lo(j,kres);
  oq40_urban_demand_local(t,j,kall,"lower")            = q40_urban_demand_local.lo(j,kall);
- oq40_demand_reg(t,j,kall,urb,"lower")                = q40_demand_reg.lo(j,kall,urb);
  oq40_agg_pack_prim(t,j,kall,"lower")                 = q40_agg_pack_prim.lo(j,kall);
  oq40_agg_pack_nonprim(t,j,kall,"lower")              = q40_agg_pack_nonprim.lo(j,kall);
  oq40_cost_transport_prim(t,j,kall,"lower")           = q40_cost_transport_prim.lo(j,kall);

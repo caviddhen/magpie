@@ -150,6 +150,7 @@ $title magpie
 * 
 * Used data set: rev4.88_h12_magpie.tgz
 * md5sum: 740da40ceda04850eb374df215837c1b
+<<<<<<< HEAD
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: rev4.88_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
@@ -167,6 +168,25 @@ $title magpie
 * Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
 * md5sum: 5d34e4b54112db10f330f1e59dd60cc9
 * Repository: /p/projects/landuse/data/input/calibration
+=======
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* 
+* Used data set: rev4.88_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 9edbcc62e75b663eada84524402bccbf
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* 
+* Used data set: rev4.88_h12_validation.tgz
+* md5sum: d42abd58de683506a807b411d7fe87cb
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* 
+* Used data set: additional_data_rev4.45.tgz
+* md5sum: bb51c8c8608b8b9363582eb4aa220754
+* Repository: /p/projects/landuse/data/input/archive
+* 
+* Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
+* md5sum: 5d34e4b54112db10f330f1e59dd60cc9
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+>>>>>>> develop
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -195,7 +215,11 @@ $title magpie
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
+<<<<<<< HEAD
 * Last modification (input data): Thu Aug 10 15:10:51 2023
+=======
+* Last modification (input data): Fri Sep 22 15:20:24 2023
+>>>>>>> develop
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -221,7 +245,11 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
+<<<<<<< HEAD
 $setglobal c_title  Disagg_noIndus_1508_wKSDcosts6
+=======
+$setglobal c_title  default
+>>>>>>> develop
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -249,7 +277,7 @@ $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
 
-$setglobal crop  penalty_apr22
+$setglobal crop  endo_apr21
 $setglobal past  endo_jun13
 
 $setglobal forestry  dynamic_feb21
@@ -284,7 +312,7 @@ $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  off
+$setglobal disagg_lvst  foragebased_jul23
 
 $setglobal timber  default
 

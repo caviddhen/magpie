@@ -11,8 +11,8 @@
 *' of harvested area `vm_area` and production `vm_prod_reg`. `f18_cgf` contains
 *' slope and intercept parameters of the CGFs.
 
- q18_prod_res_ag_cell(j2,kcr) ..
-                 v18_res_biomass_ag_cell(j2,kcr)
+ q18_prod_res_ag_clust(j2,kcr) ..
+                 v18_res_biomass_ag_clust(j2,kcr)
                  =e=
                  (sum(w, vm_area(j2,kcr,w)) * sum((ct, cell(i2,j2)), f18_multicropping(ct,i2)) * f18_cgf("intercept",kcr)
                  + vm_prod(j2,kcr) * f18_cgf("slope",kcr));
@@ -20,13 +20,13 @@
  q18_prod_res_ag_reg(i2,kcr,attributes) ..
                   vm_res_biomass_ag(i2,kcr,attributes)
                  =e=
-                 sum(cell(i2,j2), v18_res_biomass_ag_cell(j2,kcr)) 
+                 sum(cell(i2,j2), v18_res_biomass_ag_clust(j2,kcr)) 
                  * f18_attributes_residue_ag(attributes,kcr);
 
 *' The BG crop residue biomass `vm_res_biomass_bg` is calculated as a function of
 *' total aboveground biomass.
 
- q18_prod_res_bg_cell(i2,kcr,dm_nr) ..
+ q18_prod_res_bg_clust(i2,kcr,dm_nr) ..
                  vm_res_biomass_bg(i2,kcr,dm_nr)
                  =e=
                  (vm_prod_reg(i2,kcr) + vm_res_biomass_ag(i2,kcr,"dm")) * f18_cgf("bg_to_ag",kcr)
@@ -37,10 +37,10 @@
 *' for run-time considerations, but should be noted if regional removals 
 *' vm_res_biomass_ag are to be incentivised.
 
-q18_regional_removals(i2,kcr,attributes) ..
-               sum(cell(i2,j2), v18_res_ag_removal(j2,kcr,attributes))
-               =l=
-               v18_res_ag_removal_reg(i2,kcr,attributes);
+ q18_regional_removals(i2,kcr,attributes) ..
+                sum(cell(i2,j2), v18_res_ag_removal(j2,kcr,attributes))
+                =e=
+              v18_res_ag_removal_reg(i2,kcr,attributes);
 
 
 *' In contrast to AG biomass, AG production `vm_res_biomass_ag(i,kcr,attributes)`
@@ -58,11 +58,11 @@ q18_regional_removals(i2,kcr,attributes) ..
                   + vm_res_ag_burn(i2,kcr,attributes)
                   + v18_res_ag_recycling(i2,kcr,attributes);
 
-*' make sure removal is less than biomass produced in each cell
- q18_cell_field_constraint(j2,kres) ..
-             sum(kres_kcr(kres,kcr), v18_res_biomass_ag_cell(j2,kcr))
+*' make sure removal is less than biomass produced in each cluster
+ q18_clust_field_constraint(j2,kres) ..
+             sum(kres_kcr(kres,kcr), v18_res_biomass_ag_clust(j2,kcr))
               =g= 
-              vm_prod_res(j2, kres);
+              v18_prod_res(j2, kres);
 
 *' The amount of residues burned on fields in a region `vm_res_ag_burn` is
 *' determined by the share (ic18_res_use_min_shr) of AG residue biomass.
@@ -79,7 +79,7 @@ q18_regional_removals(i2,kcr,attributes) ..
                   * vm_res_biomass_ag(i2,kcr,attributes);
 
 
-*' While the residue biomass is estiamted with a crop-specific nutrient
+*' While the residue biomass is estimated with a crop-specific nutrient
 *' composition (which is required for consistent nutrient budgets), the
 *' removed residues are assumed to have homogeneous properties
 *' (to reduce the number of commodities in MAgPIE) within three crop residue
@@ -92,13 +92,13 @@ q18_regional_removals(i2,kcr,attributes) ..
  q18_translate(j2,kres,attributes)..
                   sum(kres_kcr(kres,kcr), v18_res_ag_removal(j2,kcr,attributes))
                   =e=
-                  vm_prod_res(j2,kres) * fm_attributes(attributes,kres);
+                  v18_prod_res(j2,kres) * fm_attributes(attributes,kres);
 
 *' sum to the regional amount of residues produced for the regional interface  
  q18_prod_res_reg(i2,kres)..
                   vm_prod_reg(i2,kres)
                   =e=
-                  sum(cell(i2,j2), vm_prod_res(j2,kres)) ;
+                  sum(cell(i2,j2), v18_prod_res(j2,kres)) ;
 
 
 *' Residues recycled to croplands in nutrients `vm_res_recycling(i2,"nr")` are

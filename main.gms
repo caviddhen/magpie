@@ -148,20 +148,20 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.88_h12_magpie.tgz
-* md5sum: 740da40ceda04850eb374df215837c1b
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: rev4.93_h12_magpie.tgz
+* md5sum: 8884a3f2022db220b80287d7bbb7a8b3
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.88_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: 9edbcc62e75b663eada84524402bccbf
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: rev4.93_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 4723f5c43bb0002319697dd82b4876cc
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.88_h12_validation.tgz
-* md5sum: d42abd58de683506a807b411d7fe87cb
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: rev4.93_h12_validation.tgz
+* md5sum: f1c8bdcf0612c9d15bc6ec0e5f2c456b
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: additional_data_rev4.45.tgz
-* md5sum: bb51c8c8608b8b9363582eb4aa220754
+* Used data set: additional_data_rev4.46.tgz
+* md5sum: 4869803e1a5da9218f780df0ad09649b
 * Repository: /p/projects/landuse/data/input/archive
 * 
 * Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
@@ -179,11 +179,11 @@ $title magpie
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.88
+* Regions data revision: 4.93
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.88
+* * Revision: 4.93
 * 
 * aggregation settings:
 * * Input resolution: 0.5
@@ -195,7 +195,7 @@ $title magpie
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Fri Sep 22 15:20:24 2023
+* Last modification (input data): Thu Nov  2 17:05:49 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -221,7 +221,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  default
+$setglobal c_title  ClDemON_10trad_0311NT
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -241,7 +241,7 @@ $setglobal food  anthro_iso_jun22
 $setglobal demand  sector_may15
 $setglobal production  flexreg_apr16
 
-$setglobal residues  flexreg_apr16
+$setglobal residues  flexcluster_jul23
 $setglobal processing  substitution_may21
 
 $setglobal trade  selfsuff_reduced
@@ -249,7 +249,7 @@ $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
 
-$setglobal crop  endo_apr21
+$setglobal crop  penalty_apr22
 $setglobal past  endo_jun13
 
 $setglobal forestry  dynamic_feb21
@@ -259,7 +259,7 @@ $setglobal natveg  dynamic_feb21
 
 $setglobal employment  exo_may22
 $setglobal labor_prod  off
-$setglobal factor_costs  per_ton_fao_may22
+$setglobal factor_costs  sticky_feb18
 $setglobal landconversion  calib
 
 $setglobal transport  gtap_nov12
@@ -285,6 +285,7 @@ $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
 $setglobal disagg_lvst  foragebased_jul23
+$setglobal local_demand  cluster_demand_nov23
 
 $setglobal timber  default
 

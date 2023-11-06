@@ -7,7 +7,7 @@
 
 
 positive variables
- v18_prod_res(j,kres)                       Cluster-level production of residues (mio. tDM)
+ vm_prod_res(j,kres)                       Cluster-level production of residues (mio. tDM)
  v18_res_biomass_ag_clust(j,kcr)            Production of aboveground residues in each cluster (mio. tDM)
  vm_res_biomass_ag(i,kcr,attributes)        Production of aboveground residues in each region (mio. tDM)
  vm_res_biomass_bg(i,kcr,dm_nr)             Production of belowground residues in each region (mio. tDM)
@@ -48,7 +48,7 @@ parameters
 
 *#################### R SECTION START (OUTPUT DECLARATIONS) ####################
 parameters
- ov18_prod_res(t,j,kres,type)                     Cluster-level production of residues (mio. tDM)
+ ov_prod_res(t,j,kres,type)                       Cluster-level production of residues (mio. tDM)
  ov18_res_biomass_ag_clust(t,j,kcr,type)          Production of aboveground residues in each cluster (mio. tDM)
  ov_res_biomass_ag(t,i,kcr,attributes,type)       Production of aboveground residues in each region (mio. tDM)
  ov_res_biomass_bg(t,i,kcr,dm_nr,type)            Production of belowground residues in each region (mio. tDM)

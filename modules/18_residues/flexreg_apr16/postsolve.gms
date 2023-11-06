@@ -10,7 +10,7 @@
 *** EOF postsolve.gms ***
 
 *#################### R SECTION START (OUTPUT DEFINITIONS) #####################
- ov18_prod_res(t,j,kres,"marginal")                    = v18_prod_res.m(j,kres);
+ ov_prod_res(t,j,kres,"marginal")                      = vm_prod_res.m(j,kres);
  ov_res_biomass_ag(t,i,kcr,attributes,"marginal")      = vm_res_biomass_ag.m(i,kcr,attributes);
  ov_res_biomass_bg(t,i,kcr,dm_nr,"marginal")           = vm_res_biomass_bg.m(i,kcr,dm_nr);
  ov18_res_ag_removal(t,i,kcr,attributes,"marginal")    = v18_res_ag_removal.m(i,kcr,attributes);
@@ -27,7 +27,7 @@
  oq18_res_recycling_nr(t,i,"marginal")                 = q18_res_recycling_nr.m(i);
  oq18_res_recycling_pk(t,i,pk18,"marginal")            = q18_res_recycling_pk.m(i,pk18);
  oq18_cost_prod_res(t,i,kres,"marginal")               = q18_cost_prod_res.m(i,kres);
- ov18_prod_res(t,j,kres,"level")                       = v18_prod_res.l(j,kres);
+ ov_prod_res(t,j,kres,"level")                         = vm_prod_res.l(j,kres);
  ov_res_biomass_ag(t,i,kcr,attributes,"level")         = vm_res_biomass_ag.l(i,kcr,attributes);
  ov_res_biomass_bg(t,i,kcr,dm_nr,"level")              = vm_res_biomass_bg.l(i,kcr,dm_nr);
  ov18_res_ag_removal(t,i,kcr,attributes,"level")       = v18_res_ag_removal.l(i,kcr,attributes);
@@ -44,7 +44,7 @@
  oq18_res_recycling_nr(t,i,"level")                    = q18_res_recycling_nr.l(i);
  oq18_res_recycling_pk(t,i,pk18,"level")               = q18_res_recycling_pk.l(i,pk18);
  oq18_cost_prod_res(t,i,kres,"level")                  = q18_cost_prod_res.l(i,kres);
- ov18_prod_res(t,j,kres,"upper")                       = v18_prod_res.up(j,kres);
+ ov_prod_res(t,j,kres,"upper")                         = vm_prod_res.up(j,kres);
  ov_res_biomass_ag(t,i,kcr,attributes,"upper")         = vm_res_biomass_ag.up(i,kcr,attributes);
  ov_res_biomass_bg(t,i,kcr,dm_nr,"upper")              = vm_res_biomass_bg.up(i,kcr,dm_nr);
  ov18_res_ag_removal(t,i,kcr,attributes,"upper")       = v18_res_ag_removal.up(i,kcr,attributes);
@@ -61,7 +61,7 @@
  oq18_res_recycling_nr(t,i,"upper")                    = q18_res_recycling_nr.up(i);
  oq18_res_recycling_pk(t,i,pk18,"upper")               = q18_res_recycling_pk.up(i,pk18);
  oq18_cost_prod_res(t,i,kres,"upper")                  = q18_cost_prod_res.up(i,kres);
- ov18_prod_res(t,j,kres,"lower")                       = v18_prod_res.lo(j,kres);
+ ov_prod_res(t,j,kres,"lower")                         = vm_prod_res.lo(j,kres);
  ov_res_biomass_ag(t,i,kcr,attributes,"lower")         = vm_res_biomass_ag.lo(i,kcr,attributes);
  ov_res_biomass_bg(t,i,kcr,dm_nr,"lower")              = vm_res_biomass_bg.lo(i,kcr,dm_nr);
  ov18_res_ag_removal(t,i,kcr,attributes,"lower")       = v18_res_ag_removal.lo(i,kcr,attributes);

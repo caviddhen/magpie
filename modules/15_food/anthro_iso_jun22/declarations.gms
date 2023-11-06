@@ -131,7 +131,7 @@ parameters
 * after price shock
  p15_kcal_pc_iso(t,iso,kfo)                      Per capita consumption in food demand model after price shock on country level (kcal per capita per day)
  p15_kcal_pc(t,i,kfo)                            Per capita consumption in food demand model after price shock on regional level (kcal per capita per day)
- p15_kcal_pc_calibrated(t,i,kfo)                 Calibrated per capita consumption in food demand model after price shock (kcal per capita per day)
+ pm_kcal_pc_calibrated(t,i,kfo)                 Calibrated per capita consumption in food demand model after price shock (kcal per capita per day)
  p15_kcal_pc_iso_orig(t,iso,kfo)            Auxiliary parameter for per capita food consumption - basis for convergence into waste and diet scenarios (kcal per capita per day)
  p15_kcal_pc_iso_livestock_orig(t,iso)      Auxiliary parameter for per capita livestock consumption - basis for scenarios of livestock food substitution (kcal per capita per day)
  p15_kcal_pc_iso_rumdairy_orig(t,iso)      Auxiliary parameter for per capita ruminant and dairy consumption - basis for scenarios of ruminant-based food substitution (kcal per capita per day)

@@ -1,0 +1,10 @@
+name,type,reason
+vm_prod, input, not needed
+im_pop_grid, input, not needed
+im_pop_urban_grid, input, not needed
+fm_nutrition_attributes, input, not needed
+pm_kcal_pc_calibrated, input, not needed
+im_feed_baskets, input, not needed
+vm_prod_res, input, not needed
+im_development_state, input, not needed
+vm_prod_reg, input, not needed

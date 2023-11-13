@@ -1,6 +1,7 @@
 scalars
  s72_packaging_costs                 packaging cost add-on for products exported from cluster
  s72_aggr_costs                       aggregation cost add-on for non-subsistence products
+ s72_deg_industr                      degree by which to reduce industrialised demand 
 ;
 
 parameters

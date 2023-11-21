@@ -148,21 +148,25 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.94_h12_magpie.tgz
-* md5sum: 25623b5ad3e8b72bd3008da9b69adfe0
+* Used data set: rev4.89h16s5_David_EU_1028489d_magpie.tgz
+* md5sum: 48daa38740b9d07d136c1ade49fc5e0d
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.94_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: d7800a0ffe271483116a8f00a939a89a
+* Used data set: rev4.89h16s5_David_EU_1028489d_bd86374e_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1_clusterweight-ba4466a8.tgz
+* md5sum: aa54fb5d32d8ff2f0fcfb6ca4d8e86e7
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.94_h12_validation.tgz
-* md5sum: 4b4128910822cf45603cab46f45ccf78
+* Used data set: rev4.89h16s5_David_EU_1028489d_validation.tgz
+* md5sum: 74bbc61bf4c55a811ece26a464dac362
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: additional_data_rev4.46.tgz
-* md5sum: 4869803e1a5da9218f780df0ad09649b
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: additional_data_rev4.45.tgz
+* md5sum: bb51c8c8608b8b9363582eb4aa220754
+* Repository: /p/projects/landuse/data/input/archive
+* 
+* Used data set: feedPatch.tgz
+* md5sum: a9601401765109805aa6f4413703d16a
+* Repository: ./feedPatch
 * 
 * Used data set: calibration_H12_sticky_feb18_glo_07Aug23.tgz
 * md5sum: d4b05d74a791e4379fb5bdfd8acb17d6
@@ -178,28 +182,28 @@ $title magpie
 * Total number of cells: 200
 * 
 * Number of cells per region:
-*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   16    8    7    2   41   30    8   11   12   39   21
+*   CAZ  CHA  DEU  EUC  EUN  EUS  EUW  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     5   14    3    4    2   31    7    6    1   34   20    5    7   12   33   16
 * 
-* Regionscode: 62eff8f7
+* Regionscode: 1028489d
 * 
-* Regions data revision: 4.94
+* Regions data revision: 4.89
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.94
+* * Revision: 4.89
 * 
 * aggregation settings:
 * * Input resolution: 0.5
 * * Output resolution: c200
-* * Regionscode: 62eff8f7
+* * Regionscode: 1028489d
 * * Number of clusters per region:
-*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   16    8    7    2   41   30    8   11   12   39   21
+*   CAZ  CHA  DEU  EUC  EUN  EUS  EUW  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     5   14    3    4    2   31    7    6    1   34   20    5    7   12   33   16
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Mon Nov 20 19:00:50 2023
+* Last modification (input data): Mon Nov 13 17:47:35 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -225,7 +229,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  ClDemON_3XCosts_10trad_2111LD_harm
+$setglobal c_title  h16s5_no_calib_HighlocDemDC
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -253,7 +257,7 @@ $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
 
-$setglobal crop  penalty_apr22
+$setglobal crop  endo_apr21
 $setglobal past  endo_jun13
 
 $setglobal forestry  dynamic_feb21
@@ -289,7 +293,7 @@ $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
 $setglobal disagg_lvst  foragebased_jul23
-$setglobal local_demand  cluster_demand_nov23
+$setglobal local_demand  off
 
 $setglobal timber  default
 

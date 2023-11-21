@@ -148,25 +148,29 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.93_h12_magpie.tgz
-* md5sum: 8884a3f2022db220b80287d7bbb7a8b3
+* Used data set: rev4.94_h12_magpie.tgz
+* md5sum: 25623b5ad3e8b72bd3008da9b69adfe0
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.93_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: 4723f5c43bb0002319697dd82b4876cc
+* Used data set: rev4.94_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: d7800a0ffe271483116a8f00a939a89a
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: rev4.93_h12_validation.tgz
-* md5sum: f1c8bdcf0612c9d15bc6ec0e5f2c456b
+* Used data set: rev4.94_h12_validation.tgz
+* md5sum: 4b4128910822cf45603cab46f45ccf78
 * Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: additional_data_rev4.46.tgz
 * md5sum: 4869803e1a5da9218f780df0ad09649b
-* Repository: /p/projects/landuse/data/input/archive
-* 
-* Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
-* md5sum: 5d34e4b54112db10f330f1e59dd60cc9
 * Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* 
+* Used data set: calibration_H12_sticky_feb18_glo_07Aug23.tgz
+* md5sum: d4b05d74a791e4379fb5bdfd8acb17d6
+* Repository: /p/projects/landuse/data/input/calibration
+* 
+* Used data set: feedPatch.tgz
+* md5sum: a9601401765109805aa6f4413703d16a
+* Repository: ./feedPatch
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -175,15 +179,15 @@ $title magpie
 * 
 * Number of cells per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     6   17    9    8    1   44   26    7   10   13   38   21
+*     5   16    8    7    2   41   30    8   11   12   39   21
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.93
+* Regions data revision: 4.94
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.93
+* * Revision: 4.94
 * 
 * aggregation settings:
 * * Input resolution: 0.5
@@ -191,11 +195,11 @@ $title magpie
 * * Regionscode: 62eff8f7
 * * Number of clusters per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     6   17    9    8    1   44   26    7   10   13   38   21
+*     5   16    8    7    2   41   30    8   11   12   39   21
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Thu Nov  2 17:05:49 2023
+* Last modification (input data): Mon Nov 20 19:00:50 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -221,7 +225,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  ClDemON_10trad_0311NT
+$setglobal c_title  ClDemON_3XCosts_10trad_2111LD_harm
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /

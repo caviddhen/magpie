@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "0911LD_reCalib" #choose a meaningful flag.
+cfg$info$flag <- "2111LD_harm" #choose a meaningful flag.
 cfg$force_download <- FALSE
 
 # support function to create standardized title
@@ -35,16 +35,16 @@ cfg$gms$residues <- "flexcluster_jul23"
 #sticky on 
 cfg$gms$factor_costs <- "sticky_feb18"     
 
-cfg$recalibrate <- TRUE     # def = "ifneeded"
-cfg$recalibrate_landconversion_cost <- TRUE #def "ifneeded"
+cfg$recalibrate <- FALSE     # def = "ifneeded"
+cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 
 cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=NULL,
                                 "./feedPatch"=NULL), getOption("magpie_repos"))
 
 
-cfg$input <- c(regional    = "rev4.93_h12_magpie.tgz",
-               cellular    = "rev4.93_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.93_h12_validation.tgz",
+cfg$input <- c(regional    = "rev4.94_h12_magpie.tgz",
+               cellular    = "rev4.94_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.94_h12_validation.tgz",
                additional  = "additional_data_rev4.46.tgz",
                calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
                feedPatch = "feedPatch.tgz")
@@ -52,55 +52,26 @@ cfg$input <- c(regional    = "rev4.93_h12_magpie.tgz",
 
 #default with disagg livestock
 cfg$title <- .title(paste0("Default"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 #default with module on
 cfg$title <- .title(paste0("ClDemON"))
 cfg$gms$local_demand <- "cluster_demand_nov23"     # def = "off"
-#start_run(cfg, codeCheck = TRUE)
-
-#with disagg livstock off 
-cfg$title <- .title(paste0("ClDemON_disaggLvstOff"))
-cfg$gms$disagg_lvst <- "off"                  # def = foragebased_jul23
-#start_run(cfg, codeCheck = TRUE)
-
-# with 0 costs
-cfg$gms$disagg_lvst <- "foragebased_jul23"                  # def = foragebased_jul23
-cfg$gms$s72_packaging_costs <- 0
-cfg$gms$s72_aggr_costs           <- 0
-cfg$title <- .title(paste0("ClDemON_0Costs"))
-#start_run(cfg, codeCheck = TRUE)
-
-
+start_run(cfg, codeCheck = TRUE)
 
 #with 3x high costs
-cfg$gms$s72_packaging_costs <- 30
-cfg$gms$s72_aggr_costs           <- 15
+cfg$gms$s72_cost_increase <- 3
 cfg$title <- .title(paste0("ClDemON_3XCosts"))
 start_run(cfg, codeCheck = TRUE)
 
-
-#with 5x high costs
-cfg$gms$s72_packaging_costs <- 50
-cfg$gms$s72_aggr_costs           <- 25
-cfg$title <- .title(paste0("ClDemON_5XCosts"))
-#start_run(cfg, codeCheck = TRUE)
-
-#with 10x high costs
-cfg$gms$s72_packaging_costs <- 100
-cfg$gms$s72_aggr_costs           <- 50
-cfg$title <- .title(paste0("ClDemON_10XCosts"))
-#start_run(cfg, codeCheck = TRUE)
-
-#with de-industrialization and high costs
+#with de-industrialization 
 cfg$gms$s72_deg_industr <- 10
-cfg$title <- .title(paste0("ClDemON_10XCosts_10trad"))
-#start_run(cfg, codeCheck = TRUE)
+cfg$title <- .title(paste0("ClDemON_3XCosts_10trad"))
+start_run(cfg, codeCheck = TRUE)
 
 
 #with de-industrializaion and 3x costs 
-cfg$gms$s72_packaging_costs <- 30
-cfg$gms$s72_aggr_costs           <- 15
+cfg$gms$s72_cost_increase <- 1
 cfg$title <- .title(paste0("ClDemON_10trad"))
 start_run(cfg, codeCheck = TRUE)
 

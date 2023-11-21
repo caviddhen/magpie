@@ -8,3 +8,4 @@ im_feed_baskets, input, not needed
 vm_prod_res, input, not needed
 im_development_state, input, not needed
 vm_prod_reg, input, not needed
+sm_fix_SSP2, input, not neeeded

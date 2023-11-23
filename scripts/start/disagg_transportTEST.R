@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "2111LD_harm" #choose a meaningful flag.
+cfg$info$flag <- "2211LD2_harm" #choose a meaningful flag.
 cfg$force_download <- FALSE
 
 # support function to create standardized title

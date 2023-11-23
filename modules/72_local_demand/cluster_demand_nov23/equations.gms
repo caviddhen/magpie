@@ -36,9 +36,9 @@ q72_rural_demand_subs(j2, k) ..
                    v72_dem_for_local(j2, k, "rural", "trad")
                    =e=
                      sum(ct,
-                           i72_dem_food_cell(ct,j2, k, "rural") * (1 - (i72_food_proc_demand(ct, j2, k))/s72_deg_industr) 
+                           i72_dem_food_cell(ct,j2, k, "rural") * (1 - (i72_food_proc_demand(ct, j2, k))/p72_deg_industr(ct)) 
                         + sum(kli, vm_prod(j2,kli) * sum(cell(i2,j2),im_feed_baskets(ct,i2,kli,k)))
-                            * (1 - (i72_feed_proc_demand(ct, j2, k)/s72_deg_industr) ))
+                            * (1 - (i72_feed_proc_demand(ct, j2, k)/p72_deg_industr(ct)) ))
                    - v72_cell_import(j2, k, "rural", "trad")
                    ;
  
@@ -48,7 +48,7 @@ q72_rural_demand_ruminant_feed(j2, kres) ..
                    sum(ct, 
                        sum(kli_rum, 
                         vm_prod(j2,kli_rum) * sum(cell(i2,j2),im_feed_baskets(ct,i2,kli_rum,kres)))
-                     * (1 - (i72_feed_proc_demand(ct, j2, kres)/s72_deg_industr))) 
+                     * (1 - (i72_feed_proc_demand(ct, j2, kres)/p72_deg_industr(ct)))) 
                     - v72_cell_import(j2, kres, "rural", "trad")
                    ;
 *' potentially include livestock in urban trad
@@ -57,7 +57,7 @@ q72_rural_demand_ruminant_feed(j2, kres) ..
 q72_urban_demand_local(j2, k) ..
               v72_dem_for_local(j2, k, "urban", "trad")
               =e= 
-              sum(ct, i72_dem_food_cell(ct,j2, k, "urban") * (1 - (i72_food_proc_demand(ct, j2, k)/s72_deg_industr)))
+              sum(ct, i72_dem_food_cell(ct,j2, k, "urban") * (1 - (i72_food_proc_demand(ct, j2, k)/p72_deg_industr(ct))))
                - v72_cell_import(j2, k, "urban", "trad")
         ;
 
@@ -75,13 +75,13 @@ q72_urban_demand_local(j2, k) ..
 *' aggregation and packing costs
  q72_agg_pack_prim(j2,k) ..
                   vm_cost_packaging(j2,k)  =g=
-                 (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,"rural","trad"))) * s72_aggr_costs * s72_cost_increase
-               + (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,urb,"trad"))) * s72_packaging_costs * s72_cost_increase
+                 (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,"rural","trad"))) * s72_aggr_costs * sum(ct, p72_cost_increase(ct))
+               + (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,urb,"trad"))) * s72_packaging_costs * sum(ct, p72_cost_increase(ct))
                    ;
 
  q72_agg_pack_nonprim(j2,k_nonprim) ..
                   vm_cost_packaging(j2,k_nonprim)  =g=
-                sum(cell(i2,j2), vm_prod_reg(i2, k_nonprim)) * s72_packaging_costs * s72_cost_increase
+                sum(cell(i2,j2), vm_prod_reg(i2, k_nonprim)) * s72_packaging_costs * sum(ct, p72_cost_increase(ct))
                    ;
 
 

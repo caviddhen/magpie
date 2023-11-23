@@ -128,7 +128,7 @@ cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=
                 additional  = "additional_data_rev4.45.tgz",
                 feedPatch = "feedPatch.tgz")
 
- cfg$title  <- "h16s5_no_calib_HighlocDemDC"
+ cfg$title  <- "h16s5_no_calib_HighlocDemDC2"
  cfg        <- setScenario(cfg,c("SSP2", "NDC", "ForestryEndo"))
  cfg$gms$s13_ignore_tau_historical <- 1
  cfg$gms$factor_costs <- "sticky_feb18"
@@ -136,14 +136,14 @@ cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=
 #cellular residues module on 
 cfg$gms$residues <- "flexcluster_jul23"
 
+cfg$gms$local_demand <- "cluster_demand_nov23"
 
-
-#with 5x high costs
-cfg$gms$s72_packaging_costs <- 50
-cfg$gms$s72_aggr_costs           <- 25
+#with 2x high costs
+cfg$gms$s72_packaging_costs <- 30
+cfg$gms$s72_aggr_costs           <- 15
 
 #with de-industrialization and high costs
-cfg$gms$s72_deg_industr <- 10
+cfg$gms$s72_deg_industr <- 5
 start_run(cfg,codeCheck=FALSE)
 
 # # ---- H16

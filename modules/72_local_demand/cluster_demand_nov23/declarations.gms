@@ -3,15 +3,16 @@ scalars
  s72_aggr_costs                      Aggregation cost add-on for non-subsistence products
  s72_deg_industr                     Degree by which to reduce industrialised demand 
  s72_cost_increase                   Scalar for increasing default input costs
-
 ;
 
 parameters
- i72_urban_shr(t_all, j, urb)                                Urban population share (0-1)
- i72_dem_food_cell(t, j, kall, urb)                          Per capita primary food demand within a region by urban pop (mio. tDM per yr)
+ i72_urban_shr(t_all, j, urb)                               Urban population share (0-1)
+ i72_dem_food_cell(t, j, kall, urb)                         Per capita primary food demand within a region by urban pop (mio. tDM per yr)
  i72_dem_feed_cell(t, j, kall, urb)                         Feed demand within a cell based on cellular livestock production and feed baskets (mio. tDM)
- i72_food_proc_demand(t_all, j, k)                           Amount of food processing demanded in low and high income countries (0-1)
+ i72_food_proc_demand(t_all, j, k)                          Amount of food processing demanded in low and high income countries (0-1)
  i72_feed_proc_demand(t_all, j, kall)                       Amount of feed processing required for low and high income countries (0-1)
+ p72_deg_industr(t)                                         Degree by which to reduce industrialised demand 
+ p72_cost_increase(t)                                       Scalar for increasing default input costs
 ;
 
 

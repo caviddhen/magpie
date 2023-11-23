@@ -225,7 +225,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  ClDemON_3XCosts_10trad_2111LD_harm
+$setglobal c_title  ClDemON_10trad_2211LD2_harm
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /

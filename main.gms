@@ -160,9 +160,13 @@ $title magpie
 * md5sum: 4b4128910822cf45603cab46f45ccf78
 * Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: additional_data_rev4.46.tgz
-* md5sum: 4869803e1a5da9218f780df0ad09649b
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Used data set: additional_data_rev4.45.tgz
+* md5sum: bb51c8c8608b8b9363582eb4aa220754
+* Repository: /p/projects/landuse/data/input/archive
+* 
+* Used data set: feedPatch.tgz
+* md5sum: a9601401765109805aa6f4413703d16a
+* Repository: ./feedPatch
 * 
 * Used data set: procPatch.tgz
 * md5sum: db42ceb6359fde0346581f87acec5970
@@ -178,24 +182,24 @@ $title magpie
 * Total number of cells: 200
 * 
 * Number of cells per region:
-*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   16    8    7    2   41   30    8   11   12   39   21
+*   CAZ  CHA  DEU  EUC  EUN  EUS  EUW  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     5   14    3    4    2   31    7    6    1   34   20    5    7   12   33   16
 * 
-* Regionscode: 62eff8f7
+* Regionscode: 1028489d
 * 
-* Regions data revision: 4.94
+* Regions data revision: 4.89
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.94
+* * Revision: 4.89
 * 
 * aggregation settings:
 * * Input resolution: 0.5
 * * Output resolution: c200
-* * Regionscode: 62eff8f7
+* * Regionscode: 1028489d
 * * Number of clusters per region:
-*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   16    8    7    2   41   30    8   11   12   39   21
+*   CAZ  CHA  DEU  EUC  EUN  EUS  EUW  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     5   14    3    4    2   31    7    6    1   34   20    5    7   12   33   16
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
@@ -289,7 +293,7 @@ $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
 $setglobal disagg_lvst  foragebased_jul23
-$setglobal local_demand  cluster_demand_nov23
+$setglobal local_demand  off
 
 $setglobal timber  default
 

@@ -19,7 +19,7 @@ source("config/default.cfg")
 codeCheck <- FALSE          # avoid code check
 
 
-cfg$force_download <- TRUE  # force redownload of input data
+cfg$force_download <- FALSE  # force redownload of input data
 cfg$recalc_npi_ndc <- TRUE  # force recalculation of npi ncd policies
 
 # Do not calibrate yields
@@ -128,11 +128,22 @@ cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=
                 additional  = "additional_data_rev4.45.tgz",
                 feedPatch = "feedPatch.tgz")
 
- cfg$title  <- "h16s5_no_yield_and_landconversion_cost_calib_locDemDC"
+ cfg$title  <- "h16s5_no_calib_HighlocDemDC2"
  cfg        <- setScenario(cfg,c("SSP2", "NDC", "ForestryEndo"))
  cfg$gms$s13_ignore_tau_historical <- 1
  cfg$gms$factor_costs <- "sticky_feb18"
 
+#cellular residues module on 
+cfg$gms$residues <- "flexcluster_jul23"
+
+cfg$gms$local_demand <- "cluster_demand_nov23"
+
+#with 2x high costs
+cfg$gms$s72_packaging_costs <- 30
+cfg$gms$s72_aggr_costs           <- 15
+
+#with de-industrialization and high costs
+cfg$gms$s72_deg_industr <- 5
 start_run(cfg,codeCheck=FALSE)
 
 # # ---- H16

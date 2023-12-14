@@ -16,6 +16,9 @@ kroughage(kall) roughage products for local ruminant consumption
  fvc food value chain type
   / trad, industr /
   
+ use food or feed
+  / food, feed /
+
 k_nonprim(kall) All products except for k
 /
 set.ksd, set.kforestry, set.kres

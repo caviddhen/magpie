@@ -150,27 +150,27 @@ $title magpie
 * 
 * Used data set: rev4.94_h12_magpie.tgz
 * md5sum: 25623b5ad3e8b72bd3008da9b69adfe0
-* Repository: /p/projects/rd3mod/inputdata/output
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: rev4.94_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
 * md5sum: d7800a0ffe271483116a8f00a939a89a
-* Repository: /p/projects/rd3mod/inputdata/output
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: rev4.94_h12_validation.tgz
 * md5sum: 4b4128910822cf45603cab46f45ccf78
-* Repository: /p/projects/rd3mod/inputdata/output
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: additional_data_rev4.46.tgz
 * md5sum: 4869803e1a5da9218f780df0ad09649b
 * Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: calibration_H12_sticky_feb18_glo_07Aug23.tgz
-* md5sum: d4b05d74a791e4379fb5bdfd8acb17d6
-* Repository: /p/projects/landuse/data/input/calibration
-* 
-* Used data set: feedPatch.tgz
-* md5sum: a9601401765109805aa6f4413703d16a
+* Used data set: procPatch.tgz
+* md5sum: db42ceb6359fde0346581f87acec5970
 * Repository: ./feedPatch
+* 
+* Used data set: tauPatch.tgz
+* md5sum: 92c470e1bd9276e776ea335eb98d64c6
+* Repository: ./tauPatch
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -199,7 +199,7 @@ $title magpie
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Mon Nov 20 19:00:50 2023
+* Last modification (input data): Wed Dec 13 13:55:12 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -225,7 +225,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  ClDemON_10trad_2211LD2_harm
+$setglobal c_title  ClDemON_10trad_1312fixTau
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -238,7 +238,7 @@ $setglobal drivers  aug17
 $setglobal land  landmatrix_dec18
 $setglobal costs  default
 $setglobal interest_rate  select_apr20
-$setglobal tc  endo_jan22
+$setglobal tc  exo
 $setglobal yields  managementcalib_aug19
 
 $setglobal food  anthro_iso_jun22
@@ -253,7 +253,7 @@ $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
 
-$setglobal crop  penalty_apr22
+$setglobal crop  endo_apr21
 $setglobal past  endo_jun13
 
 $setglobal forestry  dynamic_feb21

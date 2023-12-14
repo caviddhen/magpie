@@ -36,9 +36,9 @@ q72_rural_demand_subs(j2, k) ..
                    v72_dem_for_local(j2, k, "rural", "trad")
                    =e=
                      sum(ct,
-                           i72_dem_food_cell(ct,j2, k, "rural") * (1 - (i72_food_proc_demand(ct, j2, k))/p72_deg_industr(ct)) 
+                           i72_dem_food_cell(ct,j2, k, "rural") * (1 - (i72_proc_demand(ct, j2, "food", k))/p72_deg_industr(ct)) 
                         + sum(kli, vm_prod(j2,kli) * sum(cell(i2,j2),im_feed_baskets(ct,i2,kli,k)))
-                            * (1 - (i72_feed_proc_demand(ct, j2, k)/p72_deg_industr(ct)) ))
+                            * (1 - (i72_proc_demand(ct, j2, "feed", k)/p72_deg_industr(ct)) ))
                    - v72_cell_import(j2, k, "rural", "trad")
                    ;
  
@@ -48,7 +48,7 @@ q72_rural_demand_ruminant_feed(j2, kres) ..
                    sum(ct, 
                        sum(kli_rum, 
                         vm_prod(j2,kli_rum) * sum(cell(i2,j2),im_feed_baskets(ct,i2,kli_rum,kres)))
-                     * (1 - (i72_feed_proc_demand(ct, j2, kres)/p72_deg_industr(ct)))) 
+                     * (1 - (i72_proc_demand(ct, j2, "feed", kres)/p72_deg_industr(ct)))) 
                     - v72_cell_import(j2, kres, "rural", "trad")
                    ;
 *' potentially include livestock in urban trad
@@ -57,20 +57,9 @@ q72_rural_demand_ruminant_feed(j2, kres) ..
 q72_urban_demand_local(j2, k) ..
               v72_dem_for_local(j2, k, "urban", "trad")
               =e= 
-              sum(ct, i72_dem_food_cell(ct,j2, k, "urban") * (1 - (i72_food_proc_demand(ct, j2, k)/p72_deg_industr(ct))))
+              sum(ct, i72_dem_food_cell(ct,j2, k, "urban") * (1 - (i72_proc_demand(ct, j2, "food", k)/p72_deg_industr(ct))))
                - v72_cell_import(j2, k, "urban", "trad")
         ;
-
-*' industrialised regional supply chain
-*' q72_demand_reg(j2, k, urb) ..
-*'                    v72_dem_for_local(j2, k, urb, "industr")
-*'                    =e=
-*'                    sum(ct,
-*'                           i72_dem_food_cell(ct,j2, k, urb) * (i72_food_proc_demand(ct, j2, k) ) ) 
-*'                        - v72_cell_import(j2, k, urb, "industr");
-
-*' vm_dem_packaged, add processed share to feed baskets, remove import                        sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k))) 
-                   
 
 *' aggregation and packing costs
  q72_agg_pack_prim(j2,k) ..
@@ -83,25 +72,3 @@ q72_urban_demand_local(j2, k) ..
                   vm_cost_packaging(j2,k_nonprim)  =g=
                 sum(cell(i2,j2), vm_prod_reg(i2, k_nonprim)) * s72_packaging_costs * sum(ct, p72_cost_increase(ct))
                    ;
-
-
-*' make on wm basis?
-
-*' transport costs for everything except for subsistence demand. Transport to rural gets extra transport cost
-*'q72_cost_transport_prim(j2,k) ..
-*'                 vm_cost_transp(j2, k) =g=
-*'               ( vm_prod(j2, k)
-*'                    - v72_dem_for_local(j2, k, "rural", "trad")
-*'                    + sum(fvc, v72_cell_import(j2, k, "rural", fvc)) )
-*'                                          * f72_distance(j2) *  f72_transport_costs(k) ;
-
-
-*' all secondary products get transport costs
-*' add these to transport costs, see if they're in gtap, otherwsie grain price
-
-*'  q72_cost_transport_notk(j2, k_nonprim) ..
-*'                                   vm_cost_transp(j2, k_nonprim) =g=
-*'                                  sum(ct,
-*'                                      i72_dem_food_cell(ct,j2, k_nonprim, "rural")) +
-*'                                      sum(kli,vm_prod(j2,kli) * sum((ct,cell(i2,j2)),im_feed_baskets(ct,i2,kli,k_nonprim)))
-*'                                   * f72_distance(j2) *  f72_transport_costs(k_nonprim) ;

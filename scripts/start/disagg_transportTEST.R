@@ -20,14 +20,16 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "2211LD2_harm" #choose a meaningful flag.
+cfg$info$flag <- "1312fixTau" #choose a meaningful flag.
 cfg$force_download <- FALSE
 
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
 #crop rotation module on
-cfg$gms$crop <- "penalty_apr22"
+#cfg$gms$crop <- "penalty_apr22"
+
+cfg$gms$tc <- "exo"
 
 #cellular residues module on 
 cfg$gms$residues <- "flexcluster_jul23"
@@ -39,16 +41,18 @@ cfg$recalibrate <- FALSE     # def = "ifneeded"
 cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 
 cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=NULL,
-                                "./feedPatch"=NULL), getOption("magpie_repos"))
+                                "./feedPatch"=NULL, "./tauPatch"=NULL), getOption("magpie_repos"))
 
 
 cfg$input <- c(regional    = "rev4.94_h12_magpie.tgz",
                cellular    = "rev4.94_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
                validation  = "rev4.94_h12_validation.tgz",
                additional  = "additional_data_rev4.46.tgz",
-               calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
-               feedPatch = "feedPatch.tgz")
+               #calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
+               feedPatch =  "procPatch.tgz",
+               tauPatch = "tauPatch.tgz")
 
+cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 
 #default with disagg livestock
 cfg$title <- .title(paste0("Default"))
@@ -64,13 +68,19 @@ cfg$gms$s72_cost_increase <- 3
 cfg$title <- .title(paste0("ClDemON_3XCosts"))
 start_run(cfg, codeCheck = TRUE)
 
-#with de-industrialization 
+#with de-industrialization and 3x costs 
 cfg$gms$s72_deg_industr <- 10
 cfg$title <- .title(paste0("ClDemON_3XCosts_10trad"))
 start_run(cfg, codeCheck = TRUE)
 
 
-#with de-industrializaion and 3x costs 
+#with 10x high costs
+cfg$gms$s72_cost_increase <- 10
+cfg$title <- .title(paste0("ClDemON_10XCosts_10trad"))
+start_run(cfg, codeCheck = TRUE)
+
+
+#with de-industrializaion 
 cfg$gms$s72_cost_increase <- 1
 cfg$title <- .title(paste0("ClDemON_10trad"))
 start_run(cfg, codeCheck = TRUE)

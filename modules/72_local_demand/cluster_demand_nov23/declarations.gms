@@ -9,8 +9,7 @@ parameters
  i72_urban_shr(t_all, j, urb)                               Urban population share (0-1)
  i72_dem_food_cell(t, j, kall, urb)                         Per capita primary food demand within a region by urban pop (mio. tDM per yr)
  i72_dem_feed_cell(t, j, kall, urb)                         Feed demand within a cell based on cellular livestock production and feed baskets (mio. tDM)
- i72_food_proc_demand(t_all, j, k)                          Amount of food processing demanded in low and high income countries (0-1)
- i72_feed_proc_demand(t_all, j, kall)                       Amount of feed processing required for low and high income countries (0-1)
+ i72_proc_demand(t_all, j, use, kall)                          Amount of food feed processing demanded in low and high income countries (0-1)
  p72_deg_industr(t)                                         Degree by which to reduce industrialised demand 
  p72_cost_increase(t)                                       Scalar for increasing default input costs
 ;
@@ -27,14 +26,11 @@ equations
  q72_local_rough_prod(j, kres)                 Local roughage production constraint
 
  q72_rural_demand_subs(j, kall)                Rural food demand for subsistence products
- q72_rural_demand_ruminant_feed(j, kres)   Rural ruminant feed demand 
+ q72_rural_demand_ruminant_feed(j, kres)       Rural ruminant feed demand 
 
  q72_urban_demand_local(j, kall)               Urban food demand for local products
-* q72_demand_reg(j, kall, urb)                  Food demand for regional products
  q72_agg_pack_prim(j, kall)                    Additional packing costs equation for primary products
  q72_agg_pack_nonprim(j, kall)                 Additional packing costs equation for nonprimary products
-* q72_cost_transport_prim(j, kall)              Cellular transport costs for k
-* q72_cost_transport_notk(j, kall)              Cellular transport costs for k 
 
 ;
 

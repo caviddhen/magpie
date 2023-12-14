@@ -150,31 +150,23 @@ $title magpie
 * 
 * Used data set: rev4.94_h12_magpie.tgz
 * md5sum: 25623b5ad3e8b72bd3008da9b69adfe0
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: rev4.94_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
 * md5sum: d7800a0ffe271483116a8f00a939a89a
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: rev4.94_h12_validation.tgz
 * md5sum: 4b4128910822cf45603cab46f45ccf78
-* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
-* Used data set: additional_data_rev4.45.tgz
-* md5sum: bb51c8c8608b8b9363582eb4aa220754
-* Repository: /p/projects/landuse/data/input/archive
+* Used data set: additional_data_rev4.46.tgz
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: feedPatch.tgz
-* md5sum: a9601401765109805aa6f4413703d16a
-* Repository: ./feedPatch
-* 
-* Used data set: procPatch.tgz
-* md5sum: db42ceb6359fde0346581f87acec5970
-* Repository: ./feedPatch
-* 
-* Used data set: tauPatch.tgz
-* md5sum: 92c470e1bd9276e776ea335eb98d64c6
-* Repository: ./tauPatch
+* Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
+* md5sum: NA
+* Repository: https://rse.pik-potsdam.de/data/magpie/public
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -182,28 +174,28 @@ $title magpie
 * Total number of cells: 200
 * 
 * Number of cells per region:
-*   CAZ  CHA  DEU  EUC  EUN  EUS  EUW  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   14    3    4    2   31    7    6    1   34   20    5    7   12   33   16
+*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     5   16    8    7    2   41   30    8   11   12   39   21
 * 
 * Regionscode: 1028489d
 * 
-* Regions data revision: 4.89
+* Regions data revision: 4.94
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.89
+* * Revision: 4.94
 * 
 * aggregation settings:
 * * Input resolution: 0.5
 * * Output resolution: c200
 * * Regionscode: 1028489d
 * * Number of clusters per region:
-*   CAZ  CHA  DEU  EUC  EUN  EUS  EUW  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   14    3    4    2   31    7    6    1   34   20    5    7   12   33   16
+*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
+*     5   16    8    7    2   41   30    8   11   12   39   21
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Wed Dec 13 13:55:12 2023
+* Last modification (input data): Fri Nov 17 19:42:06 2023
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -285,7 +277,7 @@ $setglobal phosphorus  off
 $setglobal awms  ipcc2006_aug16
 $setglobal ghg_policy  price_aug22
 $setglobal maccs  on_aug22
-$setglobal peatland  on
+$setglobal peatland  v2
 $setglobal som  static_jan19
 
 $setglobal bioenergy  1stgen_priced_dec18

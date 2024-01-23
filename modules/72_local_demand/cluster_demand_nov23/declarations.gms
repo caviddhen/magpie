@@ -18,7 +18,7 @@ parameters
 positive variables
  v72_dem_for_local(j, kall, urb, fvc)              Local food demand (mio. tDM per yr)
  v72_cell_import(j, kall, urb, fvc)                Transported food production to or from a cluster (mio. tDM per yr)
- vm_cost_packaging(j, kall)                           packaging cost (mio. USD05MER per yr)
+ vm_cost_packaging(i, kall)                           packaging cost (mio. USD05MER per yr)
 ;
 
 equations
@@ -29,8 +29,8 @@ equations
  q72_rural_demand_ruminant_feed(j, kres)       Rural ruminant feed demand 
 
  q72_urban_demand_local(j, kall)               Urban food demand for local products
- q72_agg_pack_prim(j, kall)                    Additional packing costs equation for primary products
- q72_agg_pack_nonprim(j, kall)                 Additional packing costs equation for nonprimary products
+ q72_agg_pack_prim(i, kall)                    Additional packing costs equation for primary products
+ q72_agg_pack_nonprim(i, kall)                 Additional packing costs equation for nonprimary products
 
 ;
 
@@ -38,13 +38,13 @@ equations
 parameters
  ov72_dem_for_local(t,j,kall,urb,fvc,type)      Local food demand (mio. tDM per yr)
  ov72_cell_import(t,j,kall,urb,fvc,type)        Transported food production to or from a cluster (mio. tDM per yr)
- ov_cost_packaging(t,j,kall,type)               packaging cost (mio. USD05MER per yr)
+ ov_cost_packaging(t,i,kall,type)               packaging cost (mio. USD05MER per yr)
  oq72_local_crop_prod(t,j,kall,type)            Local crop production constraint
  oq72_local_rough_prod(t,j,kres,type)           Local roughage production constraint
  oq72_rural_demand_subs(t,j,kall,type)          Rural food demand for subsistence products
  oq72_rural_demand_ruminant_feed(t,j,kres,type) Rural ruminant feed demand 
  oq72_urban_demand_local(t,j,kall,type)         Urban food demand for local products
- oq72_agg_pack_prim(t,j,kall,type)              Additional packing costs equation for primary products
- oq72_agg_pack_nonprim(t,j,kall,type)           Additional packing costs equation for nonprimary products
+ oq72_agg_pack_prim(t,i,kall,type)              Additional packing costs equation for primary products
+ oq72_agg_pack_nonprim(t,i,kall,type)           Additional packing costs equation for nonprimary products
 ;
 *##################### R SECTION END (OUTPUT DECLARATIONS) #####################

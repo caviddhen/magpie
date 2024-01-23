@@ -62,13 +62,14 @@ q72_urban_demand_local(j2, k) ..
         ;
 
 *' aggregation and packing costs
- q72_agg_pack_prim(j2,k) ..
-                  vm_cost_packaging(j2,k)  =g=
+ q72_agg_pack_prim(i2,k) ..
+                  vm_cost_packaging(i2,k)  =g=
+             sum(cell(i2,j2), 
                  (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,"rural","trad"))) * s72_aggr_costs * sum(ct, p72_cost_increase(ct))
-               + (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,urb,"trad"))) * s72_packaging_costs * sum(ct, p72_cost_increase(ct))
+               + (vm_prod(j2, k) - sum((urb, fvc), v72_dem_for_local(j2,k,urb,"trad"))) * s72_packaging_costs * sum(ct, p72_cost_increase(ct)))
                    ;
 
- q72_agg_pack_nonprim(j2,k_nonprim) ..
-                  vm_cost_packaging(j2,k_nonprim)  =g=
-                sum(cell(i2,j2), vm_prod_reg(i2, k_nonprim)) * s72_packaging_costs * sum(ct, p72_cost_increase(ct))
+ q72_agg_pack_nonprim(i2,k_nonprim) ..
+                  vm_cost_packaging(i2, k_nonprim)  =g=
+                vm_prod_reg(i2, k_nonprim) * s72_packaging_costs * sum(ct, p72_cost_increase(ct))
                    ;

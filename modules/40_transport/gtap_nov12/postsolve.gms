@@ -8,12 +8,16 @@
 
 
 *#################### R SECTION START (OUTPUT DEFINITIONS) #####################
- ov_cost_transp(t,j,k,"marginal")      = vm_cost_transp.m(j,k);
- oq40_cost_transport(t,j,k,"marginal") = q40_cost_transport.m(j,k);
- ov_cost_transp(t,j,k,"level")         = vm_cost_transp.l(j,k);
- oq40_cost_transport(t,j,k,"level")    = q40_cost_transport.l(j,k);
- ov_cost_transp(t,j,k,"upper")         = vm_cost_transp.up(j,k);
- oq40_cost_transport(t,j,k,"upper")    = q40_cost_transport.up(j,k);
- ov_cost_transp(t,j,k,"lower")         = vm_cost_transp.lo(j,k);
- oq40_cost_transport(t,j,k,"lower")    = q40_cost_transport.lo(j,k);
+ ov_cost_transp(t,j,k,"marginal")       = vm_cost_transp.m(j,k);
+ ov_cost_packaging(t,i,kall,"marginal") = vm_cost_packaging.m(i,kall);
+ oq40_cost_transport(t,j,k,"marginal")  = q40_cost_transport.m(j,k);
+ ov_cost_transp(t,j,k,"level")          = vm_cost_transp.l(j,k);
+ ov_cost_packaging(t,i,kall,"level")    = vm_cost_packaging.l(i,kall);
+ oq40_cost_transport(t,j,k,"level")     = q40_cost_transport.l(j,k);
+ ov_cost_transp(t,j,k,"upper")          = vm_cost_transp.up(j,k);
+ ov_cost_packaging(t,i,kall,"upper")    = vm_cost_packaging.up(i,kall);
+ oq40_cost_transport(t,j,k,"upper")     = q40_cost_transport.up(j,k);
+ ov_cost_transp(t,j,k,"lower")          = vm_cost_transp.lo(j,k);
+ ov_cost_packaging(t,i,kall,"lower")    = vm_cost_packaging.lo(i,kall);
+ oq40_cost_transport(t,j,k,"lower")     = q40_cost_transport.lo(j,k);
 *##################### R SECTION END (OUTPUT DEFINITIONS) ######################

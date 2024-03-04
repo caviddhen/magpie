@@ -23,7 +23,7 @@ $offdelim
 parameter f40_transport_costs(kall) Relative transport costs (USD05MER per tDM per min)
 /
 $ondelim
-$include "./modules/40_transport/gtap_nov12/input/f40_transport_costs.csv"
+$include "./modules/40_transport/input/f40_transport_costs.csv"
 $offdelim
 /;
 

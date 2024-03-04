@@ -18,6 +18,8 @@
 *' @authors Jan Philipp Dietrich, Florian Humpenöder, Benjamin Bodirsky, Isabelle Weindl, Michael Krause.
 
 *###################### R SECTION START (MODULETYPES) ##########################
+$Ifi "%transport%" == "clustertrade_jan24" $include "./modules/40_transport/clustertrade_jan24/realization.gms"
 $Ifi "%transport%" == "gtap_nov12" $include "./modules/40_transport/gtap_nov12/realization.gms"
 $Ifi "%transport%" == "off" $include "./modules/40_transport/off/realization.gms"
+$Ifi "%transport%" == "urbantrade_jan24" $include "./modules/40_transport/urbantrade_jan24/realization.gms"
 *###################### R SECTION END (MODULETYPES) ############################

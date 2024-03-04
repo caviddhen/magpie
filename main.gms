@@ -149,24 +149,28 @@ $title magpie
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
 * Used data set: rev4.96_h12_magpie.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
+* md5sum: 7f59d3b650cd4059096bd32775317376
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
+* md5sum: c864f7a0e245faa828b8e7b9c9806216
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: rev4.96_h12_validation.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
+* md5sum: b7782f561bf197725af93576e0997e5c
+* Repository: /p/projects/rd3mod/inputdata/output
 * 
 * Used data set: additional_data_rev4.47.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/landuse/data/input/archive
+* md5sum: bec84fd3ca5c85b8459dc0638e201926
+* Repository: /p/projects/landuse/data/input/archive
 * 
-* Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
-* md5sum: NA
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
+* Used data set: calibration_H12_sticky_feb18_glo_07Aug23.tgz
+* md5sum: d4b05d74a791e4379fb5bdfd8acb17d6
+* Repository: /p/projects/landuse/data/input/calibration
+* 
+* Used data set: procPatch.tgz
+* md5sum: 1db150fba9a0ba2e2ffd01ddbe8d8fe0
+* Repository: ./feedPatch
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -195,7 +199,7 @@ $title magpie
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Fri Dec 22 16:58:47 2023
+* Last modification (input data): Tue Feb 20 16:59:56 2024
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -221,7 +225,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  default
+$setglobal c_title  RuralTrade_TradDem10_MktCost10_2102Rural
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -241,7 +245,7 @@ $setglobal food  anthro_iso_jun22
 $setglobal demand  sector_may15
 $setglobal production  flexreg_apr16
 
-$setglobal residues  flexreg_apr16
+$setglobal residues  flexcluster_jul23
 $setglobal processing  substitution_may21
 
 $setglobal trade  selfsuff_reduced
@@ -249,7 +253,7 @@ $setglobal land_conservation  area_based_apr22
 
 $setglobal ageclass  feb21
 
-$setglobal crop  endo_apr21
+$setglobal crop  penalty_apr22
 $setglobal past  endo_jun13
 
 $setglobal forestry  dynamic_feb21
@@ -259,10 +263,10 @@ $setglobal natveg  dynamic_feb21
 
 $setglobal employment  exo_may22
 $setglobal labor_prod  off
-$setglobal factor_costs  per_ton_fao_may22
+$setglobal factor_costs  sticky_feb18
 $setglobal landconversion  calib
 
-$setglobal transport  gtap_nov12
+$setglobal transport  urbantrade_jan24
 $setglobal area_equipped_for_irrigation  endo_apr13
 $setglobal water_demand  all_sectors_aug13
 $setglobal water_availability  total_water_aug13
@@ -284,7 +288,7 @@ $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  foragebased_jul23
+$setglobal disagg_lvst  off
 
 $setglobal timber  default
 

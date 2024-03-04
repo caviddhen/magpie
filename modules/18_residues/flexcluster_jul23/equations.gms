@@ -62,7 +62,7 @@
  q18_clust_field_constraint(j2,kres) ..
              sum(kres_kcr(kres,kcr), v18_res_biomass_ag_clust(j2,kcr))
               =g= 
-              v18_prod_res(j2, kres);
+              vm_prod_res(j2, kres);
 
 *' The amount of residues burned on fields in a region `vm_res_ag_burn` is
 *' determined by the share (ic18_res_use_min_shr) of AG residue biomass.
@@ -92,13 +92,13 @@
  q18_translate(j2,kres,attributes)..
                   sum(kres_kcr(kres,kcr), v18_res_ag_removal(j2,kcr,attributes))
                   =e=
-                  v18_prod_res(j2,kres) * fm_attributes(attributes,kres);
+                  vm_prod_res(j2,kres) * fm_attributes(attributes,kres);
 
 *' sum to the regional amount of residues produced for the regional interface  
  q18_prod_res_reg(i2,kres)..
                   vm_prod_reg(i2,kres)
                   =e=
-                  sum(cell(i2,j2), v18_prod_res(j2,kres)) ;
+                  sum(cell(i2,j2), vm_prod_res(j2,kres)) ;
 
 
 *' Residues recycled to croplands in nutrients `vm_res_recycling(i2,"nr")` are

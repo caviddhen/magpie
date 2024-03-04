@@ -4,3 +4,4 @@ fm_attributes,input,questionnaire
 vm_prod_reg,input,questionnaire
 vm_area,input,questionnaire
 vm_prod,input,questionnaire
+vm_prod_res,input,questionnaire

@@ -219,7 +219,7 @@ if (s15_run_diet_postprocessing = 1,
 *' Transition to exogenous Planetary Health diet scenarios [@willett_food_2019]:
 *' It is possible to define exogenous diet scenarios that replace the regression-based
 *' calculation of food intake and demand according to a predefined speed of
-*' convergence from `p15_kcal_pc_calibrated(t,iso,kfo)` to the scenario-dependent target
+*' convergence from `pm_kcal_pc_calibrated(t,iso,kfo)` to the scenario-dependent target
 *' `i15_kcal_pc_scen_target(t,iso,kfo)` by setting the switch `s15_exo_diet`
 *' to 1.
 
@@ -465,9 +465,9 @@ $endif
 *' Finally, we calibrate countries with zero food demand according to FAOSTAT
 *' down to zero to match FAO world totals.
 *' Values are rounded to avoid path dependencies of MAgPIE solver.
-   p15_kcal_pc_calibrated(t,i,kfo)=p15_kcal_pc(t,i,kfo)+p15_balanceflow_kcal(t,i,kfo);
-   p15_kcal_pc_calibrated(t,i,kfo)=round(p15_kcal_pc_calibrated(t,i,kfo),2);
-   p15_kcal_pc_calibrated(t,i,kfo)$(p15_kcal_pc_calibrated(t,i,kfo)<0)=0;
+   pm_kcal_pc_calibrated(t,i,kfo)=p15_kcal_pc(t,i,kfo)+p15_balanceflow_kcal(t,i,kfo);
+   pm_kcal_pc_calibrated(t,i,kfo)=round(pm_kcal_pc_calibrated(t,i,kfo),2);
+   pm_kcal_pc_calibrated(t,i,kfo)$(pm_kcal_pc_calibrated(t,i,kfo)<0)=0;
 
 *' @stop
  );

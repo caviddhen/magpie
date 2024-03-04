@@ -76,7 +76,7 @@
  q18_prod_res_cell(j2,kres)..
                   sum(cell(i2,j2), vm_prod_reg(i2,kres))
                   =e=
-                  v18_prod_res(j2,kres) ;
+                  vm_prod_res(j2,kres) ;
 
 
 *' Residues recycled to croplands in nutrients `vm_res_recycling(i2,"nr")` are

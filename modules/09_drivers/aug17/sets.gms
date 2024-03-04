@@ -20,4 +20,6 @@ sets
    sex Sex groups
        /M, F/
 
+   urb Urban rural distinction
+            /urban, rural/
 ;

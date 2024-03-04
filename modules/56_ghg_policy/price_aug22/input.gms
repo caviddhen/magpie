@@ -50,8 +50,8 @@ scalars
 
 $setglobal c56_pollutant_prices  R32M46-SSP2EU-NPi
 $setglobal c56_pollutant_prices_noselect  R32M46-SSP2EU-NPi
-$setglobal c56_emis_policy  redd+natveg_nosoil
-$setglobal c56_cprice_aff  forestry_vegc
+$setglobal c56_emis_policy  reddnatveg_nosoil
+$setglobal c56_cprice_aff  secdforest_vegc
 $setglobal c56_mute_ghgprices_until  y2030
 
 $setglobal c56_carbon_stock_pricing  actualNoAcEst

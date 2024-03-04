@@ -1,6 +1,4 @@
 name,type,reason
-vm_prod, input, not needed
-vm_cost_packaging,input,questionnaire
 im_pop_grid,input,questionnaire
 im_pop_urban_grid,input,questionnaire
 im_development_state,input,questionnaire

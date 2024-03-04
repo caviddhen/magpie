@@ -91,7 +91,7 @@ scalar s15_exo_waste Switch for transition towards exogenous food waste scenario
 
 scalar s15_waste_scen Scenario target for the ratio between food demand and intake (1)  / 1.2 /;
 
-scalar s15_exo_diet Switch for transition towards exogenous diet scenario (1)  / 0 /;
+scalar s15_exo_diet Switch for transition towards exogenous diet scenario (1)  / 1 /;
 * The following switches only become active when s15_exo_diet is active
 * They define which components of the diet should become active
 * If the switch is set to 1,the exogenous diets are activated.
@@ -105,12 +105,12 @@ scalar s15_exo_roots Exogenous EAT Lancet root target on (1) / 1 /;
 scalar s15_exo_pulses Exogenous pulses target on  (1) / 1 /;
 scalar s15_exo_sugar Exogenous sugar target on  (1) / 1 /;
 scalar s15_exo_oils Exogenous oils (1) / 1 /;
-scalar s15_exo_brans Exogenous brans (1) / 0 /;
+scalar s15_exo_brans Exogenous brans (1) / 1 /;
 scalar s15_exo_scp Exogenous microbial protein target on  (1) / 1 /;
 * The EAT-Lancet diet only allows for added sugars, but does not include processed food or
 * alcohol. Via 's15_alc_scen' a maximum target for alcohol consumption can be defined.
 scalar s15_exo_alcohol Exogenous alcohol target on (1) / 1 /;
-scalar s15_alc_scen Scenario target for the inclusion of alcohol in the EAT-Lancet diet (1)  / 0.014 /;
+scalar s15_alc_scen Scenario target for the inclusion of alcohol in the EAT-Lancet diet (1)  / 0 /;
 
 scalar s15_rum_share_fadeout_india_strong   switch for stronger ruminant fadeout in India (binary) / 1 /;
 

@@ -2,7 +2,7 @@ scalars
 s40_pasture_transport_costs  Transport costs for pasture (USD05MER per tDM per min)     / 0 /
 s40_packaging_costs          Packaging cost add-on for products exported from cluster        / 30 /
 s40_aggr_costs               Packaging cost add-on for products exported from rural to urban        / 15 /
-s40_deg_industr              Degree of industrialization (scalar for reducing current default inputs) / 10 /
+s40_deg_industr              Degree of industrialization (scalar for reducing current default inputs) / 1 /
 s40_cost_increase            Scalar for increasing default input costs / 5 /
 ;
 

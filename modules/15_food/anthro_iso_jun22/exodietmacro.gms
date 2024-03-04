@@ -709,15 +709,9 @@ if (s15_exo_waste = 1,
 *' Finally, countries with zero food demand according to FAOSTAT are calibrated
 *' down to zero to match FAO world totals.
 *' Values are rounded to avoid path dependencies of MAgPIE solver.
-<<<<<<< HEAD
    pm_kcal_pc_calibrated(t,i,kfo)=p15_kcal_pc(t,i,kfo)+p15_balanceflow_kcal(t,i,kfo);
    pm_kcal_pc_calibrated(t,i,kfo)=round(pm_kcal_pc_calibrated(t,i,kfo),2);
    pm_kcal_pc_calibrated(t,i,kfo)$(pm_kcal_pc_calibrated(t,i,kfo)<0)=0;
-=======
-   p15_kcal_pc_calibrated(t,i,kfo) = p15_kcal_pc(t,i,kfo) + p15_balanceflow_kcal(t,i,kfo);
-   p15_kcal_pc_calibrated(t,i,kfo) = round(p15_kcal_pc_calibrated(t,i,kfo), 2);
-   p15_kcal_pc_calibrated(t,i,kfo)$(p15_kcal_pc_calibrated(t,i,kfo) < 0) = 0;
->>>>>>> develop
 
 *' @stop
  );

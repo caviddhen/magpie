@@ -1,7 +1,7 @@
 scalars
 s40_pasture_transport_costs  Transport costs for pasture (USD05MER per tDM per min)     / 0 /
 s40_mkt_costs                Marketing cost for bringing to urban market        / 20 /
-s40_deg_industr              Degree of industrialization (scalar for reducing current default inputs) / 10 /
+s40_deg_industr              Degree of industrialization (scalar for reducing current default inputs) / 1 /
 s40_cost_increase            Scalar for increasing default input costs / 5 /
 s40_deg_rerural              Scalar for increasing rural share / 1 /
 ;

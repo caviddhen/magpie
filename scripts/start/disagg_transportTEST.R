@@ -14,13 +14,13 @@
 library(lucode2)
 library(gms)
 
-# Load #start_run(cfg) function which is needed to start MAgPIE runs
+# Load start_run(cfg) function which is needed to start MAgPIE runs
 source("scripts/start_functions.R")
 
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "2102Rural" #choose a meaningful flag.
+cfg$info$flag <- "0403Rural" #choose a meaningful flag.
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
@@ -43,12 +43,11 @@ cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=NULL,
                                 "./feedPatch"=NULL, "./tauPatch"=NULL), getOption("magpie_repos"))
 
-cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
-                cellular    = "rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               #cellular    = "rev4.96_h12_6bb49900_cellularmagpie_c400_MRI-ESM2-0-ssp245_lpjml-8e6c5eb1_clusterweight-dcc44a71.tgz",
-               validation  = "rev4.96_h12_validation.tgz",
-               additional  = "additional_data_rev4.47.tgz",
-               calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
+cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
+               cellular    = "rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.99_h12_validation.tgz",
+               additional  = "additional_data_rev4.48.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
                feedPatch =  "procPatch.tgz")
              #tauPatch = "tauPatchc400BF.tgz")
 
@@ -58,7 +57,7 @@ cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 cfg$title <- .title(paste0("Default"))
 cfg$gms$disagg_lvst <- "foragebased_jul23"
 
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 cfg$gms$disagg_lvst <- "off"
 
@@ -68,7 +67,7 @@ cfg$gms$transport <- "urbantrade_jan24"     # def = "off"
 
 
 cfg$title <- .title(paste0("RuralTrade_DEF"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 #with all feed industrial#############################################################################################################################################
 
@@ -80,7 +79,7 @@ cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
                feedPatch =  "procPatch1.tgz")
 
 cfg$title <- .title(paste0("RuralTrade_FeedInd"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 #with all feed traditional#############################################################################################################################################
 
@@ -92,7 +91,7 @@ cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
                feedPatch =  "procPatch0.tgz")
 
 cfg$title <- .title(paste0("RuralTrade_FeedTrad"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 #### with de-industrializaion of demand #############################################################################################################################################
 
@@ -106,7 +105,7 @@ cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
 cfg$gms$s40_deg_industr <- 10
 
 cfg$title <- .title(paste0("RuralTrade_TradDem10"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 
 #### with de-industrializaion of demand and cost increase #############################################################################################################################################
@@ -131,7 +130,7 @@ cfg$gms$s40_deg_industr <- 1
 cfg$gms$s40_deg_rerural <- 3
 
 cfg$title <- .title(paste0("RuralTrade_Rerural3"))
-##start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 
 
@@ -154,7 +153,7 @@ cfg$gms$s15_exo_brans       <- 0   # def = 1, options: 0,1
 cfg$gms$s15_exo_scp         <- 0   # def = 1, options: 0,1
 
 cfg$title <- .title(paste0("RuralTrade_RuminantDecr"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 
 
@@ -171,7 +170,7 @@ cfg$gms$s15_exo_brans       <- 1   # def = 1, options: 0,1
 cfg$gms$s15_exo_scp         <- 1   # def = 1, options: 0,1
 
 cfg$title <- .title(paste0("RuralTrade_EATLancet"))
-#start_run(cfg, codeCheck = TRUE)
+start_run(cfg, codeCheck = TRUE)
 
 
 

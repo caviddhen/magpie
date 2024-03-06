@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "0403Rural" #choose a meaningful flag.
+cfg$info$flag <- "0603Rural" #choose a meaningful flag.
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
@@ -41,14 +41,15 @@ cfg$recalibrate <- FALSE     # def = "ifneeded"
 cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 
 cfg$repositories <- append(list("https://rse.pik-potsdam.de/data/magpie/public"=NULL,
-                                "./feedPatch"=NULL, "./tauPatch"=NULL), getOption("magpie_repos"))
+                                "./feedPatch"=NULL, "./tauPatch"=NULL, "./cellPatch"=NULL), getOption("magpie_repos"))
 
 cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
                cellular    = "rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
                validation  = "rev4.99_h12_validation.tgz",
                additional  = "additional_data_rev4.48.tgz",
                calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
-               feedPatch =  "procPatch.tgz")
+               feedPatch =  "procPatch.tgz",
+               cellPatch = "cellValidPatch.tgz")
              #tauPatch = "tauPatchc400BF.tgz")
 
 cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
@@ -71,37 +72,39 @@ start_run(cfg, codeCheck = TRUE)
 
 #with all feed industrial#############################################################################################################################################
 
-cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
-                cellular    = "rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.96_h12_validation.tgz",
-               additional  = "additional_data_rev4.47.tgz",
-               calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
-               feedPatch =  "procPatch1.tgz")
+cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
+               cellular    = "rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.99_h12_validation.tgz",
+               additional  = "additional_data_rev4.48.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
+               feedPatch =  "procPatch1.tgz",
+               cellPatch = "cellValidPatch.tgz")
 
 cfg$title <- .title(paste0("RuralTrade_FeedInd"))
 start_run(cfg, codeCheck = TRUE)
 
 #with all feed traditional#############################################################################################################################################
 
-cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
-                cellular    = "rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.96_h12_validation.tgz",
-               additional  = "additional_data_rev4.47.tgz",
-               calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
-               feedPatch =  "procPatch0.tgz")
+cfg$input <-c(regional    = "rev4.99_h12_magpie.tgz",
+               cellular    = "rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.99_h12_validation.tgz",
+               additional  = "additional_data_rev4.48.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
+               feedPatch =  "procPatch0.tgz",
+               cellPatch = "cellValidPatch.tgz")
 
 cfg$title <- .title(paste0("RuralTrade_FeedTrad"))
 start_run(cfg, codeCheck = TRUE)
 
 #### with de-industrializaion of demand #############################################################################################################################################
 
-cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
-                cellular    = "rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.96_h12_validation.tgz",
-               additional  = "additional_data_rev4.47.tgz",
-               calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
-               feedPatch =  "procPatch.tgz")
-
+cfg$input <-c(regional    = "rev4.99_h12_magpie.tgz",
+               cellular    = "rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.99_h12_validation.tgz",
+               additional  = "additional_data_rev4.48.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
+               feedPatch =  "procPatch.tgz",
+               cellPatch = "cellValidPatch.tgz")
 cfg$gms$s40_deg_industr <- 10
 
 cfg$title <- .title(paste0("RuralTrade_TradDem10"))
@@ -110,13 +113,13 @@ start_run(cfg, codeCheck = TRUE)
 
 #### with de-industrializaion of demand and cost increase #############################################################################################################################################
 
-cfg$input <- c(regional    = "rev4.96_h12_magpie.tgz",
-                cellular    = "rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
-               validation  = "rev4.96_h12_validation.tgz",
-               additional  = "additional_data_rev4.47.tgz",
-               calibration = "calibration_H12_sticky_feb18_glo_07Aug23.tgz",
-               feedPatch =  "procPatch.tgz")
-
+cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
+               cellular    = "rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz",
+               validation  = "rev4.99_h12_validation.tgz",
+               additional  = "additional_data_rev4.48.tgz",
+               calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
+               feedPatch =  "procPatch.tgz",
+               cellPatch = "cellValidPatch.tgz")
 cfg$gms$s40_deg_industr <- 10
 cfg$gms$s40_cost_increase <- 5
 

@@ -148,29 +148,33 @@ $title magpie
 
 *##################### R SECTION START (VERSION INFO) ##########################
 * 
-* Used data set: rev4.96_h12_magpie.tgz
-* md5sum: 7f59d3b650cd4059096bd32775317376
-* Repository: /p/projects/rd3mod/inputdata/output
+* Used data set: rev4.99_h12_magpie.tgz
+* md5sum: 0f8f6939d94629ba33d20ea3bdbe63b7
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: rev4.96_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: c864f7a0e245faa828b8e7b9c9806216
-* Repository: /p/projects/rd3mod/inputdata/output
+* Used data set: rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
+* md5sum: 669ece88a78eb1b05fd624ad32f74485
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: rev4.96_h12_validation.tgz
-* md5sum: b7782f561bf197725af93576e0997e5c
-* Repository: /p/projects/rd3mod/inputdata/output
+* Used data set: rev4.99_h12_validation.tgz
+* md5sum: e815fe83dc4181c3cea883592c2e5321
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: additional_data_rev4.47.tgz
-* md5sum: bec84fd3ca5c85b8459dc0638e201926
-* Repository: /p/projects/landuse/data/input/archive
+* Used data set: additional_data_rev4.48.tgz
+* md5sum: 0788a1d39cab12f89a9411c2636bffc7
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
-* Used data set: calibration_H12_sticky_feb18_glo_07Aug23.tgz
-* md5sum: d4b05d74a791e4379fb5bdfd8acb17d6
-* Repository: /p/projects/landuse/data/input/calibration
+* Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
+* md5sum: 5d34e4b54112db10f330f1e59dd60cc9
+* Repository: /p/projects/rd3mod/mirror/rse.pik-potsdam.de/data/magpie/public
 * 
 * Used data set: procPatch.tgz
 * md5sum: 1db150fba9a0ba2e2ffd01ddbe8d8fe0
 * Repository: ./feedPatch
+* 
+* Used data set: cellValidPatch.tgz
+* md5sum: bf8ed055b89571639886610c6abbeef8
+* Repository: ./cellPatch
 * 
 * Low resolution: c200
 * High resolution: 0.5
@@ -179,15 +183,15 @@ $title magpie
 * 
 * Number of cells per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   16    8    7    2   41   30    8   11   12   39   21
+*    14   23   10    7    4   26   21    9   16   23   32   15
 * 
 * Regionscode: 62eff8f7
 * 
-* Regions data revision: 4.96
+* Regions data revision: 4.99
 * 
 * lpj2magpie settings:
 * * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.96
+* * Revision: 4.99
 * 
 * aggregation settings:
 * * Input resolution: 0.5
@@ -195,11 +199,11 @@ $title magpie
 * * Regionscode: 62eff8f7
 * * Number of clusters per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*     5   16    8    7    2   41   30    8   11   12   39   21
+*    14   23   10    7    4   26   21    9   16   23   32   15
 * * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
 * 
 * 
-* Last modification (input data): Mon Mar  4 13:06:27 2024
+* Last modification (input data): Wed Mar  6 12:35:33 2024
 * 
 *###################### R SECTION END (VERSION INFO) ###########################
 
@@ -225,7 +229,7 @@ $offlisting
 
 $setglobal c_timesteps  coup2100
 $setglobal c_past  till_2010
-$setglobal c_title  RuralTrade_EATLancet_0403Rural
+$setglobal c_title  Default_0603Rural
 
 scalars
 s_use_gdx   use of gdx files                                       / 0 /
@@ -266,7 +270,7 @@ $setglobal labor_prod  off
 $setglobal factor_costs  sticky_feb18
 $setglobal landconversion  calib
 
-$setglobal transport  urbantrade_jan24
+$setglobal transport  gtap_nov12
 $setglobal area_equipped_for_irrigation  endo_apr13
 $setglobal water_demand  all_sectors_aug13
 $setglobal water_availability  total_water_aug13
@@ -288,7 +292,7 @@ $setglobal bioenergy  1stgen_priced_dec18
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
-$setglobal disagg_lvst  off
+$setglobal disagg_lvst  foragebased_jul23
 
 $setglobal timber  default
 

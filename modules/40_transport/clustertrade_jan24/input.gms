@@ -6,7 +6,7 @@ s40_deg_industr              Degree of industrialization (scalar for reducing cu
 s40_cost_increase            Scalar for increasing default input costs / 1 /
 ;
 
-table f40_proc_demand(income, use, kall) Amount of processing required for low and high income countries (0-1)
+table f40_proc_demand(dev_st, use, kall) Amount of processing required for low and high income countries (0-1)
 $ondelim
 $include "./modules/40_transport/clustertrade_jan24/input/f40_proc_demand.csv"
 $offdelim

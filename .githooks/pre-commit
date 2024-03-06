@@ -11,7 +11,7 @@ gms::checkNoTabs(pattern = "\\.(R|Rprofile|gms|cfg|bib)$", excludeFolders = c("o
 message("done.")
 
 # run codeCheck
-#invisible(gms::codeCheck(strict = TRUE))
+invisible(gms::codeCheck(strict = TRUE))
 message("")
 
 

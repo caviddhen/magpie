@@ -7,7 +7,7 @@
 
 sets
   
-income low income country or high income country for calculation based on dev state
+dev_st low income country or high income country for calculation based on dev state
  / lic, hic /
  
 kroughage(kall) roughage products for local ruminant consumption

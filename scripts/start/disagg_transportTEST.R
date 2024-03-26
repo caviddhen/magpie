@@ -20,7 +20,7 @@ source("scripts/start_functions.R")
 # Source default cfg. This loads the object "cfg" in R environment
 source("config/default.cfg")
 
-cfg$info$flag <- "0603Rural" #choose a meaningful flag.
+cfg$info$flag <- "0603RuralFixTau" #choose a meaningful flag.
 # support function to create standardized title
 .title <- function(...) return(paste(...,cfg$info$flag, sep="_"))
 
@@ -49,8 +49,13 @@ cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
                additional  = "additional_data_rev4.48.tgz",
                calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
                feedPatch =  "procPatch.tgz",
-               cellPatch = "cellValidPatch.tgz")
-             #tauPatch = "tauPatchc400BF.tgz")
+               cellPatch = "cellValidPatch.tgz",
+              tauPatch = "tauPatch0603.tgz")
+
+#fix tau!
+cfg$gms$tc <- "exo"   
+
+
 
 cfg$recalibrate_landconversion_cost <- FALSE #def "ifneeded"
 
@@ -78,7 +83,8 @@ cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
                additional  = "additional_data_rev4.48.tgz",
                calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
                feedPatch =  "procPatch1.tgz",
-               cellPatch = "cellValidPatch.tgz")
+               cellPatch = "cellValidPatch.tgz",
+              tauPatch = "tauPatch0603.tgz")
 
 cfg$title <- .title(paste0("RuralTrade_FeedInd"))
 start_run(cfg, codeCheck = TRUE)
@@ -91,7 +97,8 @@ cfg$input <-c(regional    = "rev4.99_h12_magpie.tgz",
                additional  = "additional_data_rev4.48.tgz",
                calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
                feedPatch =  "procPatch0.tgz",
-               cellPatch = "cellValidPatch.tgz")
+               cellPatch = "cellValidPatch.tgz",
+              tauPatch = "tauPatch0603.tgz")
 
 cfg$title <- .title(paste0("RuralTrade_FeedTrad"))
 start_run(cfg, codeCheck = TRUE)
@@ -104,7 +111,8 @@ cfg$input <-c(regional    = "rev4.99_h12_magpie.tgz",
                additional  = "additional_data_rev4.48.tgz",
                calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
                feedPatch =  "procPatch.tgz",
-               cellPatch = "cellValidPatch.tgz")
+               cellPatch = "cellValidPatch.tgz",
+              tauPatch = "tauPatch0603.tgz")
 cfg$gms$s40_deg_industr <- 10
 
 cfg$title <- .title(paste0("RuralTrade_TradDem10"))
@@ -119,7 +127,8 @@ cfg$input <- c(regional    = "rev4.99_h12_magpie.tgz",
                additional  = "additional_data_rev4.48.tgz",
                calibration = "calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz",
                feedPatch =  "procPatch.tgz",
-               cellPatch = "cellValidPatch.tgz")
+               cellPatch = "cellValidPatch.tgz",
+              tauPatch = "tauPatch0603.tgz")
 cfg$gms$s40_deg_industr <- 10
 cfg$gms$s40_cost_increase <- 5
 

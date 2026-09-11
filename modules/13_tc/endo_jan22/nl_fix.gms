@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -7,4 +7,4 @@
 
 * ### nl_fix ###
 
-vm_tau.fx(h,tautype) = max(vm_tau.lo(h,tautype), min(vm_tau.up(h,tautype), vm_tau.l(h,tautype)));
+v13_tau_core.fx(h,tautype) = max(v13_tau_core.lo(h,tautype), min(v13_tau_core.up(h,tautype), v13_tau_core.l(h,tautype)));

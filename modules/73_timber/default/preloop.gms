@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -11,55 +11,50 @@ s73_free_prod_cost$(s73_timber_demand_switch = 0) = s73_timber_prod_cost_wood;
 ** Set historical values to FAO values
 p73_forestry_demand_prod_specific(t_past_forestry,iso,total_wood_products) = f73_prod_specific_timber(t_past_forestry,iso,total_wood_products);
 
+p73_income_elasticity(t_all,iso,total_wood_products) = f73_income_elasticity(total_wood_products);
+p73_income_elasticity(t_all,iso,total_wood_products)$(im_gdp_pc_ppp_iso(t_all,iso) > s73_income_threshold) = 0;
+p73_income_elasticity(t_all,iso,"wood_fuel") = f73_income_elasticity("wood_fuel");
+
 ** Loop over time to calculate future demand
 ** Calculations based on Lauri et al. 2019
-loop(t_all$(m_year(t_all) >= sm_fix_SSP2 AND m_year(t_all) <= 2150),
+loop(t_all$(m_year(t_all) > 1995 AND m_year(t_all) <= 2150),
    p73_forestry_demand_prod_specific(t_all,iso,total_wood_products)$(im_gdp_pc_ppp_iso(t_all,iso)>0 AND im_pop_iso(t_all,iso)>0)
           = p73_forestry_demand_prod_specific(t_all-1,iso,total_wood_products)
           *
           (im_pop_iso(t_all,iso)/im_pop_iso(t_all-1,iso))
           *
-          ((im_gdp_pc_ppp_iso(t_all,iso)/im_gdp_pc_ppp_iso(t_all-1,iso))**f73_income_elasticity(total_wood_products))
+          ((im_gdp_pc_ppp_iso(t_all,iso)/im_gdp_pc_ppp_iso(t_all-1,iso))**p73_income_elasticity(t_all,iso,total_wood_products))
           ;
 );
 
 ** Aggregate from ISO country level to MAgPIE region level
 p73_timber_demand_gdp_pop(t_all,i,kforestry) = sum((i_to_iso(i,iso),kforestry_to_woodprod(kforestry,total_wood_products)),p73_forestry_demand_prod_specific(t_all,iso,total_wood_products)) * s73_timber_demand_switch ;
 
-** Hard additive calibration for timber demand
-if(s73_timber_demand_switch=1,
-  loop (t_all,
-    if(m_year(t_all) < sm_fix_SSP2,
-        p73_demand_calib(t_all,i,"wood") = f73_regional_timber_demand(t_all,i,"industrial_roundwood") - p73_timber_demand_gdp_pop(t_all,i,"wood");
-        p73_timber_demand_gdp_pop(t_all,i,"wood") = p73_timber_demand_gdp_pop(t_all,i,"wood") + p73_demand_calib(t_all,i,"wood");
-      );
-  );
-
-  loop (t_all$(m_year(t_all)>=sm_fix_SSP2),
-    p73_timber_demand_gdp_pop(t_all,i,"wood")$(p73_timber_demand_gdp_pop(t_all,i,"wood")<p73_timber_demand_gdp_pop(t_all-1,i,"wood")) = p73_timber_demand_gdp_pop(t_all-1,i,"wood") * s73_increase_ceiling;
-    p73_timber_demand_gdp_pop(t_all,i,"wood")$(p73_timber_demand_gdp_pop(t_all,i,"wood")/sum(i_to_iso(i,iso),p73_forestry_demand_prod_specific(t_all-1,iso,"industrial_roundwood")) > s73_increase_ceiling) = p73_timber_demand_gdp_pop(t_all-1,i,"wood") * s73_increase_ceiling;
-  );
-);
-
 ** Alternative wood use scenarios
 $ifthen "%c73_wood_scen%" == "construction"
 p73_timber_demand_gdp_pop(t_all,i,"wood") = p73_timber_demand_gdp_pop(t_all,i,"wood") * f73_demand_modifier(t_all,"%c73_wood_scen%");
 $endif
 
-** Convert to tDM from mio m3
+** FAO woodfuel stacking correction: FAO woodfuel statistics are widely reported
+** in stacked m3 (stere) rather than solid m3, overstating volumes by ~35%.
+** Standard stacking factor: 1 stere = 0.65 solid m3.
+** Sources: FAO (2004) UWET Section 5.1.3; FAO/ITTO/UNECE (2020) Table 2.2.
+p73_timber_demand_gdp_pop(t_all,i,"woodfuel") = p73_timber_demand_gdp_pop(t_all,i,"woodfuel") * s73_woodfuel_stacking_factor;
+
+** Convert from mio m3 to mio tDM using region-specific basic wood density D (tDM/m3)
 ** p73_timber_demand_gdp_pop is in mio m^3
-** pm_demand_ext in mio ton DM
+** pm_demand_forestry in mio tDM
 ** Hold constraint beyond 2150 - First every time step gets 2150 values
 **** Extend for Churkina et al 2020 demand scenarios
-pm_demand_ext(t_ext,i,kforestry) = round(p73_timber_demand_gdp_pop("y2150",i,kforestry) * f73_volumetric_conversion(kforestry),3);
+pm_demand_forestry(t_ext,i,kforestry) = round(p73_timber_demand_gdp_pop("y2150",i,kforestry) * im_vol_conv(i),3);
 ** overwrite timesteps below 2150 with actual values
-pm_demand_ext(t_all,i,kforestry) = round(p73_timber_demand_gdp_pop(t_all,i,kforestry) * f73_volumetric_conversion(kforestry),3);
+pm_demand_forestry(t_all,i,kforestry) = round(p73_timber_demand_gdp_pop(t_all,i,kforestry) * im_vol_conv(i),3);
 
 ** Initialize fraction
 p73_fraction(t_all)    = s73_expansion/(m_year("y2100") - sm_fix_SSP2);
 
 ** Populate the fraction for each time step
-loop(t_all$(m_year(t_all)>=sm_fix_SSP2),
+loop(t_all$(m_year(t_all) > 1995),
   p73_fraction(t_all)  = s73_expansion/(m_year("y2100") - sm_fix_SSP2) * m_yeardiff(t_all) + p73_fraction(t_all-1);
   );
 
@@ -81,12 +76,20 @@ if(s73_expansion = 0,
 
 ** In case using simple assumption for construction wood demand (based on industrial_roundwood demand)
 if(s73_expansion > 0,
-  p73_demand_constr_wood(t_all,i) = pm_demand_ext(t_all,i,"wood") * p73_fraction(t_all);
+  p73_demand_constr_wood(t_all,i) = pm_demand_forestry(t_all,i,"wood") * p73_fraction(t_all);
   );
 
 ** Adjust industrial roundwood demand (construction wood demand is added on top)
-pm_demand_ext(t_all,i,"wood") = pm_demand_ext(t_all,i,"wood") + p73_demand_constr_wood(t_all,i);
+pm_demand_forestry(t_all,i,"wood") = pm_demand_forestry(t_all,i,"wood") + p73_demand_constr_wood(t_all,i);
 ** Keep demand after 2100 constant
-pm_demand_ext(t_all,i,kforestry)$(m_year(t_all)>2100) = pm_demand_ext("y2100",i,kforestry);
+pm_demand_forestry(t_all,i,kforestry)$(m_year(t_all)>2100) = pm_demand_forestry("y2100",i,kforestry);
 ** Calculate global demand
-p73_glo_wood(t_all,kforestry) = sum(i,pm_demand_ext(t_all,i,kforestry));
+p73_glo_wood(t_all,kforestry) = sum(i,pm_demand_forestry(t_all,i,kforestry));
+
+** Convert per-m3 costs to regional per-tDM using wood density
+im_timber_prod_cost(i,"wood") = s73_timber_prod_cost_wood / im_vol_conv(i);
+im_timber_prod_cost(i,"woodfuel") = s73_timber_prod_cost_woodfuel / im_vol_conv(i);
+
+** Natveg cost = base cost * (1 + premium)
+i73_timber_prod_cost_natveg(i,"wood") = im_timber_prod_cost(i,"wood") * (1 + s73_natveg_cost_premium);
+i73_timber_prod_cost_natveg(i,"woodfuel") = im_timber_prod_cost(i,"woodfuel") * (1 + s73_natveg_cost_premium);

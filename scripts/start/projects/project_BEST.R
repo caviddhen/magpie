@@ -1,4 +1,4 @@
-# |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -13,11 +13,11 @@
 #### Script to start a MAgPIE run ####
 ######################################
 
-version <- "V13"
+version <- "V14"
 
 library(lucode2)
 library(magclass)
-library(gdx)
+library(gdx2)
 library(magpie4)
 library(gms)
 
@@ -39,7 +39,7 @@ calc_bioen <- function(x) {
   B50 <- time_interpolate(B50,seq(2020,2050,by=5),TRUE)
   B50 <- time_interpolate(B50,seq(2050,2100,by=5),TRUE)
   B50 <- time_interpolate(B50,seq(2100,2150,by=5),TRUE)
-  
+
   #B100
   #100 EJ in 2050 globally, linear interpolation
   B100 <- B50*2
@@ -56,7 +56,7 @@ calc_ghgprice <- function(x) {
   T0 <- read.magpie("modules/56_ghg_policy/input/f56_pollutant_prices.cs3")
   T0 <- collapseNames(T0[,,getNames(T0,dim=2)[1]])
   T0[,,] <- 0
-  
+
   #T200 200 USD/tCO2 in 2050
   T200 <- new.magpie(getRegions(T0),c(seq(1995,2025,by=5),2050,2100,2150),getNames(T0),fill = 0)
   T200[,"y2025","co2_c"] <- 25
@@ -69,9 +69,9 @@ calc_ghgprice <- function(x) {
   T200[,,"n2o_n_direct"] <- T200[,,"co2_c"]*265*44/28
   T200[,,"n2o_n_indirect"] <- T200[,,"co2_c"]*265*44/28
   T200[,,"co2_c"] <- T200[,,"co2_c"]*44/12
-  
+
   T40 <- T200*0.2
-  
+
   if (x == "T0") {
     return(T0)
   } else if (x == "T40") {
@@ -108,18 +108,20 @@ for (rcp in rcps) {
   for (ssp in ssps) {
     cfg$title <- paste("TAU",ssp,rcp,tau_scen,sep="-")
     cfg <- setScenario(cfg,c(ssp,"NPI",rcp))
+    cfg <- setScenario(cfg, "fix_2020", scenario_config = "config/projects/scenario_config_year_fix.csv")
     cfg$gms$s32_max_aff_area <- 0
     cfg$gms$s56_c_price_induced_aff <- 0
     cfg$gms$c30_bioen_type <- bioen_type
     cfg$gms$c30_bioen_water <- bioen_water
     cfg$gms$tc <- "endo_jan22"
     x <- try(modelstat(file.path("output",cfg$title,"fulldata.gdx")),silent = TRUE)
-    if(any(!x %in% c(2,7))) {
+    if(is.null(x) | (is.magpie(x) & any(!x %in% c(2,7)))) {
       download_and_update(cfg)
       write.magpie(calc_bioen(biodem),"modules/60_bioenergy/input/glo.2ndgen_bioenergy_demand.csv")
       write.magpie(calc_ghgprice(ghgprice),"modules/56_ghg_policy/input/f56_pollutant_prices_emulator.cs3")
       start_run(cfg,codeCheck=FALSE)
       message(paste0("TAU run started: ",cfg$title))
+      Sys.sleep(10)
     }
   }
 }
@@ -132,12 +134,12 @@ while (!success) {
   for (rcp in rcps) {
     for (ssp in ssps) {
       x <- try(modelstat(file.path("output",paste("TAU",ssp,rcp,tau_scen,sep="-"),"fulldata.gdx")),silent = TRUE)
-      if (is(x, "try-error")) x <- NULL else if (is.magpie(x) & all(x %in% c(2,7))) x <- add_dimension(collapseNames(x),dim = 3.1,add = "scen",nm = paste0(ssp,rcp))
+      if (is.magpie(x) & all(x %in% c(2,7))) {
+        x <- add_dimension(collapseNames(x),dim = 3.1,add = "scen",nm = paste0(ssp,rcp))
+      } else x <- NULL
       z <- mbind(z,x)
     }
   }
-  print(str(z))
-  print(dim(z))
   if (is.null(z)) {
     message("Not any model run with endogenous TAU finished. Sleeping for 10 minutes.")
     Sys.sleep(60*10)
@@ -158,6 +160,7 @@ for (rcp in rcps) {
         for (bioen_type in c("all","begr","betr")) {
           for (bioen_water in c("all","rainfed")) {
             cfg <- setScenario(cfg,c(ssp,"NPI",rcp))
+            cfg <- setScenario(cfg, "fix_2020", scenario_config = "config/projects/scenario_config_year_fix.csv")
             cfg$title <- paste(version,ssp,rcp,biodem,ghgprice,paste0("Type",toupper(bioen_type)),paste0("Water",toupper(bioen_water)),sep="-")
             cfg$gms$s32_max_aff_area <- 0
             cfg$gms$s56_c_price_induced_aff <- 0
@@ -165,7 +168,7 @@ for (rcp in rcps) {
             cfg$gms$c30_bioen_type <- bioen_type
             cfg$gms$c30_bioen_water <- bioen_water
             download_and_update(cfg)
-            write.magpie(readGDX(file.path("output",paste("TAU",ssp,rcp,tau_scen,sep="-"),"fulldata.gdx"), "ov_tau", select=list(type="level")),"modules/13_tc/input/f13_tau_scenario.csv")
+            write.magpie(magpie4::tau(file.path("output",paste("TAU",ssp,rcp,tau_scen,sep="-"),"fulldata.gdx"), type = "both"),"modules/13_tc/input/f13_tau_scenario.csv")
             write.magpie(calc_bioen(biodem),"modules/60_bioenergy/input/glo.2ndgen_bioenergy_demand.csv")
             write.magpie(calc_ghgprice(ghgprice),"modules/56_ghg_policy/input/f56_pollutant_prices_emulator.cs3")
             start_run(cfg,codeCheck=FALSE)

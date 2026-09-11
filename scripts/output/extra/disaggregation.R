@@ -1,4 +1,4 @@
-# |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -16,12 +16,14 @@ library(luscale)
 library(madrat)
 library(dplyr)
 library(gms)
+library(gdx2)
+library(mstools)
 
 # =============================================
 # Basic configuration
 # =============================================
 if (!exists("source_include")) {
-  outputdir <- "output/LAMA65_Sustainability/"
+  outputdir <- "output/default_2024-06-01_15.40.24/"
   readArgs("outputdir")
 }
 map_file <- Sys.glob(file.path(outputdir, "clustermap_*.rds"))
@@ -54,7 +56,6 @@ if (length(map_file) > 1) {
   map_file <- map_file[1]
 }
 
-
 # -----------------------------------------
 #  Output functions
 # -----------------------------------------
@@ -68,7 +69,6 @@ if (length(map_file) > 1) {
   base::message(message)
   x <- .fixCoords(x)
   write.magpie(x, file, comment = comment)
-  write.magpie(x, sub(".mz", ".nc", file), comment = comment)
 }
 
 .dissagcrop <- function(gdx, land_hr, map_file) {
@@ -76,95 +76,22 @@ if (length(map_file) > 1) {
     level = "cell", products = "kcr",
     product_aggr = FALSE, water_aggr = FALSE
   )
-  fallow <- fallow(gdx, level = "cell")
-  area_shr <- area / (dimSums(area, dim = 3) + setNames(fallow, NULL) + 10^-10)
+  area_shr <- area / (dimSums(area, dim = 3) + 10^-10)
 
   # calculate share of crop land on total cell area
   crop_shr <- land_hr / dimSums(land_hr, dim = 3)
-  crop_shr <- setNames(crop_shr[, getYears(area_shr), "crop"], NULL)
+  crop_shr <- setNames(crop_shr[, getYears(area_shr), "crop_area"], NULL)
 
   # calculate crop area as share of total cell area
   area_shr_hr <- madrat::toolAggregate(area_shr, map_file, to = "cell") * crop_shr
   return(area_shr_hr)
 }
 
-.dissagLandConsv <- function(gdx, cfg, map_file, wdpa_hr_file, consv_prio_hr_file) {
-  land_consv_lr <- readGDX(gdx, "pm_land_conservation", react = "silent")
-  wdpa_hr <- read.magpie(wdpa_hr_file)
-  map <- readRDS(map_file)
-
-  # create full time series
-  land_consv_hr <- new.magpie(map[, "cell"], getYears(land_consv_lr), getNames(wdpa_hr),
-                             sets = c("x.y.iso", "year", getSets(wdpa_hr, fulldim = FALSE)[3]))
-  land_consv_hr[, getYears(land_consv_hr), ] <- wdpa_hr[, nyears(wdpa_hr), ]
-  land_consv_hr[, getYears(wdpa_hr), ] <- wdpa_hr
-
-  if (!all(c(cfg$gms$c22_protect_scenario, cfg$gms$c22_protect_scenario_noselect) %in% "none")) {
-    if (file.exists(consv_prio_hr_file)) {
-      consv_prio_all <- read.magpie(consv_prio_hr_file)
-      consv_prio_hr <- new.magpie(
-        cells_and_regions = map[, "cell"],
-        names = getNames(consv_prio_all, dim = 2), fill = 0,
-        sets = c("x.y.iso", "year", "data")
-      )
-      iso <- readGDX(gdx, "iso")
-      consv_iso <- readGDX(gdx, "policy_countries22")
-      consv_iso <- consv_iso[consv_iso %in% getItems(consv_prio_all, dim = 1.1)]
-      consv_select <- cfg$gms$c22_protect_scenario
-      consv_noselect <- cfg$gms$c22_protect_scenario_noselect
-
-      if (consv_noselect != "none") {
-        consv_prio_hr <- collapseDim(consv_prio_all[, , consv_noselect], dim = 3.1)
-      }
-      if (consv_select != "none") {
-        consv_prio_hr[consv_iso, , ] <- collapseDim(consv_prio_all[consv_iso, , consv_select], dim = 3.1)
-      } else if (consv_select == "none") {
-        consv_prio_hr[consv_iso, , ] <- 0
-      }
-      # future conservation only pertains to natveg
-      consv_prio_hr[, , c("crop", "past", "forestry", "urban")] <- 0
-      consv_fader <- readGDX(gdx, "p22_conservation_fader", format = "first_found")
-      consv_prio_hr <- consv_prio_hr * consv_fader[, getYears(land_consv_hr), ]
-
-      # add conservation priority areas
-      land_consv_hr <- (land_consv_hr + consv_prio_hr)
-    } else {
-      warning(paste(
-        "Future land conservation used in MAgPIE run but high resolution",
-        "conservation priority data for disaggregation not found."
-      ))
-    }
-  }
-  # Due to internal constraints and compensation (e.g. NDC forest conservation)
-  # the actual land conservation can sometimes be smaller than the land
-  # conservation in the input data (this can especially happen also if
-  # land restoration is switched off). Therefore a scaling is applied here separately
-  # for grassland and natural vegetation
-  natveg <- c("primforest", "secdforest", "other")
-  consv_sum_lr <- mbind(
-    dimSums(land_consv_lr[, , "past"], 3.2),
-    setNames(dimSums(land_consv_lr[, , natveg], dim = 3), "natveg")
-  )
-  consv_sum_hr_agg <- mbind(
-    toolAggregate(land_consv_hr[, , "past"], map, from = "cell", to = "cluster"),
-    toolAggregate(setNames(dimSums(land_consv_hr[, , natveg], dim = 3), "natveg"),
-      map,
-      from = "cell", to = "cluster"
-    )
-  )
-  consv_scaling <- consv_sum_lr / consv_sum_hr_agg
-  consv_scaling[is.na(consv_scaling) | is.infinite(consv_scaling)] <- 1
-  consv_scaling <- toolAggregate(consv_scaling, map, from = "cluster", to = "cell")
-  land_consv_hr[, , "past"] <- consv_scaling[, , "past"] * land_consv_hr[, , "past"]
-  land_consv_hr[, , natveg] <- consv_scaling[, , "natveg"] * land_consv_hr[, , natveg]
-  return(land_consv_hr)
-}
-
-.dissagBII <- function(gdx, map_file, dir) {
+.dissagBII <- function(gdx, map_file) {
   # Biodiversity intactness indicator (BII) at cluster level
   bii_lr <- BII(gdx,
     file = NULL, level = "cell", mode = "auto", landClass = "all",
-    bii_coeff = NULL, side_layers = NULL, dir = dir
+    bii_coeff = NULL, side_layers = NULL
   )
 
   # add BII values for primary other land (BII = 1)
@@ -257,9 +184,21 @@ if (cfg$gms$urban == "exo_nov21") {
 # Prepare land conservation data
 # ----------------------------------------
 
+message("Disaggregating conservation land")
+
 land_consv_hr <- NULL
 if (file.exists(wdpa_hr_file)) {
-  land_consv_hr <- .dissagLandConsv(gdx, cfg, map_file, wdpa_hr_file, consv_prio_hr_file)
+  if (file.exists(consv_prio_hr_file)) {
+    conservationPrioHr <- read.magpie(consv_prio_hr_file)
+  } else {
+    warning("Future land conservation used in MAgPIE run but high resolution ",
+            "conservation priority data for disaggregation not found.")
+    conservationPrioHr <- NULL
+  }
+  land_consv_hr <- magpie4::disaggregateLandConservation(gdx, cfg,
+                                                         mapping = readRDS(map_file),
+                                                         wdpaHr = read.magpie(wdpa_hr_file),
+                                                         conservationPrioHr = conservationPrioHr)
 
   # Write gridded conservation land
   .writeDisagg(land_consv_hr, land_consv_hr_out_file,
@@ -272,24 +211,39 @@ if (file.exists(wdpa_hr_file)) {
 # Account for country-specific SNV shares in post-processing
 # -------------------------------------------------------------
 iso <- readGDX(gdx, "iso")
-snv_pol_iso <- readGDX(gdx, "policy_countries30")
-snv_pol_select <- readGDX(gdx, "s30_snv_shr", "s30_set_aside_shr")
-snv_pol_noselect <- readGDX(gdx, "s30_snv_shr_noselect", "s30_set_aside_shr_noselect")
+snv_pol_iso <- readGDX(gdx, "policy_countries29")
+snv_pol_select <- readGDX(gdx, "s29_snv_shr")
+snv_pol_noselect <- readGDX(gdx, "s29_snv_shr_noselect")
 snv_pol_shr <- new.magpie(iso, fill = snv_pol_noselect)
 snv_pol_shr[snv_pol_iso, , ] <- snv_pol_select
 
 avl_cropland_hr <- file.path(outputdir, "avl_cropland_0.5.mz") # available cropland (at high resolution)
-marginal_land <- cfg$gms$c30_marginal_land # marginal land scenario
-target_year <- cfg$gms$c30_snv_target # target year of SNV policy (default: "none")
-if (is.null(target_year)) {
-  target_year <- cfg$gms$c30_set_aside_target
+marginal_land <- cfg$gms$c29_marginal_land # marginal land scenario
+snv_pol_fader <- readGDX(gdx, "i29_snv_scenario_fader")
+
+
+# --------------------------------
+# Disaggregate peatland
+# --------------------------------
+
+message("Disaggregating peatland")
+
+# check for peatland version
+if (cfg$gms$peatland == "v2") {
+  peat_lr <- PeatlandArea(gdx, level = "cell", sum = FALSE)
+  peat_ini_hr <- read.magpie(peatland_v2_hr_file)
+  peat_ini_hr <- add_columns(peat_ini_hr, addnm = "rewetted", dim = "d3", fill = 0)
+  peat_ini_hr <- add_columns(peat_ini_hr, addnm = "unused", dim = "d3", fill = 0)
+  peat_hr <- suppressWarnings(luscale::interpolate2(peat_lr, peat_ini_hr, map_file))
+  peat_hr <- peat_hr[, getYears(peat_hr, as.integer = T) >= cfg$gms$s58_fix_peatland, ]
+} else if (cfg$gms$peatland == "on") {
+  peat_lr <- PeatlandArea(gdx, level = "cell", sum = TRUE)
+  peat_ini_hr <- mbind(setNames(read.magpie(peatland_on_intact_hr_file), "intact"), setNames(read.magpie(peatland_on_degrad_hr_file), "degrad"))
+  peat_ini_hr <- add_columns(peat_ini_hr, addnm = "rewet", dim = "d3", fill = 0)
+  peat_hr <- suppressWarnings(luscale::interpolate2(peat_lr, peat_ini_hr, map_file))
+  peat_hr <- peat_hr[, getYears(peat_hr, as.integer = T) >= cfg$gms$s58_fix_peatland, ]
 }
-snv_pol_fader <- readGDX(gdx, "f30_scenario_fader", "f30_set_aside_fader",
-  format = "first_found", react = "silent"
-)[, , target_year]
-if (is.null(snv_pol_fader)) {
-  snv_pol_fader <- readGDX(gdx, "p30_snv_scenario_fader", format = "first_found")
-}
+peat_hr <- .fixCoords(peat_hr)
 
 # ============================================
 # Start disaggregation
@@ -310,6 +264,7 @@ land_hr <- interpolateAvlCroplandWeighted(
   marginal_land = marginal_land,
   urban_land_hr = urban_land_hr,
   land_consv_hr = land_consv_hr,
+  peat_hr = peat_hr,
   snv_pol_shr = snv_pol_shr,
   snv_pol_fader = snv_pol_fader
 )
@@ -326,30 +281,79 @@ land_hr <- .fixCoords(land_hr)
 )
 gc()
 
+# -----------------------------------
+# Write peatland outputs
+# -----------------------------------
+
+# Write output
+.writeDisagg(peat_hr, peatland_hr_out_file,
+  comment = "unit: Mha per grid-cell",
+  message = "Write outputs peatland Mha"
+)
+gc()
+
+# grid cell area as magclass object
+calArea <- function(ix,iy,res=0.5,mha=1) { # pixelarea in m2, mha as factor
+  mha*(111.263*1000*res)*(111.263*1000*res)*cos(iy*pi/180)
+}
+map <- toolGetMappingCoord2Country(pretty = TRUE)
+grarea <- new.magpie(cells_and_regions = map$coords,
+                     fill = calArea(map$lon, map$lat, mha = 10^-10))
+
+out <- peat_hr / grarea
+out[is.nan(out)] <- 0
+out[is.infinite(out)] <- 0
+
+.writeDisagg(out, peatland_hr_share_out_file,
+  comment = "unit: grid-cell area fraction",
+  message = "Write outputs peatland share"
+)
+gc()
+
+
+# ---------------------------------
+#  Split land pools
+# ---------------------------------
+t <- readGDX(gdx,"t")
+land_split_hr <- land_hr[ ,t , ]
+
+# split "crop" into crop_area, crop_fallow and crop_treecover
+message("Disaggregating cropland")
+carea <- land(gdx, level = "cell", subcategories = c("crop"))[,,c("crop_area","crop_fallow","crop_treecover")]
+carea_shr <- carea / (dimSums(carea, dim = 3) + 10^-10)
+# calculate crop area as share of total cell area
+carea_hr <- madrat::toolAggregate(carea_shr, map_file, to = "cell") * setNames(land_split_hr[, , "crop"], NULL)
+# check
+if (abs(sum(dimSums(carea_hr, dim = 3) - setNames(land_split_hr[, , "crop"], NULL), na.rm = T)) > 0.1) warning("large Difference in crop disaggregation detected!")
+
+# drop crop
+land_split_hr <- land_split_hr[, , "crop", invert = TRUE]
+# combine land_split_hr with carea_hr
+land_split_hr <- mbind(carea_hr, land_split_hr)
+
+rm(carea, carea_shr, carea_hr)
+gc()
+
 # ---------------------------------
 #  Disaggregate MAgPIE crop types
 # ---------------------------------
 
 message("Disaggregating MAgPIE crop types")
-area_shr_hr <- .dissagcrop(gdx, land_hr, map = map_file)
+area_shr_hr <- .dissagcrop(gdx, land_split_hr, map_file = map_file)
 
 # Write output
 .writeDisagg(area_shr_hr, croparea_hr_share_out_file,
   comment = "unit: croparea fractions of total grid-cell",
-  message = "Write outputs cell.cropara_share"
+  message = "Write outputs cell.croparea_share"
 )
 gc()
 
-# ---------------------------------
-#  Split land pools
-# ---------------------------------
-land_split_hr <- land_hr[, getYears(area_shr_hr), ]
 area_hr <- area_shr_hr * dimSums(land_split_hr, dim = 3)
 
 rm(area_shr_hr)
 gc()
 
-# replace crop in land_hr in with crop_kfo_rf, crop_kfo_ir, crop_kbe_rf
+# replace crop_area in land_hr in with crop_kfo_rf, crop_kfo_ir, crop_kbe_rf
 # and crop_kbe_ir
 kbe <- c("betr", "begr")
 kfo <- setdiff(getNames(area_hr, dim = 1), kbe)
@@ -370,14 +374,12 @@ crop_kbe_ir <- setNames(
   "crop_kbe_ir"
 )
 crop_hr <- mbind(crop_kfo_rf, crop_kfo_ir, crop_kbe_rf, crop_kbe_ir)
-# calculate Fallow
-fallow <- setNames(land_split_hr[, , "crop"] - dimSums(area_hr, dim = 3), "fallow")
-# drop crop
-land_split_hr <- land_split_hr[, , "crop", invert = TRUE]
+# drop crop_area
+land_split_hr <- land_split_hr[, , "crop_area", invert = TRUE]
 # combine land_split_hr with crop_hr.
-land_split_hr <- mbind(crop_hr, fallow, land_split_hr)
+land_split_hr <- mbind(crop_hr, land_split_hr)
 
-rm(crop_kfo_rf, crop_kfo_ir, crop_kbe_rf, crop_kbe_ir, crop_hr, fallow, area_hr)
+rm(crop_kfo_rf, crop_kfo_ir, crop_kbe_rf, crop_kbe_ir, crop_hr, area_hr)
 
 # split "forestry" into timber plantations, pre-scribed afforestation (NPi/NDC) and endogenous afforestation (CO2 price driven)
 message("Disaggregating forestry")
@@ -386,7 +388,7 @@ farea_shr <- farea / (dimSums(farea, dim = 3) + 10^-10)
 # calculate forestry area as share of total cell area
 farea_hr <- madrat::toolAggregate(farea_shr, map_file, to = "cell") * setNames(land_split_hr[, , "forestry"], NULL)
 # check
-if (abs(sum(dimSums(farea_hr, dim = 3) - setNames(land_split_hr[, , "forestry"], NULL), na.rm = T)) > 0.1) warning("large Difference in crop disaggregation detected!")
+if (abs(sum(dimSums(farea_hr, dim = 3) - setNames(land_split_hr[, , "forestry"], NULL), na.rm = T)) > 0.1) warning("large Difference in forestry disaggregation detected!")
 # rename
 df <- data.frame(matrix(nrow = 3, ncol = 2))
 names(df) <- c("internal", "output")
@@ -424,7 +426,7 @@ message("Disaggregating BII values")
 # Load input data for BII disaggregation
 land_ini_hr <- read.magpie(land_hr_file)[, "y1995", ]
 side_layers_hr <- read.magpie(luh_side_layers)
-landArea <- dimSums(land_ini_hr, dim = 3)
+landArea <- dimSums(land_ini_hr, dim = 3) + 10^-10
 side_layers_lr <- toolAggregate(x = side_layers_hr, rel = map_file, weight = landArea, from = "cell", to = "cluster")
 
 # Convert land types for BII disaggregation
@@ -448,6 +450,10 @@ if (grepl("grass", cfg$gms$past)) {
     "past", "manpast",
     gsub("range", "rangeland", getNames(land_lr))
   )
+  getNames(land_consv_hr) <- gsub(
+    "past", "manpast",
+    gsub("range", "rangeland", getNames(land_consv_hr))
+  )
 } else {
   # Disaggregate pasture
   land_ini_lr <- mbind(
@@ -459,6 +465,11 @@ if (grepl("grass", cfg$gms$past)) {
     land_lr[, , c("past"), invert = TRUE],
     collapseNames(land_lr[, , "past"]) * side_layers_lr[, , c("manpast", "rangeland")]
   )
+
+  land_consv_hr <- mbind(
+    land_consv_hr[, , c("past"), invert = TRUE],
+    collapseNames(land_consv_hr[, , "past"]) * side_layers_hr[, , c("manpast", "rangeland")]
+  )
 }
 
 # Sort and rename
@@ -466,7 +477,7 @@ land_ini_hr <- land_ini_hr[, , getNames(land_ini_lr)]
 getSets(land_ini_hr)["d3.1"] <- "land"
 
 # Disaggregate BII values to high resolution
-bii_hr <- .dissagBII(gdx, map = map_file, dir = outputdir)
+bii_hr <- .dissagBII(gdx, map_file = map_file)
 
 # Disaggregate land pools for BII estimation
 land_bii_hr <- interpolateAvlCroplandWeighted(
@@ -478,6 +489,7 @@ land_bii_hr <- interpolateAvlCroplandWeighted(
   marginal_land = marginal_land,
   urban_land_hr = urban_land_hr,
   land_consv_hr = land_consv_hr,
+  peat_hr = peat_hr,
   snv_pol_shr = snv_pol_shr,
   snv_pol_fader = snv_pol_fader,
   unit = "share"
@@ -487,7 +499,7 @@ rm(land_consv_hr, urban_land_hr)
 
 land_bii_hr <- .fixCoords(land_bii_hr)
 
-# Add primary and secondaray other land
+# Add primary and secondary other land
 land_bii_hr <- PrimSecdOtherLand(land_bii_hr, land_hr_file)
 
 # specify potential natural vegetation
@@ -505,46 +517,5 @@ rm(land_bii_hr)
 rm(bii_hr)
 gc()
 
-
-# --------------------------------
-# Disaggregate peatland
-# --------------------------------
-
-message("Disaggregating peatland")
-
-#check for peatland version
-if(cfg$gms$peatland  == "v2") {
-  peat_lr <- PeatlandArea(gdx,level="cell",sum=FALSE)
-  peat_ini_hr <- read.magpie(peatland_v2_hr_file)
-  peat_ini_hr <- add_columns(peat_ini_hr,addnm = "rewetted",dim = "d3",fill = 0)
-  peat_ini_hr <- add_columns(peat_ini_hr,addnm = "unused",dim = "d3",fill = 0)
-  peat_hr <- suppressWarnings(luscale::interpolate2(peat_lr,peat_ini_hr,map_file))
-  peat_hr <- peat_hr[,getYears(peat_hr,as.integer = T) >= cfg$gms$s58_fix_peatland,]
-
-} else if (cfg$gms$peatland  == "on") {
-  peat_lr <- PeatlandArea(gdx,level="cell",sum=TRUE)
-  peat_ini_hr <- mbind(setNames(read.magpie(peatland_on_intact_hr_file),"intact"),setNames(read.magpie(peatland_on_degrad_hr_file),"degrad"))
-  peat_ini_hr <- add_columns(peat_ini_hr,addnm = "rewet",dim = "d3",fill = 0)
-  peat_hr <- suppressWarnings(luscale::interpolate2(peat_lr,peat_ini_hr,map_file))
-  peat_hr <- peat_hr[,getYears(peat_hr,as.integer = T) >= cfg$gms$s58_fix_peatland,]
-}
-peat_hr <- .fixCoords(peat_hr)
-
-# Write output
-.writeDisagg(peat_hr, peatland_hr_out_file,
-             comment = "unit: Mha per grid-cell",
-             message = "Write outputs peatland Mha")
-gc()
-
-out <- peat_hr / dimSums(land_hr[,getYears(peat_hr),], dim = 3)
-out[is.nan(out)] <- 0
-out[is.infinite(out)] <- 0
-
-rm(land_hr, peat_hr)
-
-.writeDisagg(out, peatland_hr_share_out_file,
-             comment = "unit: grid-cell land area fraction",
-             message = "Write outputs peatland share")
-gc()
 
 message("Finished disaggregation")

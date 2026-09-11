@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -55,32 +55,32 @@ sets
       VEN, VGB, VIR, VNM, VUT, WLF, WSM, YEM, ZAF, ZMB, ZWE /
 
   j number of LPJ cells
-    / CAZ_1*CAZ_14,
-      CHA_15*CHA_37,
-      EUR_38*EUR_47,
-      IND_48*IND_54,
-      JPN_55*JPN_58,
-      LAM_59*LAM_84,
-      MEA_85*MEA_105,
-      NEU_106*NEU_114,
-      OAS_115*OAS_130,
-      REF_131*REF_153,
-      SSA_154*SSA_185,
-      USA_186*USA_200 /
+    / CAZ_1*CAZ_5,
+      CHA_6*CHA_24,
+      EUR_25*EUR_36,
+      IND_37*IND_48,
+      JPN_49*JPN_55,
+      LAM_56*LAM_88,
+      MEA_89*MEA_113,
+      NEU_114*NEU_121,
+      OAS_122*OAS_137,
+      REF_138*REF_149,
+      SSA_150*SSA_182,
+      USA_183*USA_200 /
 
   cell(i,j) number of LPJ cells per region i
-    / CAZ . (CAZ_1*CAZ_14)
-      CHA . (CHA_15*CHA_37)
-      EUR . (EUR_38*EUR_47)
-      IND . (IND_48*IND_54)
-      JPN . (JPN_55*JPN_58)
-      LAM . (LAM_59*LAM_84)
-      MEA . (MEA_85*MEA_105)
-      NEU . (NEU_106*NEU_114)
-      OAS . (OAS_115*OAS_130)
-      REF . (REF_131*REF_153)
-      SSA . (SSA_154*SSA_185)
-      USA . (USA_186*USA_200) /
+    / CAZ . (CAZ_1*CAZ_5)
+      CHA . (CHA_6*CHA_24)
+      EUR . (EUR_25*EUR_36)
+      IND . (IND_37*IND_48)
+      JPN . (JPN_49*JPN_55)
+      LAM . (LAM_56*LAM_88)
+      MEA . (MEA_89*MEA_113)
+      NEU . (NEU_114*NEU_121)
+      OAS . (OAS_122*OAS_137)
+      REF . (REF_138*REF_149)
+      SSA . (SSA_150*SSA_182)
+      USA . (USA_183*USA_200) /
 
   i_to_iso(i,iso) mapping regions to iso countries
     / CAZ . (AUS, CAN, HMD, NZL, SPM)
@@ -113,6 +113,9 @@ sets
 ;
 *######################### R SECTION END (SETS) ################################
 *###############################################################################
+
+set number_order Ensures that numeric values in sets follow ascending order in the GAMS entry order, necessary for using ord() and index lag
+  / 1*2200 /;
 
 sets
         h2(h) Superregional (dynamic set)
@@ -173,6 +176,8 @@ sets time_annual Annual extended time steps
 
 set t_past(t_all) Timesteps with observed data
 $If "%c_past%"== "till_2010" /y1965, y1970, y1975, y1980, y1985, y1990,y1995, y2000, y2005, y2010/;
+$If "%c_past%"== "till_2015" /y1965, y1970, y1975, y1980, y1985, y1990,y1995, y2000, y2005, y2010, y2015/;
+$If "%c_past%"== "till_2020" /y1965, y1970, y1975, y1980, y1985, y1990,y1995, y2000, y2005, y2010, y2015, y2020/;
 $If "%c_past%"== "till_1965" /y1965/;
 $If "%c_past%"== "till_1975" /y1965, y1970, y1975/;
 $If "%c_past%"== "till_1995" /y1965, y1970, y1975, y1980, y1985, y1990, y1995/;
@@ -181,6 +186,7 @@ $If "%c_past%"== "till_1995" /y1965, y1970, y1975, y1980, y1985, y1990, y1995/;
 set t(t_all) Simulated time periods
 $If "%c_timesteps%"== "less_TS" /y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y2035,y2040,y2045,y2050,y2055,y2060,y2070,y2080,y2090,y2100,y2110,y2130,y2150/;
 $If "%c_timesteps%"== "coup2100" /y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y2035,y2040,y2045,y2050,y2055,y2060,y2070,y2080,y2090,y2100/;
+$If "%c_timesteps%"== "coup2110" /y1995,y2000,y2005,y2010,y2015,y2020,y2025,y2030,y2035,y2040,y2045,y2050,y2055,y2060,y2070,y2080,y2090,y2100,y2110/;
 $If "%c_timesteps%"== "test_TS" /y1995,y2000,y2005,y2010,y2020,y2030,y2040,y2050,y2070,y2090,y2110,y2130,y2150/;
 $If "%c_timesteps%"== "TS_benni" /y1995,y2000,y2005,y2010,y2020,y2030,y2040,y2050/;
 $If "%c_timesteps%"== "TS_WB" /y1995,y2000,y2005,y2010,y2020,y2030,y2040,y2050,y2060,y2070,y2080/;
@@ -241,26 +247,32 @@ sets
    wat_dem Water demand sectors / agriculture, domestic, manufacturing, electricity, ecosystem /
 
 ***LAND POOLS***
-   land Land pools
+  land Land pools
         / crop, past, forestry, primforest, secdforest, urban, other /
 
   land_ag(land) Agricultural land pools
-                  / crop, past /
+        / crop, past /
 
-  forest_land(land) land from which timber can be taken away
-  / forestry, primforest, secdforest,other /
+  land_timber(land) land from which timber can be taken away
+        / forestry, primforest, secdforest, other /
 
-  land_natveg(forest_land) Natural vegetation land pools
+  land_forest(land_timber) Forested land pools
+        / forestry, primforest, secdforest /
+
+  land_natveg(land_timber) Natural vegetation land pools
         / primforest, secdforest, other /
 
   forest_type forest type
-         / plantations, natveg /
+        / plantations, natveg /
 
 ***Forestry**
   ac Age classes  / ac0,ac5,ac10,ac15,ac20,ac25,ac30,ac35,ac40,ac45,ac50,
                     ac55,ac60,ac65,ac70,ac75,ac80,ac85,ac90,ac95,ac100,
                     ac105,ac110,ac115,ac120,ac125,ac130,ac135,ac140,ac145,
-                    ac150,ac155,acx /
+                    ac150,ac155,ac160,ac165,ac170,ac175,ac180,ac185,ac190,ac195,
+                    ac200,ac205,ac210,ac215,ac220,ac225,ac230,ac235,ac240,ac245,
+                    ac250,ac255,ac260,ac265,ac270,ac275,ac280,ac285,ac290,ac295,
+                    ac300, acx /
 
   ac_est(ac) Dynamic subset of age classes for establishment
 

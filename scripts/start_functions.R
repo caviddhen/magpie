@@ -1,4 +1,4 @@
-# |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -74,6 +74,7 @@
 .update_sets_modules <- function() {
   require(gms)
 
+
   ### 56_ghg_policy
   ghgscen56 <- magclass::read.magpie("modules/56_ghg_policy/input/f56_pollutant_prices.cs3")
   ghgscen56 <- magclass::getNames(ghgscen56,dim=2)
@@ -99,6 +100,7 @@
                     items = scen2nd60))
 
   gms::writeSets(sets , "modules/60_bioenergy/1stgen_priced_dec18/sets.gms")
+  gms::writeSets(sets , "modules/60_bioenergy/1st2ndgen_priced_feb24/sets.gms")
 }
 
 # Function to extract information from info.txt
@@ -164,23 +166,19 @@
                paste('Last modification (input data):',date()),
                '')
   writeLines(content,'input/info.txt')
-  gms::replace_in_file("main.gms",paste('*',content),subject)
+  contentShort <- c(paste('Low resolution:', low_res),
+                    paste('High resolution:', high_res),
+                    '',
+                    paste('Total number of cells:', sum(ijn["n"])),
+                    '',
+                    'Number of cells per region:',
+                    paste(format(ijn[["i"]], width = 5, justify = "right"), collapse = ""),
+                    paste(format(ijn[["n"]], width = 5), collapse = ""),
+                    '',
+                    paste('Regionscode:', regionscode))
+  
+  gms::replace_in_file("main.gms",paste('*',contentShort),subject)
 }
-
-
-.spam2rds <- function(spatial_header, cells_tmp,
-                      outfile  = "clustermap_rev0_dummy.rds",
-                      spamfile = Sys.glob("input/0.5-to-*_sum.spam")) {
-
-  sp  <- luscale::read.spam(spamfile)
-  a   <- apply(sp, 2, function(x) return(which(x == 1)))
-  out <- data.frame(cell = cells_tmp, region = sub("\\..*$","",spatial_header),
-                    country = sub("\\..*$", "", cells_tmp), global = "GLO")
-  out$cluster <- paste0(out$region,".", a)
-  out <- out[,c("cell", "cluster", "region", "country", "global")]
-  saveRDS(out, paste0("input/", outfile), version = 2)
-}
-
 
 ################################################################################
 ######################### MAIN FUNCTIONS #######################################
@@ -210,15 +208,13 @@ download_and_update <- function(cfg) {
   cel  <- magclass::getItems(tmp2, dim = 1)
   # read spatial_header, map, reg_revision and regionscode
   load("input/spatial_header.rda")
-  rds <- any(grepl(pattern = "clustermap_rev.*.rds", x = list.files("input")))
-  if (!rds) .spam2rds(spatial_header, cel, "clustermap_rev0_dummy.rds")
   .update_info(filemap, x = tmp, regionscode, reg_revision, warnings)
   .update_sets_core(x = tmp, map = map)
   .update_sets_modules()
 }
 
 
-start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE) {
+start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE, lock_timeout = 1) {
 
   timePrepareStart <- Sys.time()
 
@@ -238,13 +234,15 @@ start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE)
   withr::defer(setwd(maindir))
 
   if(lock_model) {
-    lock_id <- gms::model_lock(timeout1 = 1)
+    lock_id <- gms::model_lock(timeout1 = lock_timeout)
     withr::defer(gms::model_unlock(lock_id))
   }
 
   # Apply scenario settings ans check configuration file for consistency
   if(!is.null(scenario)) cfg <- gms::setScenario(cfg,scenario)
-  cfg <- gms::check_config(cfg, extras = c("info", "repositories", "gms$c_input_gdx_path"), saveCheck = TRUE)
+  cfg <- gms::check_config(cfg, extras = c("info", "repositories", "gms$c_input_gdx_path",
+                                           "val_workspace", "magpie_folder", "gms$c_title"),
+                           saveCheck = TRUE)
 
   # save model version
   cfg$info$version <- citation::read_cff("CITATION.cff")$version
@@ -301,6 +299,11 @@ start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE)
 
     createResultsfolderRenv <- function() {
       renv::init() # will overwrite renv.lock if existing...
+      if (!identical(Sys.info()[["sysname"]], "Windows")) {
+        # the renv package installation folder is copied from the renv cache, where it might
+        # be write protected, but we don't want write protection in the results folder
+        system("chmod ug+w -R renv/library/R-*/*")
+      }
       file.rename("_renv.lock", "renv.lock") # so we need this rename
       renv::restore(prompt = FALSE)
       message("renv creation done.")
@@ -316,12 +319,11 @@ start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE)
     message("done.")
   }
 
-  # If reports for both bioenergy and GHG prices are available convert them
-  # to MAgPIE input, save to the respective input folders, and use it as input
-  if (!is.na(cfg$path_to_report_bioenergy) & !is.na(cfg$path_to_report_ghgprices)) {
-    getReportData(cfg$path_to_report_bioenergy, cfg$path_to_report_ghgprices)
-    cfg <- gms::setScenario(cfg,"coupling")
-  }
+  # If available (i.e. paths are set) extract bioenergy and/or GHG prices 
+  # from REMIND report and save them to the respective input folders
+  # Please note: For them to be used by the model, either the 'coupling' scenario
+  # must be selected or the corresponding switches must be set individually.
+  getReportData(cfg$path_to_report_bioenergy, cfg$path_to_report_ghgprices)
 
   # update all parameters which contain the levels and marginals
   # of all variables and equations
@@ -371,13 +373,19 @@ start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE)
   ###########################################################################################################
 
   if(cfg$recalc_npi_ndc=="ifneeded") {
-    aff_pol     <- magclass::read.magpie("modules/32_forestry/input/npi_ndc_aff_pol.cs3")
-    ad_aolc_pol <- magclass::read.magpie("modules/35_natveg/input/npi_ndc_ad_aolc_pol.cs3")
-    ad_pol     <- ad_aolc_pol[,,"forest"]
-    aolc_pol    <- ad_aolc_pol[,,"other"]
-    if((all(aff_pol == 0)   & (cfg$gms$c32_aff_policy != "none")) |
-       (all(ad_pol == 0)    & (cfg$gms$c35_ad_policy != "none"))  |
-       (all(aolc_pol == 0) & (cfg$gms$c35_aolc_policy != "none")))
+    aff_pol        <- magclass::read.magpie("modules/32_forestry/input/npi_ndc_aff_pol.cs3")
+    ad_aolc_pol    <- magclass::read.magpie("modules/35_natveg/input/npi_ndc_ad_aolc_pol.cs3")
+    ad_pol         <- ad_aolc_pol[,,"forest"]
+    aolc_pol       <- ad_aolc_pol[,,"other"]
+    affexp_missing <- (cfg$gms$c32_aff_policy == "affexp") &&
+                        !("affexp" %in% magclass::getNames(aff_pol))
+    ndcdelay_missing <- (cfg$gms$c32_aff_policy == "ndcdelay") &&
+                        !("ndcdelay" %in% magclass::getNames(aff_pol))
+
+    if((all(aff_pol == 0)  && (cfg$gms$c32_aff_policy != "none"))  ||
+       (all(ad_pol == 0)   && (cfg$gms$c35_ad_policy != "none"))   ||
+       (all(aolc_pol == 0) && (cfg$gms$c35_aolc_policy != "none")) ||
+       affexp_missing || ndcdelay_missing)
     {
       cfg$recalc_npi_ndc <- TRUE
     } else cfg$recalc_npi_ndc <- FALSE
@@ -483,17 +491,18 @@ start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE)
     #if(cfg$gms$landconversion!="devstate") stop("Land conversion cost calibration works only with realization devstate")
     cat("Starting land conversion cost calibration factor calculation!\n")
     source("scripts/calibration/landconversion_cost.R")
-    calibrate_magpie(n_maxcalib = cfg$calib_maxiter_landconversion_cost,
-                     restart = cfg$restart_landconversion_cost,
-                     calib_accuracy = cfg$calib_accuracy_landconversion_cost,
-                     lowpass_filter = cfg$lowpass_filter_landconversion_cost,
-                     cost_max = cfg$cost_calib_max_landconversion_cost,
-                     cost_min = cfg$cost_calib_min_landconversion_cost,
-                     calib_file = land_calib_file,
-                     data_workspace = cfg$val_workspace,
-                     logoption = 3,
-                     debug = cfg$debug,
-                     best_calib = cfg$best_calib_landconversion_cost)
+    calibrateLandconversion(nMaxcalib = cfg$calib_maxiter_landconversion_cost,
+                            restart = cfg$restart_landconversion_cost,
+                            calibAccuracy = cfg$calib_accuracy_landconversion_cost,
+                            costMax = cfg$cost_calib_max_landconversion_cost,
+                            costMin = cfg$cost_calib_min_landconversion_cost,
+                            calibFile = land_calib_file,
+                            dataWorkspace = cfg$val_workspace,
+                            logoption = 3,
+                            debug = cfg$debug,
+                            bestCalib = cfg$best_calib_landconversion_cost,
+                            histData = cfg$cost_calib_hist_data,
+                            levelGradientMix = cfg$level_gradient_mix)
     cat("Land conversion cost calibration factor calculated!\n")
   }
 
@@ -537,7 +546,7 @@ start_run <- function(cfg, scenario = NULL, codeCheck = TRUE, lock_model = TRUE)
         cfg$qos <- "standby"
       } else if(all(load > 80)) {
         cfg$qos <- "priority"
-      } else if(load["priority"] < load["standard"]) {
+      } else if(all(c("priority", "standard") %in% names(load)) && load["priority"] < load["standard"]) {
         cfg$qos <- "standby"
       } else {
         cfg$qos <- "short"
@@ -572,16 +581,16 @@ getReportData <- function(path_to_report_bioenergy, path_to_report_ghgprices = N
   }
 
   .emissionPrices <- function(mag){
-    out_c <- mag[,,"Price|Carbon (US$2005/t CO2)"]*44/12 # US$2005/tCO2 -> US$2005/tC
+    out_c <- mag[,,"Price|Carbon (US$2017/t CO2)"]*44/12 # US$2017/tCO2 -> US$2017/tC
     dimnames(out_c)[[3]] <- "co2_c"
 
-    out_n2o_direct <- mag[,,"Price|N2O (US$2005/t N2O)"]*44/28 # US$2005/tN2O -> US$2005/tN
+    out_n2o_direct <- mag[,,"Price|N2O (US$2017/t N2O)"]*44/28 # US$2017/tN2O -> US$2017/tN
     dimnames(out_n2o_direct)[[3]] <- "n2o_n_direct"
 
-    out_n2o_indirect <- mag[,,"Price|N2O (US$2005/t N2O)"]*44/28 # US$2005/tN2O -> US$2005/tN
+    out_n2o_indirect <- mag[,,"Price|N2O (US$2017/t N2O)"]*44/28 # US$2017/tN2O -> US$2017/tN
     dimnames(out_n2o_indirect)[[3]] <- "n2o_n_indirect"
 
-    out_ch4 <- mag[,,"Price|CH4 (US$2005/t CH4)"]
+    out_ch4 <- mag[,,"Price|CH4 (US$2017/t CH4)"]
     dimnames(out_ch4)[[3]] <- "ch4"
 
     out <- mbind(out_n2o_direct,out_n2o_indirect,out_ch4,out_c)
@@ -595,6 +604,7 @@ getReportData <- function(path_to_report_bioenergy, path_to_report_ghgprices = N
   }
 
   .readAndPrepare <- function(mifPath) {
+    require(magclass)
     rep <- read.report(mifPath, as.list = FALSE)
     if (length(getNames(rep, dim = "scenario")) != 1) stop("getReportData: report contains more or less than 1 scenario.")
     mag <- collapseNames(rep) # get rid of scenario and model dimension if they exist
@@ -610,17 +620,21 @@ getReportData <- function(path_to_report_bioenergy, path_to_report_ghgprices = N
     return(mag)
   }
 
-  # read REMIND report
-  message("Reading bioenergy_demand from ", path_to_report_bioenergy)
-  mag <- .readAndPrepare(path_to_report_bioenergy)
-
-  .bioenergyDemand(mag)
-
-  # write emission files, if specified use path_to_report_ghgprices instead of the bioenergy report
-  if (is.na(path_to_report_ghgprices)) {
-    message("Reading ghg prices from the same file (", path_to_report_bioenergy, ")")
-    .emissionPrices(mag)
-  } else {
+  # if paths are provided, read bioenergy demand and ghg prices from REMIND reports 
+  if (!is.na(path_to_report_bioenergy)) {
+    message("Reading bioenergy_demand from ", path_to_report_bioenergy)
+    mag <- .readAndPrepare(path_to_report_bioenergy)
+    .bioenergyDemand(mag)
+  
+    if (path_to_report_ghgprices %in% path_to_report_bioenergy) {
+      message("Reading ghg prices from the same file (", path_to_report_bioenergy, ")")
+      .emissionPrices(mag)
+    }
+  }
+  
+  # read ghg prices from another REMIND report because path_to_report_bioenergy
+  # is different from path_to_report_ghgprices (including NA)
+  if (!is.na(path_to_report_ghgprices) && ! path_to_report_ghgprices %in% path_to_report_bioenergy) {
     message("Reading ghg prices from ", path_to_report_ghgprices)
     ghgmag <- .readAndPrepare(path_to_report_ghgprices)
     .emissionPrices(ghgmag)

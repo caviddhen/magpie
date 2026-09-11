@@ -1,4 +1,4 @@
-# |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -15,6 +15,7 @@ library(magpie4)
 library(lucode2)
 library(quitte)
 library(gms)
+library(piamInterfaces)
 options("magclass.verbosity" = 1)
 
 ############################# BASIC CONFIGURATION #############################
@@ -29,7 +30,9 @@ mif <- paste0(outputdir, "/agmip_report.mif")
 rds <- paste0(outputdir, "/agmip_report.rds")
 ###############################################################################
 
-report <- getReportAgMIP(gdx, scenario = cfg$title, dir = outputdir)
+report <- getReportAgMIP(gdx, scenario = cfg$title)
+
+expectVariablesPresent(report, getMappingVariables("AgMIP", "M"))
 
 ### regional aggregation
 write.report(report, file = mif, skipempty = FALSE)

@@ -1,4 +1,4 @@
-*** |  (C) 2008-2021 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -6,8 +6,6 @@
 *** |  Contact: magpie@pik-potsdam.de
 
 sets
-  tstart21(t_all) Historic time steps
-    / y1995, y2000, y2005, y2010 /
 
 *sets need to be adopted to new categories
    k_notrade(kall) Production activities of non-tradable commodites
@@ -21,14 +19,6 @@ sets
    potato,cassav_sp,sugr_cane,sugr_beet,others,cottn_pro,
    oils,oilcakes,sugar,molasses,alcohol,ethanol,distillers_grain,brans,scp,fibres,
    livst_rum, livst_pig,livst_chick, livst_egg, livst_milk, fish, wood, woodfuel /
-
-* We limit trade of secondary products as this allows for extreme specialisation
-* in the implementation. Exception is sugar, where we allow the secondary product
-* trade but not the primary as primaries are hardly traded in reality
-   k_hardtrade21(k_trade) Products where trade should be limited
-   / sugr_cane,sugr_beet,
-   oils,oilcakes,alcohol,ethanol,distillers_grain,brans,scp,fibres,
-   livst_rum, livst_pig,livst_chick, livst_egg, livst_milk, fish /
 
    trade_regime21 Trade scenarios
    /
@@ -47,9 +37,9 @@ sets
    l909595r809090
    /
 
-   trade_groups21 Trade groups
-   / easytrade,hardtrade /
-
+   trade_flexBand21 Members of the historical flexibility band (rolling range of import supply ratios over 5 10 and 15 year windows)
+   / mean5, max5, min5, mean10, max10, min10, mean15,
+    max15, min15 /
 ;
 
 alias(h,h3);

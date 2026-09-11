@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -7,5 +7,8 @@
 
 sets
  rcp52 climate change impact sceanrios
-    / RCP19, RCP26, RCP34, RCP45, RCP60, RCPBU /     
+    / RCP19, RCP26, RCP34, RCP45, RCP60, RCPBU /
+
+ iter52 bisection iterations for growth curve calibration
+    / iter1*iter25 /
 ;

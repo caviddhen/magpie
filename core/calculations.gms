@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -20,7 +20,6 @@ $batinclude "./modules/include.gms" preloop
 * create dummy file (this is necessary to be able to use put_utility and it has
 * to be done here because a file declaration cannot be inside a loop
 file dummy; dummy.pw=2000; put dummy;
-
 
 ************************OPTIMIZATION PROCESS START******************************
 * This section contains only sourcecode that is directly connected to the
@@ -44,11 +43,13 @@ loop (t$(m_year(t) > %TIMESTEP%),
     ct(t) = yes;
     pt(t) = yes$(ord(t) = 1);
     pt(t-1) = yes$(ord(t) > 1);
-    
+
       display "Year";
       display ct;
       display "Previous Year";
       display pt;
+
+$batinclude "./modules/include.gms" presolve_ini
 
 $batinclude "./modules/include.gms" presolve
 

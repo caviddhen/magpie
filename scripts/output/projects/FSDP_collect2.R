@@ -1,4 +1,4 @@
-# |  (C) 2008-2023 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -17,7 +17,7 @@ library(magclass)
 library(gms)
 library(magpiesets)
 library(data.table)
-library(gdx)
+library(gdx2)
 library(quitte)
 library(m4fsdp)
 library(stringr)
@@ -423,15 +423,15 @@ var_reg_HR <- c(
              "Productivity|Feed conversion|+|Pasture intensity",
              "Productivity|Roughage share|Ruminant meat and dairy",
              "Productivity|Pasture share|Ruminant meat and dairy",
-             "Productivity|Yield by physical area|Crops",
-             "Productivity|Yield by physical area|Crops|Cereals",
-             "Productivity|Yield by physical area|Crops|Oil crops",
-             "Productivity|Yield by physical area|Crops|Sugar crops",
-             "Productivity|Yield by physical area|Crops|Other crops",
-             "Productivity|Yield by physical area|Crops|Other crops|Fruits Vegetables Nuts",
-             "Productivity|Yield by physical area|Pasture",
-             "Productivity|Yield by physical area|Bioenergy crops",
-             "Productivity|Yield by physical area|Forage",
+             "Productivity|Yields|Yield by physical area|Crops",
+             "Productivity|Yields|Yield by physical area|Crops|Cereals",
+             "Productivity|Yields|Yield by physical area|Crops|Oil crops",
+             "Productivity|Yields|Yield by physical area|Crops|Sugar crops",
+             "Productivity|Yields|Yield by physical area|Crops|Other crops",
+             "Productivity|Yields|Yield by physical area|Crops|Other crops|Fruits Vegetables Nuts",
+             "Productivity|Yields|Yield by physical area|Pasture",
+             "Productivity|Yields|Yield by physical area|Bioenergy crops",
+             "Productivity|Yields|Yield by physical area|Forage",
              "Resources|Nitrogen|Cropland Budget|Inputs",
              "Resources|Nitrogen|Cropland Budget|Inputs|+|Fertilizer",
              "Resources|Nitrogen|Cropland Budget|Inputs|+|Biological Fixation Symbiotic Crops",

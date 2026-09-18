@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -28,7 +28,8 @@ $title magpie
 *' on a 0.5 degree resolution and include e.g. carbon densities of different vegetation types,
 *' agricultural productivity such as crop yields and water availability for irrigation. Based on
 *' the strong interaction with LPJmL, MAgPIE can also help to assess the consequences of climate
-*' change and increased CO2 in the atmosphere on the land-use sector (@stevanovic_impact_2016)
+*' change and increased CO2 in the atmosphere on the land-use sector (@stevanovic_impact_2016,
+*' @molina_bacca_landuse_2025)
 *'
 *' Available land types in MAgPIE are cropland, pasture area, forest, other land
 *' (including non-forest natural vegetation, abandoned agricultural land and deserts)
@@ -43,7 +44,9 @@ $title magpie
 *' feed, seed, processing, bioenergy and material demand ([16_demand]). Food demand is
 *' derived based on population growth ([09_drivers]) and dietary transitions, accounting
 *' for changes in intake and food waste, the shift in the share of animal calories,
-*' processed products, fruits and vegetables as well as staples ([15_food]).
+*' processed products, fruits and vegetables as well as staples ([15_food])
+*' (@bodirsky_degrowth_2022, @humpenoeder_microbial_2022, @humpenoeder_food_2024,
+*' @weindl_food_2024, @beier_boundaries_2025, @bodirsky_foodsystem_2025).
 *' Primary products can be processed to secondary products such as sugar, oil
 *' or ethanol ([20_processing]). The quantity of livestock production in
 *' combination with dynamic regional and livestock-specific feed baskets determines the
@@ -58,7 +61,8 @@ $title magpie
 *' the model's optimization process that determines where cropping activities and livestock production
 *' are allocated to. Parts of forests and other natural land area can be excluded from conversion into
 *' agricultural land if designated for wood production or located in protected areas ([32_forestry],
-*' [35_natveg]) (@kreidenweis_pasture_2018).
+*' [35_natveg]) (@kreidenweis_pasture_2018, @mishra_forestry_2021, @jeetze_landscape_2023,
+*' @mishra_cop26_2024, @jeetze_conservation_2025).
 *'
 *' Due to computational constraints, all model inputs in 0.5 degree resolution are aggregated
 *' to simulation units for the optimization process ([80_optimization]) based on a clustering
@@ -67,9 +71,9 @@ $title magpie
 *' MAgPIE estimates flows of different land-based greenhouse gases (GHGs). CO2 emissions are computed
 *' from land-use change dynamics, i.e. from conversion of different biomes into agricultural land
 *' and consequent loss of terrestrial carbon stocks (@popp_land-use_2014), also including the
-*' depletion of organic matter in soils ([59_som]). The land also serves as a sink for atmospheric
-*' carbon when agricultural land is taken out of production and the associated regrowth of natural
-*' vegetation generates negative emissions from land-use change.
+*' depletion of organic matter in soils ([59_som]) (@karstens_soc_2022). The land also serves as a
+*' sink for atmospheric carbon when agricultural land is taken out of production and the associated
+*' regrowth of natural vegetation generates negative emissions from land-use change.
 *' Nitrogen emissions ([51_nitrogen]) are estimated based on nitrogen budgets for croplands,
 *' pastures ([50_nr_soil_budget]) and the livestock sector ([55_awms]) (@bodirsky_reactive_2014).
 *' CH4 emissions are based on
@@ -80,12 +84,14 @@ $title magpie
 *' of fertilizer spreaders) (@popp_land-use_2014, @stevanovic_mitigation_2017). In addition,
 *' the model covers land-based carbon removal technologies such as bioenergy with carbon capture
 *' and sequestration (CCS) and afforestation (@humpenoder_investigating_2014,
-*' @humpenoeder_bioenergy_2018, @kreidenweis_afforestation_2016).
+*' @humpenoeder_bioenergy_2018, @kreidenweis_afforestation_2016, @windisch_temperature_2022,
+*' @humpenoeder_overcoming_2022, @windisch_permanence_2025).
 *'
 *' In response to all involved demand for agricultural commodities, costs of production,
 *' biophysical constraints and land-related policies, MAgPIE simulates major dynamics of
-*' the land-use sector like investments in research and development (R&D) ([13_tc]) (@dietrich_forecasting_2014)
-*' and associated increases in both crop yields  ([14_yields]) and biomass removal through grazing on
+*' the land-use sector like investments in research and development (R&D) ([13_tc])
+*' (@dietrich_forecasting_2014, @wang_productivity_2020) and associated increases in both crop
+*' yields ([14_yields]) and biomass removal through grazing on
 *' pastures ([31_past]), land use change ([39_landconversion]), interregional trade flows ([21_trade]),
 *' and irrigation ([41_area_equipped_for_irrigation]).
 *'
@@ -147,56 +153,16 @@ $title magpie
 *'  * Always try to access model outputs through the corresponding magpie package instead of accessing them directly with readGDX. It cannot be guaranteed that your script will work in the future if you do otherwise (as only the corresponding magpie package will be continuously adapted to changes in the GAMS code).
 
 *##################### R SECTION START (VERSION INFO) ##########################
-*
-* Used data set: rev4.99_h12_magpie.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
-*
-* Used data set: rev4.99_h12_fd712c0b_cellularmagpie_c200_MRI-ESM2-0-ssp370_lpjml-8e6c5eb1.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
-*
-* Used data set: rev4.99_h12_validation.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/rd3mod/inputdata/output
-*
-* Used data set: additional_data_rev4.47.tgz
-* md5sum: NA
-* Repository: scp://cluster.pik-potsdam.de/p/projects/landuse/data/input/archive
-*
-* Used data set: calibration_H12_per_ton_fao_may22_glo_08Aug23.tgz
-* md5sum: NA
-* Repository: https://rse.pik-potsdam.de/data/magpie/public
-*
 * Low resolution: c200
 * High resolution: 0.5
-*
+* 
 * Total number of cells: 200
-*
+* 
 * Number of cells per region:
 *   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*    14   23   10    7    4   26   21    9   16   23   32   15
-*
+*     5   19   12   12    7   33   25    8   16   12   33   18
+* 
 * Regionscode: 62eff8f7
-*
-* Regions data revision: 4.99
-*
-* lpj2magpie settings:
-* * LPJmL data: MRI-ESM2-0:ssp370
-* * Revision: 4.99
-*
-* aggregation settings:
-* * Input resolution: 0.5
-* * Output resolution: c200
-* * Regionscode: 62eff8f7
-* * Number of clusters per region:
-*   CAZ  CHA  EUR  IND  JPN  LAM  MEA  NEU  OAS  REF  SSA  USA
-*    14   23   10    7    4   26   21    9   16   23   32   15
-* * Call: withCallingHandlers(expr, message = messageHandler, warning = warningHandler,     error = errorHandler)
-*
-*
-* Last modification (input data): Wed Feb  7 15:35:14 2024
-*
 *###################### R SECTION END (VERSION INFO) ###########################
 
 $offupper
@@ -220,7 +186,7 @@ $offlisting
 *                    Key parameters during model runs
 
 $setglobal c_timesteps  coup2100
-$setglobal c_past  till_2010
+$setglobal c_past  till_2015
 $setglobal c_title  default
 
 scalars
@@ -247,19 +213,20 @@ $setglobal processing  substitution_may21
 $setglobal trade  selfsuff_reduced
 $setglobal land_conservation  area_based_apr22
 
-$setglobal ageclass  feb21
+$setglobal ageclass  oct24
 
-$setglobal crop  endo_apr21
+$setglobal cropland  detail_apr24
+$setglobal croparea  simple_apr24
 $setglobal past  endo_jun13
 
-$setglobal forestry  dynamic_feb21
+$setglobal forestry  dynamic_may24
 
 $setglobal urban  exo_nov21
-$setglobal natveg  dynamic_feb21
+$setglobal natveg  pot_forest_may24
 
 $setglobal employment  exo_may22
 $setglobal labor_prod  off
-$setglobal factor_costs  per_ton_fao_may22
+$setglobal factor_costs  sticky_feb18
 $setglobal landconversion  calib
 
 $setglobal transport  gtap_nov12
@@ -278,9 +245,9 @@ $setglobal awms  ipcc2006_aug16
 $setglobal ghg_policy  price_aug22
 $setglobal maccs  on_aug22
 $setglobal peatland  v2
-$setglobal som  static_jan19
+$setglobal som  cellpool_jan23
 
-$setglobal bioenergy  1stgen_priced_dec18
+$setglobal bioenergy  1st2ndgen_priced_feb24
 $setglobal material  exo_flexreg_apr16
 $setglobal livestock  fbask_jan16
 
@@ -318,7 +285,8 @@ $batinclude "./modules/include.gms" equations
 model magpie / all - m15_food_demand /;
 
 option iterlim    = 1000000 ;
-option reslim     = 1000000 ;
+* reslim is a wall-clock limit in seconds per solve; exceeding it triggers the retry loop in module 80
+option reslim     = 900 ;
 option sysout     = Off ;
 option limcol     = 0 ;
 option limrow     = 0 ;

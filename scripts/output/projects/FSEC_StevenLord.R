@@ -1,4 +1,4 @@
-# |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -47,7 +47,8 @@ if (dir.exists(reportOutputDir)) {
 suppressWarnings(dir.create(reportOutputDir))
 
 message("Generating Steven Lord's output for the run: ", title)
+gdx <- file.path(outputdir, "fulldata.gdx")
 
-out <- getReportFSECStevenLord(magpieOutputDir = outputdir,
+out <- getReportFSECStevenLord(gdx = gdx,
                                reportOutputDir = reportOutputDir,
                                scenario = title)

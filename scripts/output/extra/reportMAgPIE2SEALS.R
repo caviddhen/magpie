@@ -1,4 +1,4 @@
-# |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+# |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 # |  authors, and contributors see CITATION.cff file. This file is part
 # |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 # |  AGPL-3.0, you are granted additional permissions described in the
@@ -14,7 +14,7 @@
 # 1.00: first working version
 
 library(gms)
-library(gdx)
+library(gdx2)
 library(magpie4)
 
 message("Starting to report gridded MAgPIE land use for SEALS")
@@ -38,7 +38,7 @@ title <- cfg$title
 reportLandUseForSEALS(
   magCellLand = "cell.land_0.5_share.mz",
   outFile = paste0("cell.land_0.5_SEALS_", title, ".nc"),
-  dir = outputdir, selectyears = c(2020, 2030, 2040, 2050)
+  outputdir = outputdir, selectyears = c(2020, 2030, 2040, 2050)
 )
 
 # In case of reforestation using plantation growth curves set forestry to zero
@@ -52,6 +52,6 @@ if (plantation) {
   reportLandUseForSEALS(
     magCellLand = land_hr,
     outFile = paste0("cell.land_0.5_SEALS_", title, "_noForestry.nc"),
-    dir = outputdir, selectyears = c(2020, 2030, 2040, 2050)
+    outputdir = outputdir, selectyears = c(2020, 2030, 2040, 2050)
   )
 }

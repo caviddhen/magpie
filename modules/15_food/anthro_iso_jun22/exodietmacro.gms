@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -42,6 +42,12 @@ if (s15_run_diet_postprocessing = 1,
 
 *###############################################################################
 * ###### Food substitution scenarios
+
+* Protein-to-kcal ratio used for protein-based food substitutions:
+  i15_protein_to_kcal_ratio(t,kfo) =
+      fm_nutrition_attributes(t,kfo,"protein")
+      / fm_nutrition_attributes(t,kfo,"kcal");
+
 
 * Substitution of ruminant beef with poultry:
   p15_kcal_pc_iso_orig(t,iso,kfo) = p15_kcal_pc_iso(t,iso,kfo);
@@ -105,19 +111,186 @@ if (s15_run_diet_postprocessing = 1,
                  *(p15_kcal_pc_iso_plant_orig(t,iso)
                  + p15_kcal_pc_iso_rumdairy_orig(t,iso) * (1- i15_rumdairy_fadeout(t,iso)));
 
-*** Substitution of ruminant meat and dairy products (kfo_rd) with single-cell protein (SCP) based on protein/cap/day
-  i15_protein_to_kcal_ratio(t,kfo) = fm_nutrition_attributes(t,kfo,"protein") / fm_nutrition_attributes(t,kfo,"kcal");
-* Before the substitution, kfo_rd is converted from kcal/cap/day to g protein/cap/day
-* using i15_protein_to_kcal_ratio(t,kfo_rd).
-* After the substitution of kfo_rd with SCP (1-i15_rumdairy_scp_fadeout), SCP is converted
-* back to kcal/cap/day using i15_protein_to_kcal_ratio(t,"scp").
-  p15_kcal_pc_iso(t,iso,"scp") = p15_kcal_pc_iso(t,iso,"scp") +
-    sum(kfo_rd, p15_kcal_pc_iso(t,iso,kfo_rd) * (1-i15_rumdairy_scp_fadeout(t,iso)) *
-    i15_protein_to_kcal_ratio(t,kfo_rd)) / i15_protein_to_kcal_ratio(t,"scp");
-  p15_kcal_pc_iso(t,iso,kfo_rd) = p15_kcal_pc_iso(t,iso,kfo_rd) * i15_rumdairy_scp_fadeout(t,iso);
+*' @code
+*' Substitution of ruminant meat and dairy products (kfo_rd) with single-cell protein (SCP) based on protein/cap/day:
+*'
+*' Before the substitution, kfo_rd is converted from kcal/cap/day to g protein/cap/day using i15_protein_to_kcal_ratio(t,kfo_rd).
+*' After the substitution of kfo_rd with SCP (1-i15_rumdairy_scp_fadeout), SCP is converted 
+*' back to kcal/cap/day using i15_protein_to_kcal_ratio(t,"scp").
+*'
+*' Increase of single-cell protein (SCP):
+p15_protein_pc_iso_scp(t,iso,kfo_rd) = p15_kcal_pc_iso(t,iso,kfo_rd) * (1-i15_rumdairy_scp_fadeout(t,iso)) * i15_protein_to_kcal_ratio(t,kfo_rd);
+p15_kcal_pc_iso(t,iso,"scp") = p15_kcal_pc_iso(t,iso,"scp") + sum(kfo_rd, p15_protein_pc_iso_scp(t,iso,kfo_rd)) / i15_protein_to_kcal_ratio(t,"scp");
+*'
+*' Reduction of ruminant meat and dairy products (kfo_rd):
+p15_kcal_pc_iso(t,iso,kfo_rd) = p15_kcal_pc_iso(t,iso,kfo_rd) * i15_rumdairy_scp_fadeout(t,iso);
+*'
+*' Plant oil and sugar demands as ingredients for animal-free milk alternative production using single cell protein 
+*' are calculated based on the ratio of fat or sugar to protein in cow milk. 
+*' This ratio is typically reported on a mass basis, but the ratio is converted here to be based on caloric content. 
+*' Cow milk content is chosen as the dominant source of milk produced globally.
+*' Data sources: @muehlhoff_milk_2013 and @fao_food_2004
+*'
+p15_kcal_pc_iso(t,iso,"oils") = p15_kcal_pc_iso(t,iso,"oils") 
+   + sum(kfo_rd$sameas(kfo_rd,"livst_milk"), p15_protein_pc_iso_scp(t,iso,kfo_rd)) / 
+     s15_scp_protein_per_milk * s15_scp_fat_per_milk * fm_nutrition_attributes(t,"oils", "kcal");
+*'
+p15_kcal_pc_iso(t,iso,"sugar") = p15_kcal_pc_iso(t,iso,"sugar") 
+   + sum(kfo_rd$sameas(kfo_rd,"livst_milk"), p15_protein_pc_iso_scp(t,iso,kfo_rd)) / 
+     s15_scp_protein_per_milk * s15_scp_sugar_per_milk * fm_nutrition_attributes(t, "sugar" ,"kcal");
+*' 
+*' The ratio of fat to protein in raw microbial biomass (used as single cell protein) is much lower than for 
+*' plant based meat alternatives and animal based meat products. If the desired microbial product is alternative meat, 
+*' this may require supplementation with plant based fats to more closely match other existing products. 
+*' It is therefore possible to choose whether microbial biomass should be supplemented with plant based oil, 
+*' which drives additional demand for plant based oil production in MAgPIE. 
+*' For alternative microbial meats supplemented with fat, the desired fat to protein ratio is given 
+*' as 2:3 on a mass basis, analogous to similar products. Because microbial biomass already contains some fats, 
+*' the additional amount of plant based fat needed is given as the difference between the amount of fat present 
+*' in microbial biomass and the amount of fat needed to reach the desired protein to fat ratio. 
+*' Unlike additional plant oil and sugar demand for microbial milk, the additional amount of plant fat needed 
+*' for microbial meat is calculated dynamically based on the protein content of microbial biomass. 
+*' This is because the microbial protein content varies depending on the specific type of microbes used 
+*' (e.g. bacteria or funghi), whereas the nutritional content of cow milk is assumed to be fixed. 
+*' If the microbial protein is therefore changed, the amount of fat must also change to keep the same 
+*' fat to protein ratio. It is also assumed, unlike for microbial milk, that additional carbohydrates 
+*' (e.g., sugar) are not required for alternative microbial meats. This is because meat products contain 
+*' very little or no carbohydrates. 
+*' Data sources: @mazac_novelfoods_2023 and @jarvio_LCA_MP_2021
+*' 
+p15_kcal_pc_iso(t,iso,"oils")$(s15_scp_supplement_fat_meat = 1) = p15_kcal_pc_iso(t,iso,"oils") 
+   + sum(kfo_rd$sameas(kfo_rd,"livst_rum"), p15_protein_pc_iso_scp(t,iso,kfo_rd)) / 
+     fm_nutrition_attributes(t,"scp", "protein") * (fm_nutrition_attributes(t,"scp", "protein") * 
+     s15_scp_fat_protein_ratio_meat - s15_scp_fat_content) * fm_nutrition_attributes(t,"oils", "kcal");
+*' 
+*' @stop
 
 
-* Conditional reduction of livestock products (without fish) depending on s15_kcal_pc_livestock_intake_target.
+*' @code
+*' Flexible source-to-target food substitution ("flexfood").
+*' The source foods are defined by `kfo_sf` and the target foods by `kfo_tf`. The
+*' substitution share always refers to the fraction of source-food calories that
+*' is displaced. The replacement amount is defined by `c15_flexfood_subst_basis`:
+*' "kcal" replaces displaced calories, while "protein" replaces the protein
+*' contained in the displaced source foods. Target foods are distributed using
+*' their country-specific composition in the selected metric. If a country has no
+*' consumption of the selected target foods, the population-weighted global
+*' composition of the target basket is used as fallback.
+*'
+*' The flexfood substitution is applied sequentially after the preceding food substitution
+*' scenarios. Overlaps between `kfo_sf` and source foods of earlier substitution scenarios
+*' are allowed and lead to sequential, compounded substitution effects, e.g. in
+*' combination with substituting ruminant products by single-cell protein.
+*' A main application is substitution of selected livestock foods by plant-based
+*' alternatives, but source and target sets are fully configurable.
+*'
+*' The flexfood substitution can also be combined with exogenous diet scenarios
+*' (`s15_exo_diet > 0`). Food substitution scenarios, including flexfood, are applied
+*' first. The subsequent waste and intake calculations and exogenous diet scenarios use
+*' the resulting diet as their starting point. For `s15_exo_diet = 3`, flexfood can
+*' therefore influence whether lower or upper EAT-Lancet constraints become binding,
+*' while these constraints can in turn further modify the result of the flexfood
+*' substitution.
+*'
+*' Save the current diet as reference for the flexfood substitution:
+p15_kcal_pc_iso_orig(t,iso,kfo) = p15_kcal_pc_iso(t,iso,kfo);
+*'
+*' Calories displaced from the configured source-food basket:
+p15_flexfood_kcal_removed(t,iso) = sum(kfo_sf,
+    p15_kcal_pc_iso_orig(t,iso,kfo_sf) * (1-i15_flexfood_fadeout(t,iso)));
+*'
+*'
+$ifthen "%c15_flexfood_subst_basis%" == "kcal"
+*'
+*' Country-specific target-food composition based on calories:
+p15_flexfood_target_kcal_orig(t,iso) = sum(kfo_tf, p15_kcal_pc_iso_orig(t,iso,kfo_tf));
+p15_flexfood_target_structure(t,iso,kfo) = 0;
+p15_flexfood_target_structure(t,iso,kfo_tf)$(p15_flexfood_target_kcal_orig(t,iso)>0) =
+    p15_kcal_pc_iso_orig(t,iso,kfo_tf) / p15_flexfood_target_kcal_orig(t,iso);
+*'
+*' Population-weighted global target-food composition as fallback:
+p15_flexfood_target_structure_global(t,kfo) = 0;
+p15_flexfood_target_structure_global(t,kfo_tf)$(
+    sum((iso,kfo2)$kfo_tf(kfo2), p15_kcal_pc_iso_orig(t,iso,kfo2) * im_pop_iso(t,iso))>0) =
+    sum(iso, p15_kcal_pc_iso_orig(t,iso,kfo_tf) * im_pop_iso(t,iso))
+    / sum((iso,kfo2)$kfo_tf(kfo2), p15_kcal_pc_iso_orig(t,iso,kfo2) * im_pop_iso(t,iso));
+*'
+*' If the complete target basket has zero global consumption, use equal calorie
+*' shares among all selected target foods:
+p15_flexfood_target_structure_global(t,kfo_tf)$(
+    sum((iso,kfo2)$kfo_tf(kfo2), p15_kcal_pc_iso_orig(t,iso,kfo2) * im_pop_iso(t,iso))=0
+    and card(kfo_tf)>0) =
+    1 / card(kfo_tf);
+*'
+*' For countries without consumption of the target basket, use the
+*' population-weighted global target-food composition:
+p15_flexfood_target_structure(t,iso,kfo_tf)$(
+    p15_flexfood_target_kcal_orig(t,iso)=0) =
+    p15_flexfood_target_structure_global(t,kfo_tf);
+*'
+*' Reduce source foods and replace displaced calories with target-food calories:
+p15_kcal_pc_iso(t,iso,kfo_sf) =
+    p15_kcal_pc_iso_orig(t,iso,kfo_sf) * i15_flexfood_fadeout(t,iso);
+p15_kcal_pc_iso(t,iso,kfo_tf) =
+    p15_kcal_pc_iso(t,iso,kfo_tf)
+    + p15_flexfood_kcal_removed(t,iso) * p15_flexfood_target_structure(t,iso,kfo_tf);
+*'
+$elseif "%c15_flexfood_subst_basis%" == "protein"
+*'
+*' Protein displaced from the configured source-food basket:
+p15_flexfood_protein_removed(t,iso) = sum(kfo_sf,
+    p15_kcal_pc_iso_orig(t,iso,kfo_sf) * (1-i15_flexfood_fadeout(t,iso))
+    * i15_protein_to_kcal_ratio(t,kfo_sf));
+*'
+*' Country-specific target-food composition based on protein:
+p15_flexfood_target_protein_orig(t,iso) = sum(kfo_tf,
+        p15_kcal_pc_iso_orig(t,iso,kfo_tf) * i15_protein_to_kcal_ratio(t,kfo_tf));
+p15_flexfood_target_structure(t,iso,kfo) = 0;
+p15_flexfood_target_structure(t,iso,kfo_tf)$(p15_flexfood_target_protein_orig(t,iso)>0) =
+    p15_kcal_pc_iso_orig(t,iso,kfo_tf) * i15_protein_to_kcal_ratio(t,kfo_tf)
+    / p15_flexfood_target_protein_orig(t,iso);
+*'
+*' Population-weighted global target-food composition as fallback:
+p15_flexfood_target_structure_global(t,kfo) = 0;
+p15_flexfood_target_structure_global(t,kfo_tf)$(
+    sum((iso,kfo2)$kfo_tf(kfo2), p15_kcal_pc_iso_orig(t,iso,kfo2) * i15_protein_to_kcal_ratio(t,kfo2)
+        * im_pop_iso(t,iso))>0) =
+    sum(iso,
+        p15_kcal_pc_iso_orig(t,iso,kfo_tf) * i15_protein_to_kcal_ratio(t,kfo_tf) * im_pop_iso(t,iso))
+    / sum((iso,kfo2)$kfo_tf(kfo2),
+        p15_kcal_pc_iso_orig(t,iso,kfo2) * i15_protein_to_kcal_ratio(t,kfo2) * im_pop_iso(t,iso));
+*'
+*' If the complete target basket has zero global protein consumption, use equal
+*' protein shares among selected target foods with positive protein content:
+p15_flexfood_target_structure_global(t,kfo_tf)$(
+    i15_protein_to_kcal_ratio(t,kfo_tf)>0
+    and sum((iso,kfo2)$kfo_tf(kfo2), p15_kcal_pc_iso_orig(t,iso,kfo2) * i15_protein_to_kcal_ratio(t,kfo2)
+        * im_pop_iso(t,iso))=0
+    and sum(kfo2$(kfo_tf(kfo2) and i15_protein_to_kcal_ratio(t,kfo2)>0),1)>0) =
+    1 / sum(kfo2$(kfo_tf(kfo2) and i15_protein_to_kcal_ratio(t,kfo2)>0),1);
+*'
+*' For countries without protein consumption from the target basket, use the
+*' population-weighted global target-food composition:
+p15_flexfood_target_structure(t,iso,kfo_tf)$(p15_flexfood_target_protein_orig(t,iso)=0) =
+    p15_flexfood_target_structure_global(t,kfo_tf);
+*'
+*' Reduce source foods and replace displaced protein with target-food protein:
+p15_kcal_pc_iso(t,iso,kfo_sf) =
+    p15_kcal_pc_iso_orig(t,iso,kfo_sf) * i15_flexfood_fadeout(t,iso);
+*'
+p15_kcal_pc_iso(t,iso,kfo_tf)$(i15_protein_to_kcal_ratio(t,kfo_tf)>0) =
+    p15_kcal_pc_iso(t,iso,kfo_tf) 
+    + p15_flexfood_protein_removed(t,iso)
+    * p15_flexfood_target_structure(t,iso,kfo_tf) / i15_protein_to_kcal_ratio(t,kfo_tf);
+*'
+$else
+$abort Invalid c15_flexfood_subst_basis. Choose "kcal" or "protein".
+$endif
+*'
+*' @stop
+
+
+* Conditional reduction of livestock products (without fish) depending on s15_kcal_pc_livestock_supply_target.
 * Optional substitution with plant-based products depending on s15_livescen_target_subst.
   p15_kcal_pc_iso_orig(t,iso,kfo) = p15_kcal_pc_iso(t,iso,kfo);
   p15_kcal_pc_iso_livestock_orig(t,iso) = sum(kfo_lp,p15_kcal_pc_iso(t,iso,kfo_lp));
@@ -131,7 +304,7 @@ if (s15_run_diet_postprocessing = 1,
                                  p15_kcal_pc_iso(t,iso,kfo_pp)
                                  /p15_kcal_pc_iso_plant_orig(t,iso);
 
-  p15_kcal_pc_livestock_supply_target(iso) = s15_kcal_pc_livestock_intake_target * f15_overcons_FAOwaste(iso,"livst_rum");
+  p15_kcal_pc_livestock_supply_target(iso) = s15_kcal_pc_livestock_supply_target * f15_overcons_FAOwaste(iso,"livst_rum");
 
   loop(iso$(p15_kcal_pc_iso_livestock_orig(t,iso) > p15_kcal_pc_livestock_supply_target(iso)),
   p15_kcal_pc_iso(t,iso,kfo_lp) = p15_livestock_kcal_structure_orig(t,iso,kfo_lp)
@@ -713,9 +886,21 @@ if (s15_exo_waste = 1,
 *' Finally, countries with zero food demand according to FAOSTAT are calibrated
 *' down to zero to match FAO world totals.
 *' Values are rounded to avoid path dependencies of MAgPIE solver.
-   p15_kcal_pc_calibrated(t,i,kfo) = p15_kcal_pc(t,i,kfo) + p15_balanceflow_kcal(t,i,kfo);
+   p15_kcal_pc_calibrated_alliter(t,i,kfo,curr_iter15) = p15_kcal_pc(t,i,kfo) + p15_balanceflow_kcal(t,i,kfo);
+   p15_kcal_pc_calibrated_alliter(t,i,kfo,curr_iter15)$(p15_kcal_pc_calibrated_alliter(t,i,kfo,curr_iter15) < 0) = 0;
+
+*' If the model requires more than 3 iterations, the convergence should be supported by averaging between iterations
+   if (p15_iteration_counter(t) <= 3,
+     p15_kcal_pc_calibrated(t,i,kfo) = sum(curr_iter15, p15_kcal_pc_calibrated_alliter(t,i,kfo,curr_iter15));
+   else
+     p15_kcal_pc_calibrated(t,i,kfo) = 
+       sum(curr_iter15, p15_kcal_pc_calibrated_alliter(t,i,kfo,curr_iter15) * (1-s15_convergence_partstep))
+       + sum(prev_iter15, p15_kcal_pc_calibrated_alliter(t,i,kfo,prev_iter15) * (s15_convergence_partstep));
+   );
+   
+   
+   
    p15_kcal_pc_calibrated(t,i,kfo) = round(p15_kcal_pc_calibrated(t,i,kfo), 2);
-   p15_kcal_pc_calibrated(t,i,kfo)$(p15_kcal_pc_calibrated(t,i,kfo) < 0) = 0;
 
 *' @stop
  );

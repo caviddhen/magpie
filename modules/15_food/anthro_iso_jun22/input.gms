@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -18,20 +18,8 @@ $setglobal c15_calibscen  constant
 $setglobal c15_rum_share  mixed
 *   options:   constant, halving2050, mixed
 
-* Fader for food substitution scenarios and exogenous food intake and waste
-* scenarios including functional forms, targets and transition periods
-*   options:   constant,
-*              lin_zero_10_50, lin_zero_20_50, lin_zero_20_30, lin_50pc_20_50, lin_50pc_20_50_extend65, lin_50pc_20_50_extend80,
-*              lin_50pc_10_50_extend90, lin_75pc_10_50_extend90, lin_80pc_20_50, lin_80pc_20_50_extend95, lin_90pc_20_50_extend95,
-*              lin_99-98-90pc_20_50-60-100, sigmoid_20pc_20_50, sigmoid_50pc_20_50, sigmoid_80pc_20_50
-$setglobal c15_rumscen  constant
-$setglobal c15_fishscen  constant
-$setglobal c15_alcscen  constant
-$setglobal c15_livescen  constant
-$setglobal c15_rumdairyscen  constant
-$setglobal c15_rumdairy_scp_scen  constant
-$setglobal c15_livescen_target  constant
-$setglobal c15_exo_foodscen  lin_zero_20_50
+$setglobal c15_flexfood_subst_basis  protein
+*   options:   kcal, protein
 
 $setglobal c15_kcal_scen  healthy_BMI
 *   options:    healthy_BMI, 2100kcal, 2500kcal,
@@ -75,57 +63,69 @@ sets
 
 $onMultiR
 set    kfo_rd(kfo) Ruminant meat and dairy food products / livst_rum /;
+set    kfo_sf(kfo) Source foods for flexible food substitution / livst_pig,livst_chick,livst_egg /;
+set    kfo_tf(kfo) Target foods for flexible food substitution / soybean,puls_pro,groundnut /;
 $offMulti
 
-scalar s15_elastic_demand  Elastic demand switch (1=elastic 0=exogenous) (1) / 0 /;
-
-scalar s15_calibrate Calibration switch (1=calibrated 0=pure regression outcomes) (1) / 1 /;
+scalars
+s15_elastic_demand                  Elastic demand switch (1=elastic 0=exogenous) (1) / 0 /
+s15_tax_recycling                   Tax recycling multiplier (1=distribution neutral) (1) / 1 / 
+s15_calibrate                       Calibration switch (1=calibrated 0=pure regression outcomes) (1) / 1 /
 * only for per-capita calories, not for e.g. calibration of transformation parameters between per-capita calories in dm
-
-scalar s15_maxiter Scalar defining maximum number of iterations (1) / 5 /;
-
-scalar s15_convergence Convergence criterion (1) / 0.005 /;
+s15_maxiter                         Scalar defining maximum number of iterations (1) / 10 /
+s15_convergence                     Convergence criterion (1) / 0.005 /
+s15_convergence_partstep            Share of last iteration for convergence (1=only current iteration 0.5=half last iteration) / 0.5 /
 * maximum relative per-capita gdp difference within a region between two iteratios
-
-scalar s15_exo_waste Switch for transition towards exogenous food waste scenario (1)  / 0 /;
-
-scalar s15_waste_scen Scenario target for the ratio between food demand and intake (1)  / 1.2 /;
-
-scalar s15_exo_diet Switch for transition towards exogenous diet scenario (1)  / 0 /;
+s15_exo_waste                       Switch for transition towards exogenous food waste scenario (1)  / 0 /
+s15_waste_scen                      Scenario target for the ratio between food demand and intake (1)  / 1.2 /
+s15_exo_diet                        Switch for transition towards exogenous diet scenario (1)  / 0 /
 * The following switches only become active when s15_exo_diet is active
 * They define which components of the diet should become active
 * If the switch is set to 1,the exogenous diets are activated.
 * For all other settings (!=1), the endogenous estimate is used.
 * When activating a target, total calories are always preserved via scaling of staples
-scalar s15_exo_monogastric Exogenous EAT Lancet animal product target on  (1) / 1 /;
-scalar s15_exo_ruminant Exogenous EAT Lancet animal product target on  (1) / 1 /;
-scalar s15_exo_fish Exogenous EAT Lancet animal product target on  (1) / 1 /;
-scalar s15_exo_fruitvegnut Exogenous EAT Lancet fruit vegetable nut seeds target on  (1) / 1 /;
-scalar s15_exo_roots Exogenous EAT Lancet root target on (1) / 1 /;
-scalar s15_exo_pulses Exogenous pulses target on  (1) / 1 /;
-scalar s15_exo_sugar Exogenous sugar target on  (1) / 1 /;
-scalar s15_exo_oils Exogenous oils (1) / 1 /;
-scalar s15_exo_brans Exogenous brans (1) / 0 /;
-scalar s15_exo_scp Exogenous microbial protein target on  (1) / 1 /;
+s15_exo_monogastric                 Exogenous EAT Lancet animal product target on  (1) / 1 /
+s15_exo_ruminant                    Exogenous EAT Lancet animal product target on  (1) / 1 /
+s15_exo_fish                        Exogenous EAT Lancet animal product target on  (1) / 1 /
+s15_exo_fruitvegnut                 Exogenous EAT Lancet fruit vegetable nut seeds target on  (1) / 1 /
+s15_exo_roots                       Exogenous EAT Lancet root target on (1) / 1 /
+s15_exo_pulses                      Exogenous pulses target on  (1) / 1 /
+s15_exo_sugar                       Exogenous sugar target on  (1) / 1 /
+s15_exo_oils                        Exogenous oils (1) / 1 /
+s15_exo_brans                       Exogenous brans (1) / 0 /
+s15_exo_scp                         Exogenous microbial protein target on  (1) / 1 /
 * The EAT-Lancet diet only allows for added sugars, but does not include processed food or
 * alcohol. Via 's15_alc_scen' a maximum target for alcohol consumption can be defined.
-scalar s15_exo_alcohol Exogenous alcohol target on (1) / 1 /;
-scalar s15_alc_scen Scenario target for the inclusion of alcohol in the EAT-Lancet diet (1)  / 0 /;
-
-scalar s15_rum_share_fadeout_india_strong   switch for stronger ruminant fadeout in India (binary) / 1 /;
-
-scalar s15_milk_share_fadeout_india     switch for milk fadeout in India (binary) / 1 /;
-
-scalar s15_kcal_pc_livestock_intake_target target for livestock intake (kcal per cap per day) / 430 /;
-
-scalar s15_livescen_target_subst fade-out of livestock products (0) or substitution of livestock products with plant-based products (1) / 1 /;
+s15_exo_alcohol                     Exogenous alcohol target on (1) / 1 /
+s15_alc_scen                        Scenario target for the inclusion of alcohol in the EAT-Lancet diet (1)  / 0 /
+s15_rum_share_fadeout_india_strong  Switch for stronger ruminant fadeout in India (binary) / 1 /
+s15_milk_share_fadeout_india        Switch for milk fadeout in India (binary) / 1 /
+s15_kcal_pc_livestock_supply_target Target for livestock food calorie supply (kcal per cap per day) / 430 /
+s15_livescen_target_subst           Fade-out of livestock products (0) or substitution of livestock products with plant-based products (1) / 1 /
+s15_food_subst_functional_form      Switch for functional form of substitution fader (1) / 1 /
+s15_food_substitution_start         Food substitution start year / 2025 /
+s15_food_substitution_target        Food substitution target year / 2050 /
+s15_ruminant_substitution           Ruminant substitution share (1) / 0 /
+s15_fish_substitution               Fish substitution share (1) / 0 /
+s15_alcohol_substitution            Alcohol substitution share (1) / 0 /
+s15_livestock_substitution          Livestock substitution share (1) / 0 /
+s15_rumdairy_substitution           Ruminant meat and dairy substitution share (1) / 0 /
+s15_rumdairy_scp_substitution       Ruminant meat and dairy substitution with SCP share (1) / 0 /
+s15_flexfood_substitution           Flexible source-to-target food substitution share (1) / 0 /
+s15_livescen_target                 Switch for livestock food calorie supply target (1) / 0 /
+s15_exo_foodscen_functional_form    Switch for functional form of exogenous food scenario fader (1) / 1 /
+s15_exo_foodscen_start              Food substitution start year        / 2025 /
+s15_exo_foodscen_target             Food substitution target year       / 2050 /
+s15_exo_foodscen_convergence        Convergence to exogenous food scenario (1) / 1 /
+s15_scp_supplement_fat_meat         Switch for supplemental fat needed as ingredient for scp-based meat alternatives (1) / 0 /
+;
 
 table f15_household_balanceflow(t_all,i,kall,dm_ge_nr)   Balance flow to take account of heterogeneous products and processes (mio. tDM)
 $ondelim
 $include "./modules/15_food/input/f15_household_balanceflow.cs3"
 $offdelim;
 
-table fm_nutrition_attributes(t_all,kall,nutrition) Nutrition attributes of food items dedicated for fooduse (mio. kcal per tDM | t Protein per tDM)
+table fm_nutrition_attributes(t_all,kall,nutrition) "Nutrition attributes of food items dedicated for fooduse (mio. kcal per tDM | t Protein per tDM)"
 $ondelim
 $include "./modules/15_food/input/f15_nutrition_attributes.cs3"
 $offdelim;
@@ -171,7 +171,7 @@ $include "./modules/15_food/input/f15_intake_pc_observed_iso.cs3"
 $offdelim;
 
 
-parameter f15_prices_initial(kall) Food prices in initialization period (USD05MER per t DM)
+parameter f15_prices_initial(kall) Food prices in initialization period (USD17MER per t DM)
 /
 $ondelim
 $include "./modules/15_food/input/f15_prices_initial.csv"
@@ -186,6 +186,19 @@ $include "./modules/15_food/input/f15_prices_index.csv"
 $offdelim
 /;
 
+
+table f15_markup_coef(kfo, fafh, margincoef) Coefficient for value-added on food products (X)
+$ondelim
+$include "./modules/15_food/input/f15_markup_coef.csv"
+$offdelim
+;
+
+parameter f15_fafh_coef(fafh_regr) Coefficient for regression of food-at-home (X)
+/
+$ondelim
+$include "./modules/15_food/input/f15_fafh_coef.csv"
+$offdelim
+/;
 
 table f15_kcal_calib_fadeout(t_all,calibscen15) Calibration fadeout factor (1)
 $ondelim
@@ -230,14 +243,6 @@ $ondelim
 $include "./modules/15_food/input/f15_schofield_parameters.cs3"
 $offdelim
 ;
-
-*** Food substitution scenarios
-
-table f15_food_substitution_fader(t_all,fadeoutscen15)   Fader for food substitution scenarios (1)
-$ondelim
-$include "./modules/15_food/input/f15_food_substitution_fader.csv"
-$offdelim;
-
 
 *** Exogenous food demand scenarios
 

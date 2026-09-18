@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -23,21 +23,85 @@ $if "%c52_carbon_scenario%" == "nocc" fm_carbon_density(t_all,j,land,c_pools) = 
 $if "%c52_carbon_scenario%" == "nocc_hist" fm_carbon_density(t_all,j,land,c_pools)$(m_year(t_all) > sm_fix_cc) = fm_carbon_density(t_all,j,land,c_pools)$(m_year(t_all) = sm_fix_cc);
 m_fillmissingyears(fm_carbon_density,"j,land,c_pools");
 
-* Fix urban area soilc to natural land soilc as long as preprocessed 
+* Where no forest carbon density is reported, because the potential
+* forest area is zero, use the carbon density of other land instead.
+* This affects areas, where the land use intialisation reports some
+* forest, although the forest potential is zero. Forest expansion in
+* these cells is constrained by f35_pot_forest_area.
+fm_carbon_density(t_all,j,land_forest,c_pools)$(fm_carbon_density(t_all,j,land_forest,c_pools) = 0) = fm_carbon_density(t_all,j,"other",c_pools);
+
+* Fix urban area soilc to natural land soilc as long as preprocessed
 * fm_carbon_density does not provide meaningful numbers for urban.
 fm_carbon_density(t_all,j,"urban","soilc") = fm_carbon_density(t_all,j,"other","soilc")
+
+$setglobal c52_growth_par_source  refit
+* options: refit (default), braakhekke
 
 parameter f52_growth_par(clcl,chap_par,forest_type) Parameters for chapman-richards equation (1)
 /
 $ondelim
+$ifthen "%c52_growth_par_source%" == "braakhekke"
 $include "./modules/52_carbon/input/f52_growth_par.csv"
+$else
+$include "./modules/52_carbon/input/f52_growth_par_3curve.csv"
+$endif
 $offdelim
 /
 ;
 
-* Note: Land carbon sink adjustment factors from Grassie et al 2021 (DOI 10.1038/s41558-021-01033-6)
+* legacy Braakhekke curves carry no other_planted type -> fall back to naturally regenerating forest
+$ifthen "%c52_growth_par_source%" == "braakhekke"
+f52_growth_par(clcl,chap_par,"other_planted") = f52_growth_par(clcl,chap_par,"natveg");
+$endif
+
+scalars
+  s52_growingstock_calib   Switch for growing-stock wood-multiplier (lambda) calibration to FRA - natural forest and plantations 1=on 0=off (1) / 1 /
+  s52_gs_niche_floor       Niche floor on mature secdforest veg carbon for the WOOD conversion only - lifts arid divide-by-near-zero cells 0=off (tC per ha) / 15 /
+  s52_plant_asymp_anchor   Anchor plantation carbon asymptote to observed managed plateau - 0=off (LPJmL natural) 1=tropical-only 2=all Bukoski biomes (1) / 1 /
+  s52_natveg_growth_scalar Global multiplier on the naturally regenerating vegetation growth-rate k - secdforest other natural land and the natveg-derived other-planted curve - default 0.83 = lower quartile (p25) of Robinson 2025 mapped cell rates - carbon only 1=central (1) / 0.83 /
+  s52_lambda_bef_cap       Cap wood multiplier lambda at the biomass expansion factor - lambda greater than BEF implies harvested stemwood exceeding aboveground biomass 1=on 0=off (1) / 1 /
+;
+
+f52_growth_par(clcl,"k","natveg")        = s52_natveg_growth_scalar * f52_growth_par(clcl,"k","natveg");
+f52_growth_par(clcl,"k","other_planted") = s52_natveg_growth_scalar * f52_growth_par(clcl,"k","other_planted");
+
+set clcl_trop52(clcl) Tropical Koeppen classes for the plantation asymptote anchor / Af, Am, As, Aw /;
+
+parameter f52_plant_asymp_agc(clcl) Managed-plantation aboveground-C asymptote target - Bukoski 2022 (tC per ha)
+/
+$ondelim
+$include "./modules/52_carbon/input/f52_plant_asymp_agc.cs4"
+$offdelim
+/
+;
+
+parameter f52_fra_nrf_gs(i) FRA growing stock target for naturally regenerating forests (m3 per ha)
+/
+$ondelim
+$include "./modules/52_carbon/input/f52_fra_nrf_gs.cs4"
+$offdelim
+/
+;
+
+parameter f52_fra_pla_gs(i) FRA growing stock target for plantations (m3 per ha)
+/
+$ondelim
+$include "./modules/52_carbon/input/f52_fra_pla_gs.cs4"
+$offdelim
+/
+;
+
+parameter f52_volumetric_conversion(clcl) Basic wood density by climate class (tDM per m3)
+/
+$ondelim
+$include "./modules/52_carbon/input/f52_volumetric_conversion.csv"
+$offdelim
+/
+;
+
+* Note: Land carbon sink adjustment factors from Grassi et al 2021 (DOI 10.1038/s41558-021-01033-6)
 * are needed in the post-processing in https://github.com/pik-piam/magpie4/blob/master/R/reportEmissions.R
-* To facilitate the choice of the corresponding RCP, the adjustment factors are read-in here and 
+* To facilitate the choice of the corresponding RCP, the adjustment factors are read-in here and
 * stored in i52_land_carbon_sink for use in the R post-processing.
 * Land carbon sink adjustment factors are NOT used within MAgPIE.
 $onEmpty
@@ -50,10 +114,10 @@ $offEmpty
 
 $ifthen "%c52_land_carbon_sink_rcp%" == "nocc"
   i52_land_carbon_sink(t_all,i) = f52_land_carbon_sink("y1995",i,"RCPBU");
-$elseif "%c52_land_carbon_sink_rcp%" == "nocc_hist" 
+$elseif "%c52_land_carbon_sink_rcp%" == "nocc_hist"
   i52_land_carbon_sink(t_all,i) = f52_land_carbon_sink(t_all,i,"RCPBU");
   i52_land_carbon_sink(t_all,i)$(m_year(t_all) > sm_fix_cc) = f52_land_carbon_sink(t_all,i,"RCPBU")$(m_year(t_all) = sm_fix_cc);
-$else 
+$else
   i52_land_carbon_sink(t_all,i) = f52_land_carbon_sink(t_all,i,"%c52_land_carbon_sink_rcp%");
   i52_land_carbon_sink(t_all,i)$(m_year(t_all) <= sm_fix_cc) = f52_land_carbon_sink(t_all,i,"RCPBU")$(m_year(t_all) <= sm_fix_cc);
 $endif

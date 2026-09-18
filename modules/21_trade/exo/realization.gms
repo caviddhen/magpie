@@ -1,4 +1,4 @@
-*** |  (C) 2008-2024 Potsdam Institute for Climate Impact Research (PIK)
+*** |  (C) 2008-2025 Potsdam Institute for Climate Impact Research (PIK)
 *** |  authors, and contributors see CITATION.cff file. This file is part
 *** |  of MAgPIE and licensed under AGPL-3.0-or-later. Under Section 7 of
 *** |  AGPL-3.0, you are granted additional permissions described in the
@@ -14,10 +14,12 @@
 *' each other
 
 *####################### R SECTION START (PHASES) ##############################
+$Ifi "%phase%" == "sets" $include "./modules/21_trade/exo/sets.gms"
 $Ifi "%phase%" == "declarations" $include "./modules/21_trade/exo/declarations.gms"
 $Ifi "%phase%" == "input" $include "./modules/21_trade/exo/input.gms"
 $Ifi "%phase%" == "equations" $include "./modules/21_trade/exo/equations.gms"
 $Ifi "%phase%" == "scaling" $include "./modules/21_trade/exo/scaling.gms"
 $Ifi "%phase%" == "preloop" $include "./modules/21_trade/exo/preloop.gms"
+$Ifi "%phase%" == "presolve" $include "./modules/21_trade/exo/presolve.gms"
 $Ifi "%phase%" == "postsolve" $include "./modules/21_trade/exo/postsolve.gms"
 *######################## R SECTION END (PHASES) ###############################
